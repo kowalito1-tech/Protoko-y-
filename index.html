@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Protokoły Hydro-Vacuum</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b5c8f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Protokoły">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAABjklEQVR42u3bwQ2AIBAAQTH8sETtwU6wB1u0ABvQhx+E3EwFRjdHSM5U1jrBk9krQByIA3EgDsSBOBAH4kAciAPEgTgQB+JAHIgDcSAOxIE4QByIA3EgDsSBOBAH4kAciANyn491nXu0L7Fsh8mBYwVxIA7EAeJAHIgDcSAOxIE4EAfiQBwgDsSBOBAH4kAciANxIA7EgThAHHySx330Dn8ufTPor78mB+JAHIgDceC2EuoKYHIgDsSBOEAciANxIA7EgTgQB+JAHMRih7QFO6Q4VhAHiANxEOq2YofU5EAciANxIA7EgThAHIgDcSAOxIE4GIAd0hbskOJYQRwgDsRBqNuKHVKTA3EgDsSBOBAH4gBxIA7EgTgQB+JgAHZIW7BDimMFcYA4EAehbit2SE0OxIE4EAfiQByIA8SBOBAH4kAciANxIA7EgThAHIgDcSAOxMH/Ulmrt4DJgTgQB+JAHIgDcSAOxIE4QByIA3EgDsSBOBAH4kAciAPEgTgQB+JAHIgDcSAOxIE4CO4Gnc8agRt/7mYAAAAASUVORK5CYII=">
+<style>
+:root{--bg:#eef1f4;--panel:#fff;--ink:#14202b;--mute:#5b6b79;--line:#cdd5dc;--acc:#0b5c8f;--accink:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10171d;--panel:#1a242d;--ink:#e6edf2;--mute:#93a3b0;--line:#33424e;--acc:#5db3e8;--accink:#07202f}}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.app{max-width:900px;margin:0 auto;padding:16px}
+h1{font-size:1.3rem;margin:4px 0 14px}
+fieldset{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:0 0 12px;padding:12px 14px}
+legend{font-weight:700;padding:0 6px}
+label{display:block;font-size:.85rem;color:var(--mute);margin:8px 0 3px}
+input,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:9px 10px}
+input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+textarea{min-height:90px;resize:vertical}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 10px}
+.radios{display:flex;flex-wrap:wrap;gap:6px 16px}
+.radios label{display:flex;align-items:center;gap:6px;color:var(--ink);font-size:.95rem;margin:4px 0}
+.radios input{width:auto}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+button{font:inherit;font-weight:600;border-radius:10px;min-height:46px;padding:11px 20px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+button.p{background:var(--acc);color:var(--accink);border-color:var(--acc)}
+h2{font-size:1rem;margin:20px 0 8px;color:var(--mute)}
+#wrap{overflow:hidden;border:1px solid var(--line);border-radius:6px;background:#fff}
+#sheet{width:794px;min-height:1123px;padding:44px 50px;background:#fff;color:#111;font:13px/1.35 "Times New Roman",Times,serif;transform-origin:top left}
+#sheet .hd{font-weight:700;font-size:13px}
+#sheet .t{text-align:center;margin-top:8px}
+#sheet .t .n{font-size:17px;font-weight:700}
+#sheet .t .s{font-size:13px;font-weight:700;margin-top:6px}
+.s1{text-decoration:line-through;color:#777}
+.box{border:1.5px solid #111;margin-top:12px}
+.box h3{margin:0;text-align:center;font-size:14px;padding:5px;border-bottom:1.5px solid #111}
+.sec{padding:6px 10px;border-bottom:1px solid #111}
+.sec:last-child{border-bottom:0}
+.ln{display:flex;gap:6px;align-items:flex-end;margin:5px 0}
+.ln b{white-space:nowrap}
+.v{flex:1;min-height:17px;border-bottom:1px dotted #111;color:#12348a;font:15px "Segoe Script","Bradley Hand","Comic Sans MS",cursive;line-height:1.2;padding-left:4px}
+.ind{padding-left:20px}
+.ruled{color:#12348a;font:15px/24px "Segoe Script","Bradley Hand","Comic Sans MS",cursive;min-height:120px;white-space:pre-wrap;background:repeating-linear-gradient(to bottom,transparent 0,transparent 23px,#111 23px,#111 24px);background-size:100% 24px;margin-top:4px}
+.note{font-size:9.5px;line-height:1.25;margin-top:6px}
+.sig{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid #111;margin:0 -10px -6px}
+.sig div{height:105px;padding:6px 10px;border-right:1px solid #111;font-weight:700;position:relative}
+.sig div:last-child{border-right:0}
+.sig small{position:absolute;left:0;right:0;bottom:4px;text-align:center;font-weight:400;font-size:9.5px}
+.sig2{display:flex;justify-content:space-between}
+.sig2 .l{flex:1}
+.sig2 .r{width:240px;font-weight:700}
+.fn{font-size:9.5px;margin-top:4px}
+input,textarea{min-height:44px}
+@media (max-width:560px){.g2,.g3{grid-template-columns:1fr}}
+@media (min-width:1000px){
+ .app{max-width:1500px;display:grid;grid-template-columns:minmax(380px,460px) 1fr;column-gap:20px;align-items:start}
+ .app>*:not(#prev){grid-column:1}
+ #prev{grid-column:2;grid-row:1/span 9;position:sticky;top:calc(12px + env(safe-area-inset-top,0px))}
+}
+@media print{
+ @page{size:A4;margin:0}
+ body{background:#fff}
+ .app{display:block!important;max-width:none;padding:0}
+ #prev{position:static!important}
+ .app>*:not(#prev){display:none!important}
+ #prev>h2{display:none}
+ #wrap{border:0;height:auto!important}
+ #sheet{transform:none!important;margin:0;width:210mm;min-height:297mm;padding:12mm 14mm}
+}
+
+#sheet{padding:0!important;min-height:0!important;background:transparent!important;display:block}
+.pg{width:794px;height:1123px;padding:44px 50px;background:#fff;color:#111;overflow:hidden;margin-bottom:14px;box-shadow:0 0 0 1px #ccc}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.th{position:relative}
+.th img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;display:block;border:1px solid var(--line)}
+.th button{position:absolute;top:4px;right:4px;min-height:32px;padding:0 10px;border-radius:16px;font-size:.8rem}
+.ph{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.ph div{height:430px;border:1px solid #111;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.ph img{max-width:100%;max-height:100%;object-fit:contain}
+.hdr{display:flex;justify-content:space-between;align-items:flex-start}
+.fc{font-size:12px}
+.sig3{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid #111;margin:0 -10px -6px}
+.sig3>div{padding:6px 10px;border-right:1px solid #111;display:flex;flex-direction:column}
+.sig3>div:last-child{border-right:0}
+.sig3 small{text-align:center;font-size:9.5px;margin-top:4px}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tabs label{display:flex;align-items:center;justify-content:center;text-align:center;min-height:48px;margin:0;padding:6px;border:1px solid var(--line);border-radius:8px;color:var(--ink);font-weight:600;cursor:pointer}
+.tabs input{position:absolute;opacity:0;width:0;height:0}
+.tabs label:has(input:checked){background:var(--acc);color:var(--accink);border-color:var(--acc)}
+.tabs label:has(input:focus-visible){outline:2px solid var(--acc);outline-offset:2px}
+@media print{
+ #sheet{width:210mm!important;padding:0!important}
+ .pg{width:210mm;height:297mm;padding:12mm 14mm;margin:0;box-shadow:none;break-after:page;page-break-after:always}
+ .pg:last-child{break-after:auto;page-break-after:auto}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<h1>Generator protokołów serwisowych</h1>
+
+<fieldset><legend>Rodzaj protokołu</legend>
+ <div class="tabs">
+  <label><input type="radio" name="typ" value="s" checked>Usterki / naprawa</label>
+  <label><input type="radio" name="typ" value="u">Uruchomienie</label>
+  <label><input type="radio" name="typ" value="m">Montaż</label>
+ </div>
+</fieldset>
+
+<fieldset><legend>Numer i data</legend>
+ <div class="g2">
+  <div><label for="nr">Numer protokołu (automatyczny)</label><input id="nr" readonly></div>
+  <div><label for="data">Data sporządzenia</label><input id="data" type="date"></div>
+  <div><label for="cnt">Kolejny numer (osobno dla każdego rodzaju)</label><input id="cnt" type="number" min="1" value="1"></div>
+  <div><label for="sym">Symbol (np. inicjały)</label><input id="sym" value="KW"></div>
+ </div>
+</fieldset>
+
+<fieldset><legend>Dane dotyczące wyrobu</legend>
+ <label for="wyrob">Nazwa wyrobu</label><input id="wyrob" placeholder="np. PSD 2 E/L0">
+ <div class="g2">
+  <div><label for="nrz">Numer fabryczny zestawu</label><input id="nrz"></div>
+  <div><label for="nrs">Numer seryjny układu sterowania</label><input id="nrs"></div>
+ </div>
+</fieldset>
+
+<fieldset><legend>Strony</legend>
+ <label for="nabN">Nabywca – nazwa</label><input id="nabN">
+ <label for="nabA">Nabywca – adres</label><input id="nabA">
+ <label for="uzN">Użytkownik – nazwa</label><input id="uzN">
+ <label for="uzA">Użytkownik – adres (i NIP)</label><input id="uzA">
+ <label for="invN">Inwestor – nazwa</label><input id="invN">
+ <label for="invA">Inwestor – adres</label><input id="invA">
+</fieldset>
+
+<fieldset><legend>Szczegóły</legend>
+ <div class="g2">
+  <div><label for="dU" id="lbDU">Data</label><input id="dU" type="date"></div>
+  <div data-t="s"><label for="dE">Data rozpoczęcia eksploatacji</label><input id="dE" type="date"></div>
+ </div>
+ <div data-t="s">
+  <label>Rodzaj (pozostałe zostaną skreślone)</label>
+  <div class="radios">
+   <label><input type="radio" name="rodzaj" value="0" checked>usuwanie usterek</label>
+   <label><input type="radio" name="rodzaj" value="1">naprawa gwarancyjna</label>
+   <label><input type="radio" name="rodzaj" value="2">wykonane zlecenie</label>
+  </div>
+  <label for="usterki">Wykaz stwierdzonych/zgłoszonych usterek</label><textarea id="usterki"></textarea>
+  <label for="sposob">Sposób usunięcia usterek</label><textarea id="sposob"></textarea>
+ </div>
+ <div data-t="um">
+  <label>Czy dane w zgłoszeniu są zgodne ze stanem faktycznym?</label>
+  <div class="radios">
+   <label><input type="radio" name="tak" value="TAK" checked>TAK</label>
+   <label><input type="radio" name="tak" value="NIE">NIE</label>
+  </div>
+  <label for="uwagi">Uwagi do pkt. 5</label><textarea id="uwagi"></textarea>
+  <label for="miejsce">Miejsce instalacji</label><input id="miejsce">
+  <label for="opis" id="lbOpis">Opis</label><textarea id="opis"></textarea>
+  <label for="zal">Zalecenia</label><textarea id="zal"></textarea>
+ </div>
+</fieldset>
+
+<fieldset><legend>Zdjęcia (dołączane na końcu protokołu)</legend>
+ <div class="bar" style="margin:0 0 8px">
+  <button type="button" id="camBtn">Zrób zdjęcie</button>
+  <button type="button" id="galBtn">Wybierz z galerii</button>
+ </div>
+ <input id="cam" type="file" accept="image/*" capture="environment" hidden>
+ <input id="gal" type="file" accept="image/*" multiple hidden>
+ <div id="thumbs" class="thumbs"></div>
+</fieldset>
+
+<fieldset><legend>Egzemplarze i podpisy</legend>
+ <div class="g3">
+  <div><label for="eN">Egz. dla Nabywcy</label><input id="eN" type="number" min="0" value="1"></div>
+  <div><label for="eU">Egz. dla Użytkownika</label><input id="eU" type="number" min="0" value="1"></div>
+  <div><label for="eI">Egz. dla Inwestora</label><input id="eI" type="number" min="0" value="0"></div>
+ </div>
+ <label for="sA">Protokół sporządził (a)</label><input id="sA">
+ <label for="sB">Protokół sporządził (b)</label><input id="sB">
+ <div data-t="um"><label for="sC">Protokół sporządził (c)</label><input id="sC"></div>
+</fieldset>
+
+<div class="bar">
+ <button class="p" id="print">Drukuj / zapisz jako PDF</button>
+ <button id="nowy">Nowy protokół (numer +1)</button>
+ <button id="clear">Wyczyść formularz</button>
+</div>
+
+<div id="prev">
+<h2>Podgląd</h2>
+<div id="wrap"><div id="sheet"></div></div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+(function(){
+var ids=["data","wyrob","nrz","nrs","nabN","nabA","uzN","uzA","invN","invA","dU","dE","usterki","sposob","uwagi","miejsce","opis","zal","eN","eU","eI","sA","sB","sC"];
+var KEY="hv-protokol-v2";
+var M={s:{c:1,y:"KW"},u:{c:1,y:"MN"},m:{c:1,y:"MN"}};
+var W=["zero","jeden","dwa","trzy","cztery","pięć","sześć","siedem","osiem","dziewięć","dziesięć"];
+function $(i){return document.getElementById(i)}
+function g(i){return $(i).value}
+function esc(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
+function fd(s){if(!s)return"";var p=s.split("-");return p[2]+"."+p[1]+"."+p[0]}
+function nn(i){return parseInt(g(i),10)||0}
+function words(n){n=parseInt(n,10)||0;return W[n]||String(n)}
+function R(n){return document.querySelector('input[name="'+n+'"]:checked').value}
+function T(){return R("typ")}
+function today(){var d=new Date(),m=d.getMonth()+1,x=d.getDate();return d.getFullYear()+"-"+(m<10?"0":"")+m+"-"+(x<10?"0":"")+x}
+function numer(){var d=(g("data")||today()).split("-"),m=M[T()],n=m.c+"/"+d[1]+"/"+m.y.trim();if(T()=="u")n+="/"+d[0];return n}
+function ln(l,v){return '<div class="ln"><b>'+l+'</b><span class="v">'+esc(v)+'</span></div>'}
+function sec(x){return '<div class="sec">'+x+'</div>'}
+function rl(t,n){return '<div class="ruled" style="min-height:'+(n*24)+'px">'+esc(t)+'</div>'}
+function sx(on,t){return on?'<span>'+t+'</span>':'<span class="s1">'+t+'</span>'}
+function cnts(){var t=nn("eN")+nn("eU")+nn("eI")+1;return 'Protokół sporządzono w '+t+' ('+words(t)+') jednobrzmiących egzemplarzach: '+nn("eN")+' ('+words(g("eN"))+') dla Nabywcy, '+nn("eU")+' ('+words(g("eU"))+') dla Użytkownika, '+nn("eI")+' ('+words(g("eI"))+') dla Inwestora i 1 (jeden) dla Hydro-Vacuum S.A.'}
+function head(f){return '<div class="hdr"><div class="hd">HYDRO-VACUUM S.A.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Grudziądz</div>'+(f?'<div class="fc">Form. 4b/IS-7.2/01</div>':'')+'</div>'}
+function title(sub){return '<div class="t"><div class="n">PROTOKÓŁ Nr <span class="v" style="display:inline-block;min-width:130px;border:0">'+esc(numer())+'</span></div><div class="s">'+sub+'</div><div class="s">sporządzony w dniu <span class="v" style="display:inline-block;min-width:110px;border:0">'+fd(g("data"))+'</span> r.</div></div>'}
+function dane(){
+ return '<h3>DANE DOTYCZĄCE WYROBU</h3>'+
+ sec(ln("Nazwa wyrobu:",g("wyrob"))+ln("Numer fabryczny zestawu:",g("nrz"))+ln("Numer seryjny układu sterowania:",g("nrs")))+
+ sec('<b>1.&nbsp; Nabywca</b><div class="ind">'+ln("Nazwa:",g("nabN"))+ln("Adres:",g("nabA"))+'</div>')+
+ sec('<b>2.&nbsp; Użytkownik</b><div class="ind">'+ln("Nazwa:",g("uzN"))+ln("Adres:",g("uzA"))+'</div>')+
+ sec('<b>3.&nbsp; Inwestor</b><div class="ind">'+ln("Nazwa:",g("invN"))+ln("Adres:",g("invA"))+'</div>');
+}
+var photos=[];
+function shrink(f){return new Promise(function(res){var u=URL.createObjectURL(f),im=new Image();im.onload=function(){var k=Math.min(1,1400/Math.max(im.naturalWidth,im.naturalHeight)),c=document.createElement("canvas");c.width=Math.round(im.naturalWidth*k);c.height=Math.round(im.naturalHeight*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL("image/jpeg",0.82))};im.onerror=function(){URL.revokeObjectURL(u);res(null)};im.src=u})}
+function thumbs(){var t=$("thumbs");t.innerHTML="";photos.forEach(function(p,i){var d=document.createElement("div");d.className="th";var im=document.createElement("img");im.src=p;im.alt="Zdjęcie "+(i+1);var b=document.createElement("button");b.type="button";b.textContent="Usuń";b.setAttribute("aria-label","Usuń zdjęcie "+(i+1));b.onclick=function(){photos.splice(i,1);thumbs();render()};d.appendChild(im);d.appendChild(b);t.appendChild(d)})}
+async function addFiles(fl){for(var i=0;i<fl.length;i++){var d=await shrink(fl[i]);if(d)photos.push(d)}thumbs();render()}
+function render(){
+ var t=T(),pg=[];
+ $("nr").value=numer();
+ if(t=="s"){
+  var r=+R("rodzaj");
+  var sub='z '+sx(r==0,"usuwania usterek")+' / '+sx(r==1,"naprawy zgłoszonej jako gwarancyjna")+' / '+sx(r==2,"wykonanego zlecenia")+' (niepotrzebne skreślić)';
+  pg.push(head(false)+title(sub)+'<div class="box">'+dane()+
+   sec(ln("4. Data stwierdzenia/zgłoszenia usterek:",fd(g("dU"))))+
+   sec(ln("5. Data rozpoczęcia eksploatacji urządzenia:",fd(g("dE"))))+
+   sec('<b>6.&nbsp; Wykaz stwierdzonych/zgłoszonych usterek:</b>'+rl(g("usterki"),5))+
+   sec('<b>7.&nbsp; Sposób usunięcia usterek:</b>'+rl(g("sposob"),5)+'<div class="note">Wszystkie nieprawidłowości zostały skutecznie usunięte. W przypadku, gdy naprawy nie można było dokonać na miejscu, zostanie ona dokonana w jak najkrótszym uzasadnionym organizacyjnie i technicznie terminie.<br>'+cnts()+'</div>')+
+   sec('<div class="sig2"><div class="l"><b>8.&nbsp; Protokół sporządzili:</b>'+ln("a)",g("sA"))+ln("b)",g("sB"))+'</div><div class="r">Podpis:</div></div>')+
+   sec('<div class="sig"><div>9.&nbsp; Nabywca<small>(imię i nazwisko oraz podpis*)</small></div><div>10.&nbsp; Użytkownik<small>(imię i nazwisko oraz podpis*)</small></div><div>11.&nbsp; Inwestor<small>(imię i nazwisko oraz podpis*)</small></div></div>')+
+   '</div><div class="fn">* w przypadku odmowy podpisu należy wskazać fakt odmowy w treści protokołu</div>');
+ } else {
+  var u=t=="u",tk=R("tak")=="TAK";
+  pg.push(head(u)+title(u?"z uruchomienia":"z montażu")+'<div class="box">'+dane()+
+   sec(ln(u?"4. Data zgłoszenia do uruchomienia:":"4. Data wykonania montażu:",fd(g("dU"))))+
+   sec('<b>5.&nbsp; Czy dane w zgłoszeniu są zgodne ze stanem faktycznym? '+sx(tk,"TAK")+'/'+sx(!tk,"NIE")+' (niepotrzebne skreślić)</b><div style="margin-top:4px"><b>6.&nbsp; Uwagi do pkt. 5:</b></div>'+rl(g("uwagi"),5))+
+   sec(ln("7. Miejsce instalacji:",g("miejsce")))+
+   sec(u?'<b>8.&nbsp; Opis działania urządzenia:</b>'+rl(g("opis"),4):'<b>8.&nbsp; Opis urządzenia:</b><div style="margin:3px 0"><b>Urządzenie zostało zamontowane prawidłowo. Uruchomienie urządzenia nie było możliwe z następujących powodów:</b></div>'+rl(g("opis"),6))+
+   sec('<b>9.&nbsp; Zalecenia:</b>'+rl(g("zal"),3))+'</div>');
+  var cm=['11.&nbsp; Nabywca','12.&nbsp; Użytkownik','13.&nbsp; Inwestor'].map(function(x){return '<div><b>'+x+'</b><b style="margin-top:4px">Miejsce na zgłoszenie uwag:</b><div class="ruled" style="min-height:336px;margin-top:6px"></div><small>(imię i nazwisko oraz podpis*)</small></div>'}).join("");
+  pg.push('<div class="box" style="margin-top:0"><h3>OSOBY UCZESTNICZĄCE</h3>'+
+   sec('<div class="note" style="margin-top:0"><i>'+cnts()+' Wraz z protokołem przekazano Użytkownikowi niezbędne dokumenty dotyczące eksploatacji wyrobu.</i></div>')+
+   sec('<div class="sig2"><div class="l"><b>10.&nbsp; Protokół sporządzili:</b>'+ln("a)",g("sA"))+ln("b)",g("sB"))+ln("c)",g("sC"))+'</div><div class="r">Podpis:</div></div>')+
+   sec('<div class="sig3">'+cm+'</div>')+'</div><div class="fn">* w przypadku odmowy podpisu należy wskazać fakt odmowy (oraz przyczynę, jeśli jest znana) w treści protokołu</div>');
+ }
+ for(var k=0;k<photos.length;k+=4){pg.push(head(false)+'<div class="t"><div class="n">ZAŁĄCZNIK DO PROTOKOŁU Nr '+esc(numer())+'</div><div class="s">Dokumentacja fotograficzna</div></div><div class="ph">'+photos.slice(k,k+4).map(function(p){return '<div><img src="'+p+'" alt=""></div>'}).join("")+'</div>')}
+ $("sheet").innerHTML=pg.map(function(p){return '<div class="pg">'+p+'</div>'}).join("");
+ fit();
+}
+function fit(){
+ var w=$("wrap").clientWidth,s=Math.min(1,w/794),sh=$("sheet");
+ sh.style.transform="scale("+s+")";
+ $("wrap").style.height=(sh.offsetHeight*s)+"px";
+}
+function applyType(){
+ var t=T();
+ document.querySelectorAll("[data-t]").forEach(function(e){e.style.display=e.getAttribute("data-t").indexOf(t)>=0?"":"none"});
+ $("lbDU").textContent={s:"Data stwierdzenia/zgłoszenia usterek",u:"Data zgłoszenia do uruchomienia",m:"Data wykonania montażu"}[t];
+ $("lbOpis").textContent=t=="u"?"Opis działania urządzenia":"Powody, dla których nie uruchomiono urządzenia";
+ $("cnt").value=M[t].c;$("sym").value=M[t].y;
+}
+function save(){
+ try{var o={M:M,typ:T(),rodzaj:R("rodzaj"),tak:R("tak")};ids.forEach(function(i){o[i]=g(i)});localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}
+}
+function setR(n,v){var e=document.querySelector('input[name="'+n+'"][value="'+v+'"]');if(e)e.checked=true}
+function load(){
+ try{var o=JSON.parse(localStorage.getItem(KEY)||"null");if(!o)return;
+  ids.forEach(function(i){if(o[i]!==undefined)$(i).value=o[i]});
+  if(o.M)M=o.M;setR("typ",o.typ);setR("rodzaj",o.rodzaj);setR("tak",o.tak)}catch(e){}
+}
+function upd(){render();save()}
+load();
+$("data").value=today();
+applyType();
+document.querySelectorAll("input,textarea").forEach(function(e){e.addEventListener("input",upd)});
+document.querySelectorAll('input[name="typ"]').forEach(function(e){e.addEventListener("change",function(){applyType();upd()})});
+$("cnt").addEventListener("input",function(){M[T()].c=parseInt(g("cnt"),10)||1;upd()});
+$("sym").addEventListener("input",function(){M[T()].y=g("sym");upd()});
+function busy(b){var e=$("print");e.disabled=b;e.textContent=b?"Generuję PDF…":"Drukuj / zapisz jako PDF"}
+async function makePdf(){
+ var sh=$("sheet"),wr=$("wrap"),tr=sh.style.transform,h=wr.style.height,ov=wr.style.overflow;
+ busy(true);
+ try{
+  sh.style.transform="none";wr.style.height="auto";wr.style.overflow="visible";
+  var pages=sh.querySelectorAll(".pg"),doc=new window.jspdf.jsPDF({unit:"mm",format:"a4"});
+  for(var i=0;i<pages.length;i++){
+   var c=await html2canvas(pages[i],{scale:2,backgroundColor:"#ffffff",useCORS:true});
+   if(i)doc.addPage();
+   doc.addImage(c.toDataURL("image/jpeg",0.92),"JPEG",0,0,210,297);
+  }
+  var name="Protokol_"+numer().replace(/\//g,"-")+".pdf";
+  var d=null;
+  try{if(window.claude&&window.claude.use)d=await window.claude.use("downloads")}catch(e){}
+  if(d){await d.save({filename:name,data:doc.output("blob")})}
+  else{var blob=doc.output("blob"),f=new File([blob],name,{type:"application/pdf"});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:name})}else{doc.save(name)}}
+ }catch(e){
+  if(!e||e.code!=="declined")alert("Nie udało się zapisać PDF"+(e&&e.message?": "+e.message:""));
+ }finally{
+  sh.style.transform=tr;wr.style.height=h;wr.style.overflow=ov;busy(false);fit();
+ }
+}
+$("print").onclick=makePdf;
+$("camBtn").onclick=function(){$("cam").click()};
+$("galBtn").onclick=function(){$("gal").click()};
+["cam","gal"].forEach(function(i){$(i).addEventListener("change",function(e){var f=Array.prototype.slice.call(e.target.files);e.target.value="";addFiles(f)})});
+var CL=["nrz","nrs","dU","dE","usterki","sposob","uwagi","miejsce","opis","zal"];
+$("nowy").onclick=function(){var t=T();M[t].c++;$("cnt").value=M[t].c;$("data").value=today();CL.forEach(function(i){$(i).value=""});photos=[];thumbs();setR("tak","TAK");upd();window.scrollTo(0,0)};
+$("clear").onclick=function(){if(!confirm("Wyczyścić wszystkie pola?"))return;ids.forEach(function(i){$(i).value=""});CL.forEach(function(i){$(i).value=""});$("eN").value=1;$("eU").value=1;$("eI").value=0;$("data").value=today();photos=[];thumbs();setR("tak","TAK");upd()};
+window.addEventListener("resize",fit);
+window.addEventListener("beforeprint",function(){$("sheet").style.transform="none"});
+window.addEventListener("afterprint",fit);
+render();
+})();
+</script>
+<script>if("serviceWorker" in navigator){addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}</script>
+</body>
+</html>

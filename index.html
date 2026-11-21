@@ -114,7 +114,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.38 "Segoe UI",sy
 .kpi-pill{background:rgba(34,197,94,.14);color:#15803d;font-weight:700;padding:2px 8px;border-radius:12px;font-size:.74rem}
 
 /* Główny układ roboczy */
-.work-grid{display:grid;grid-template-columns:minmax(340px,420px) 1fr;column-gap:16px;align-items:start}
+.work-grid{display:grid;grid-template-columns:minmax(340px,430px) 1fr;column-gap:16px;align-items:start}
 @media (max-width:960px){.work-grid{grid-template-columns:1fr}}
 
 /* Karty formularza */
@@ -160,6 +160,26 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary-
 .hist-del:hover{background:rgba(220,53,69,.14);color:var(--danger)}
 .hist-empty{padding:9px;text-align:center;font-size:.78rem;color:var(--mute)}
 
+/* Podpisy odręczne (S-Pen / Apple Pencil / dotyk) */
+.sig-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+@media (max-width:520px){.sig-grid{grid-template-columns:1fr}}
+.sig-card{border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:6px 8px}
+.sig-card-hd{display:flex;align-items:center;justify-content:space-between;gap:4px;margin-bottom:4px}
+.sig-card-hd span{font-size:.74rem;font-weight:700;color:var(--ink)}
+.sig-clr{min-height:22px;height:22px;padding:0 7px;font-size:.69rem;font-weight:600;border-radius:5px;border:1px solid var(--line);background:var(--panel);color:var(--mute);cursor:pointer}
+.sig-clr:hover{color:var(--danger);border-color:var(--danger)}
+.sig-pad-wrap{position:relative;background:#fff;border:1.5px dashed #b8c4d0;border-radius:6px;height:82px;overflow:hidden;touch-action:none;cursor:crosshair}
+.sig-pad-wrap.signed{border-style:solid;border-color:var(--primary-light)}
+.sig-pad-wrap canvas{display:block;width:100%;height:100%;touch-action:none}
+.sig-hint{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.72rem;color:#94a3b8;pointer-events:none;user-select:none}
+.sig-pad-wrap.signed .sig-hint{display:none}
+.sig-pen-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;padding:5px 8px;background:var(--bg);border-radius:7px;border:1px solid var(--line);font-size:.74rem;color:var(--mute)}
+.pen-opts{display:flex;align-items:center;gap:6px}
+.pen-dot{width:22px;height:22px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0}
+.pen-dot.act{border-color:var(--warning);transform:scale(1.1)}
+.pen-only-chk{display:flex;align-items:center;gap:5px;margin:0;font-size:.73rem;color:var(--ink);cursor:pointer}
+.pen-only-chk input{width:auto;min-height:auto;height:auto;accent-color:var(--primary-light)}
+
 /* Zakładki rodzaju protokołu */
 .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
 .tabs label{display:flex;align-items:center;justify-content:center;text-align:center;min-height:36px;margin:0;padding:4px 6px;border:1px solid var(--line);border-radius:7px;color:var(--ink);font-size:.8rem;font-weight:600;cursor:pointer;background:var(--bg);transition:all .15s}
@@ -184,19 +204,13 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary-
 .btn-danger{background:transparent;color:var(--danger);border-color:rgba(220,53,69,.4)}
 .btn-danger:hover{background:var(--danger);color:#fff}
 
-/* Pasek narzędzi S-Pen nad arkuszem A4 */
+/* Podgląd A4 po prawej stronie */
 #prev{position:sticky;top:64px}
-.prev-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.prev-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
 .prev-head h2{font-size:.88rem;margin:0;color:var(--primary);font-weight:700}
 @media (prefers-color-scheme:dark){.prev-head h2{color:#63b3ed}}
-.pen-toolbar{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:4px 10px;font-size:.75rem;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.pen-dot{width:19px;height:19px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0;flex-shrink:0}
-.pen-dot.act{border-color:var(--warning);transform:scale(1.12)}
-.pen-only-chk{display:flex;align-items:center;gap:4px;margin:0;font-size:.74rem;color:var(--ink);cursor:pointer;white-space:nowrap}
-.pen-only-chk input{width:auto;min-height:auto;height:auto;accent-color:var(--primary-light)}
-.pen-clr-all{min-height:24px;height:24px;padding:0 8px;font-size:.71rem;font-weight:600;border-radius:5px;border:1px solid rgba(220,53,69,.35);background:transparent;color:var(--danger);cursor:pointer}
-.pen-clr-all:hover{background:var(--danger);color:#fff}
-
+.status-tag{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;border-radius:12px;font-size:.74rem;font-weight:700;background:rgba(0,120,212,.12);color:var(--primary-light)}
+.status-tag.ok{background:rgba(34,197,94,.15);color:#15803d}
 #wrap{overflow:hidden;border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:0 4px 16px rgba(15,45,82,.08)}
 #sheet{width:794px;min-height:1123px;padding:44px 50px;background:#fff;color:#111;font:13px/1.35 "Times New Roman",Times,serif;transform-origin:top left}
 #sheet .hd{font-weight:700;font-size:13px}
@@ -214,31 +228,17 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary-
 .ind{padding-left:20px}
 .ruled{color:#12348a;font:15px/24px "Segoe Script","Bradley Hand","Comic Sans MS",cursive;min-height:120px;white-space:pre-wrap;background:repeating-linear-gradient(to bottom,transparent 0,transparent 23px,#111 23px,#111 24px);background-size:100% 24px;margin-top:4px}
 .note{font-size:9.5px;line-height:1.25;margin-top:6px}
-
-/* Interaktywne pola podpisu bezpośrednio na arkuszu A4 */
 .sig{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid #111;margin:0 -10px -6px}
-.sig>div{height:112px;padding:5px 8px;border-right:1px solid #111;font-weight:700;position:relative;display:flex;flex-direction:column}
+.sig>div{height:105px;padding:6px 10px;border-right:1px solid #111;font-weight:700;position:relative;display:flex;flex-direction:column}
 .sig>div:last-child{border-right:0}
-.sig small{position:absolute;left:0;right:0;bottom:3px;text-align:center;font-weight:400;font-size:9.5px;pointer-events:none}
-.sig2{display:flex;justify-content:space-between;align-items:stretch;gap:10px}
+.sig small{position:absolute;left:0;right:0;bottom:4px;text-align:center;font-weight:400;font-size:9.5px}
+.sig2{display:flex;justify-content:space-between;align-items:stretch}
 .sig2 .l{flex:1}
-.sig2 .r{width:255px;font-weight:700;display:flex;flex-direction:column}
-
-.sheet-sig-zone{position:relative;flex:1;min-height:66px;margin-top:2px;margin-bottom:11px;border-radius:4px;background:rgba(0,120,212,.03);border:1px dashed rgba(0,120,212,.35);touch-action:none;cursor:crosshair;overflow:hidden}
-.sheet-sig-zone.has-ink{background:transparent;border-color:transparent}
-.sheet-sig-zone:hover{background:rgba(0,120,212,.06);border-color:#0078D4}
-.sheet-sig-zone canvas{display:block;width:100%;height:100%;touch-action:none}
-.sheet-sig-tip{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:600 10px "Segoe UI",sans-serif;color:#0078D4;opacity:.72;pointer-events:none;user-select:none}
-.sheet-sig-zone.has-ink .sheet-sig-tip{display:none}
-.sheet-sig-clr{position:absolute;top:2px;right:2px;z-index:5;min-height:18px;height:18px;padding:0 5px;font:700 10px "Segoe UI",sans-serif;border-radius:4px;border:1px solid #dc3545;background:rgba(255,255,255,.92);color:#dc3545;cursor:pointer;display:none}
-.sheet-sig-zone.has-ink:hover .sheet-sig-clr,.sheet-sig-zone.has-ink:focus-within .sheet-sig-clr{display:block}
-.sig2 .r .sheet-sig-zone{min-height:58px;margin-bottom:0}
-.sig3{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid #111;margin:0 -10px -6px}
-.sig3>div{padding:6px 8px;border-right:1px solid #111;display:flex;flex-direction:column}
-.sig3>div:last-child{border-right:0}
-.sig3 small{text-align:center;font-size:9.5px;margin-top:3px;pointer-events:none}
-.sig3 .sheet-sig-zone{flex:none;height:78px;margin-top:6px;margin-bottom:2px}
-
+.sig2 .r{width:240px;font-weight:700;display:flex;flex-direction:column}
+.sig-img-box{flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:2px 0 12px}
+.sig-img-box img{max-width:100%;max-height:66px;object-fit:contain;display:block}
+.sig2 .r .sig-img-box{padding:2px 0;justify-content:flex-start}
+.sig2 .r .sig-img-box img{max-height:54px}
 .fn{font-size:9.5px;margin-top:4px}
 #sheet{padding:0!important;min-height:0!important;background:transparent!important;display:block}
 .pg{width:794px;height:1123px;padding:44px 50px;background:#fff;color:#111;overflow:hidden;margin-bottom:14px;box-shadow:0 0 0 1px #ccc}
@@ -251,6 +251,12 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary-
 .ph img{max-width:100%;max-height:100%;object-fit:contain}
 .hdr{display:flex;justify-content:space-between;align-items:flex-start}
 .fc{font-size:12px}
+.sig3{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid #111;margin:0 -10px -6px}
+.sig3>div{padding:6px 10px;border-right:1px solid #111;display:flex;flex-direction:column}
+.sig3>div:last-child{border-right:0}
+.sig3 small{text-align:center;font-size:9.5px;margin-top:4px}
+.sig3-sign{height:62px;display:flex;align-items:center;justify-content:center;margin-top:4px}
+.sig3-sign img{max-width:100%;max-height:58px;object-fit:contain}
 
 /* Tabela zapisanych protokołów i statystyki */
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
@@ -284,8 +290,7 @@ tr:hover td{background:var(--bg)}
 @media print{
  @page{size:A4;margin:0}
  body{background:#fff}
- #pinGate,.navbar,.stepper-card,.form-col,.prev-head,#toastBox,#view-archive,.sheet-sig-tip,.sheet-sig-clr{display:none!important}
- .sheet-sig-zone{border:0!important;background:transparent!important}
+ #pinGate,.navbar,.stepper-card,.form-col,.prev-head,#toastBox,#view-archive{display:none!important}
  #view-editor{display:block!important}
  .container{max-width:none;padding:0}
  .work-grid{display:block!important}
@@ -365,11 +370,11 @@ tr:hover td{background:var(--bg)}
    <div class="step-line" id="line-2"></div>
    <div class="step" data-jump="sec-3"><span class="num">3</span>Załączniki</div>
    <div class="step-line" id="line-3"></div>
-   <div class="step" data-jump="prev"><span class="num">4</span>Podpis na arkuszu</div>
+   <div class="step" data-jump="sec-4"><span class="num">4</span>Podpisy</div>
   </div>
   <div class="kpi-mini">
    <span>W archiwum: <b id="kpiTotal">0</b></span>
-   <span class="kpi-pill">v6 • Podpis bezpośrednio na formularzu</span>
+   <span class="kpi-pill">v5 • S-Pen / Podpis odręczny</span>
   </div>
  </div>
 
@@ -480,10 +485,10 @@ tr:hover td{background:var(--bg)}
     <div id="thumbs" class="thumbs"></div>
    </div>
 
-   <!-- Krok 4: Egzemplarze i osoby sporządzające -->
+   <!-- Krok 4: Egzemplarze i podpisy odręczne (S-Pen / dotyk) -->
    <div class="card" id="sec-4">
     <div class="card-hd">
-     <h3>4. Egzemplarze i sporządzający</h3>
+     <h3>4. Egzemplarze i podpisy odręczne (S-Pen)</h3>
      <span class="badge-step">Krok 4/4</span>
     </div>
     <div class="g3">
@@ -496,6 +501,65 @@ tr:hover td{background:var(--bg)}
      <div><label for="sB">Protokół sporządził (b)</label><input id="sB"></div>
     </div>
     <div data-t="um"><label for="sC">Protokół sporządził (c)</label><input id="sC"></div>
+
+    <!-- Pasek ustawień pióra / S-Pen -->
+    <div class="sig-pen-bar" style="margin-top:8px">
+     <div class="pen-opts">
+      <span>Tusz:</span>
+      <button type="button" class="pen-dot act" data-color="#12348a" style="background:#12348a" title="Niebieski długopis"></button>
+      <button type="button" class="pen-dot" data-color="#111111" style="background:#111111" title="Czarny tusz"></button>
+     </div>
+     <label class="pen-only-chk" title="Ignoruje przypadkowe dotknięcia dłonią – reaguje tylko na rysik S-Pen / Apple Pencil">
+      <input type="checkbox" id="penOnly"> Tylko rysik (S-Pen)
+     </label>
+    </div>
+
+    <!-- 4 pola podpisu odręcznego -->
+    <div class="sig-grid">
+     <div class="sig-card">
+      <div class="sig-card-hd">
+       <span>✍️ Podpis serwisanta</span>
+       <button type="button" class="sig-clr" data-sig-clr="srv">Wyczyść</button>
+      </div>
+      <div class="sig-pad-wrap" id="wrap-sig-srv">
+       <canvas id="sig-srv"></canvas>
+       <div class="sig-hint">Podpisz rysikiem S-Pen lub palcem</div>
+      </div>
+     </div>
+
+     <div class="sig-card">
+      <div class="sig-card-hd">
+       <span>✍️ Nabywca</span>
+       <button type="button" class="sig-clr" data-sig-clr="nab">Wyczyść</button>
+      </div>
+      <div class="sig-pad-wrap" id="wrap-sig-nab">
+       <canvas id="sig-nab"></canvas>
+       <div class="sig-hint">Podpis Nabywcy</div>
+      </div>
+     </div>
+
+     <div class="sig-card">
+      <div class="sig-card-hd">
+       <span>✍️ Użytkownik</span>
+       <button type="button" class="sig-clr" data-sig-clr="uz">Wyczyść</button>
+      </div>
+      <div class="sig-pad-wrap" id="wrap-sig-uz">
+       <canvas id="sig-uz"></canvas>
+       <div class="sig-hint">Podpis Użytkownika</div>
+      </div>
+     </div>
+
+     <div class="sig-card">
+      <div class="sig-card-hd">
+       <span>✍️ Inwestor</span>
+       <button type="button" class="sig-clr" data-sig-clr="inv">Wyczyść</button>
+      </div>
+      <div class="sig-pad-wrap" id="wrap-sig-inv">
+       <canvas id="sig-inv"></canvas>
+       <div class="sig-hint">Podpis Inwestora</div>
+      </div>
+     </div>
+    </div>
    </div>
 
    <!-- Przyciski akcji -->
@@ -507,19 +571,11 @@ tr:hover td{background:var(--bg)}
    </div>
   </div>
 
-  <!-- Kolumna prawa: Arkusz A4 z bezpośrednimi polami podpisu S-Pen -->
+  <!-- Kolumna prawa: Podgląd wydruku A4 -->
   <div id="prev">
    <div class="prev-head">
-    <h2>Arkusz protokołu (podpisz S-Penem bezpośrednio w rubrykach)</h2>
-    <div class="pen-toolbar">
-     <span>✍️ Tusz:</span>
-     <button type="button" class="pen-dot act" data-color="#12348a" style="background:#12348a" title="Niebieski długopis"></button>
-     <button type="button" class="pen-dot" data-color="#111111" style="background:#111111" title="Czarny tusz"></button>
-     <label class="pen-only-chk" title="Ignoruj dotyk dłoni – rysuj tylko rysikiem S-Pen / Apple Pencil">
-      <input type="checkbox" id="penOnly"> Tylko S-Pen
-     </label>
-     <button type="button" class="pen-clr-all" id="clrAllSigsBtn" title="Wyczyść wszystkie podpisy na arkuszu">Wyczyść podpisy</button>
-    </div>
+    <h2>Podgląd arkusza A4 (Hydro-Vacuum S.A.)</h2>
+    <span class="status-tag ok" id="prevBadge">Gotowy do wydruku</span>
    </div>
    <div id="wrap"><div id="sheet"></div></div>
   </div>
@@ -588,6 +644,7 @@ function showGate(){
 }
 function hideGate(){
  gate.classList.add("hidden");
+ resizeAllSigPads();
  fit();
 }
 function updateDots(isErr){
@@ -650,7 +707,7 @@ document.querySelectorAll(".nav-tab").forEach(function(btn){
   document.querySelectorAll(".nav-tab").forEach(function(b){b.classList.toggle("active",b===btn)});
   document.querySelectorAll(".view").forEach(function(v){v.classList.toggle("active",v.id==="view-"+target)});
   if(target==="archive")renderArchive();
-  else fit();
+  else{resizeAllSigPads();fit();}
  });
 });
 document.querySelectorAll("[data-jump]").forEach(function(st){
@@ -660,7 +717,7 @@ document.querySelectorAll("[data-jump]").forEach(function(st){
  });
 });
 
-/* Bezpośrednie podpisywanie S-Penem na polach arkusza A4 */
+/* Obsługa podpisów odręcznych S-Pen / rysik / palec */
 var SIG_KEYS=["srv","nab","uz","inv"];
 var SIGS={srv:"",nab:"",uz:"",inv:""};
 var penColor="#12348a";
@@ -673,115 +730,135 @@ document.querySelectorAll(".pen-dot").forEach(function(btn){
  });
 });
 
-function sigZoneHtml(key,label){
- return '<div class="sheet-sig-zone'+(SIGS[key]?' has-ink':'')+'" data-sig-zone="'+key+'">'+
-  '<canvas data-sig-canvas="'+key+'"></canvas>'+
-  '<div class="sheet-sig-tip">✍️ '+label+'</div>'+
-  '<button type="button" class="sheet-sig-clr" data-sig-del="'+key+'" title="Wyczyść podpis">×</button>'+
- '</div>';
-}
+function setupSigPad(key){
+ var canvas=$("sig-"+key);
+ var wrap=$("wrap-sig-"+key);
+ if(!canvas||!wrap)return;
+ var ctx=canvas.getContext("2d");
+ var drawing=false;
+ var lastX=0,lastY=0,lastW=1.8;
 
-function bindSheetSigPads(){
- document.querySelectorAll("[data-sig-zone]").forEach(function(zone){
-  var key=zone.getAttribute("data-sig-zone");
-  var canvas=zone.querySelector("canvas");
-  if(!canvas)return;
-  var ctx=canvas.getContext("2d");
-  var dpr=2;
-  var w=zone.offsetWidth||220;
-  var h=zone.offsetHeight||68;
-  canvas.width=w*dpr;
-  canvas.height=h*dpr;
+ function syncCanvasSize(){
+  var rect=wrap.getBoundingClientRect();
+  if(!rect.width||!rect.height)return;
+  var dpr=Math.min(2,window.devicePixelRatio||1);
+  var w=Math.round(rect.width*dpr);
+  var h=Math.round(rect.height*dpr);
+  if(canvas.width===w&&canvas.height===h)return;
+  canvas.width=w;
+  canvas.height=h;
   ctx.setTransform(dpr,0,0,dpr,0,0);
   ctx.lineCap="round";
   ctx.lineJoin="round";
-
   if(SIGS[key]){
    var im=new Image();
-   im.onload=function(){ctx.drawImage(im,0,0,w,h)};
+   im.onload=function(){ctx.drawImage(im,0,0,rect.width,rect.height)};
    im.src=SIGS[key];
   }
+ }
 
-  var drawing=false;
-  var lastX=0,lastY=0,lastW=1.8;
+ function getPos(e){
+  var r=canvas.getBoundingClientRect();
+  return{x:e.clientX-r.left,y:e.clientY-r.top};
+ }
 
-  function getLocalPos(e){
-   var r=canvas.getBoundingClientRect();
-   var scaleX=w/(r.width||w);
-   var scaleY=h/(r.height||h);
-   return{x:(e.clientX-r.left)*scaleX,y:(e.clientY-r.top)*scaleY};
-  }
+ canvas.addEventListener("pointerdown",function(e){
+  if($("penOnly").checked&&e.pointerType!=="pen")return;
+  if(e.button!==0&&e.pointerType==="mouse")return;
+  e.preventDefault();
+  syncCanvasSize();
+  try{canvas.setPointerCapture(e.pointerId)}catch(err){}
+  drawing=true;
+  var p=getPos(e);
+  lastX=p.x;lastY=p.y;
+  var pr=(e.pressure&&e.pressure>0)?e.pressure:0.5;
+  lastW=e.pointerType==="pen"?(1.1+pr*2.2):1.9;
+  ctx.fillStyle=penColor;
+  ctx.beginPath();
+  ctx.arc(p.x,p.y,lastW/2,0,Math.PI*2);
+  ctx.fill();
+  wrap.classList.add("signed");
+ });
 
-  canvas.addEventListener("pointerdown",function(e){
-   if($("penOnly").checked&&e.pointerType!=="pen")return;
-   if(e.button!==0&&e.pointerType==="mouse")return;
-   e.preventDefault();
-   e.stopPropagation();
-   try{canvas.setPointerCapture(e.pointerId)}catch(err){}
-   drawing=true;
-   var p=getLocalPos(e);
-   lastX=p.x;lastY=p.y;
-   var pr=(e.pressure&&e.pressure>0)?e.pressure:0.5;
-   lastW=e.pointerType==="pen"?(1.1+pr*2.2):1.9;
-   ctx.fillStyle=penColor;
-   ctx.beginPath();
-   ctx.arc(p.x,p.y,lastW/2,0,Math.PI*2);
-   ctx.fill();
-   zone.classList.add("has-ink");
-  });
+ canvas.addEventListener("pointermove",function(e){
+  if(!drawing)return;
+  if($("penOnly").checked&&e.pointerType!=="pen")return;
+  e.preventDefault();
+  var p=getPos(e);
+  var pr=(e.pressure&&e.pressure>0)?e.pressure:0.5;
+  var targetW=e.pointerType==="pen"?(1.1+pr*2.2):1.9;
+  var w=lastW*0.6+targetW*0.4;
+  ctx.strokeStyle=penColor;
+  ctx.lineWidth=w;
+  ctx.beginPath();
+  ctx.moveTo(lastX,lastY);
+  ctx.lineTo(p.x,p.y);
+  ctx.stroke();
+  lastX=p.x;lastY=p.y;lastW=w;
+ });
 
-  canvas.addEventListener("pointermove",function(e){
-   if(!drawing)return;
-   if($("penOnly").checked&&e.pointerType!=="pen")return;
-   e.preventDefault();
-   e.stopPropagation();
-   var p=getLocalPos(e);
-   var pr=(e.pressure&&e.pressure>0)?e.pressure:0.5;
-   var targetW=e.pointerType==="pen"?(1.1+pr*2.2):1.9;
-   var lw=lastW*0.6+targetW*0.4;
-   ctx.strokeStyle=penColor;
-   ctx.lineWidth=lw;
-   ctx.beginPath();
-   ctx.moveTo(lastX,lastY);
-   ctx.lineTo(p.x,p.y);
-   ctx.stroke();
-   lastX=p.x;lastY=p.y;lastW=lw;
-  });
+ function finishStroke(e){
+  if(!drawing)return;
+  drawing=false;
+  try{if(e&&e.pointerId!==undefined)canvas.releasePointerCapture(e.pointerId)}catch(err){}
+  SIGS[key]=canvas.toDataURL("image/png");
+  upd();
+ }
+ canvas.addEventListener("pointerup",finishStroke);
+ canvas.addEventListener("pointercancel",finishStroke);
+ canvas._syncSize=syncCanvasSize;
+}
 
-  function endStroke(e){
-   if(!drawing)return;
-   drawing=false;
-   try{if(e&&e.pointerId!==undefined)canvas.releasePointerCapture(e.pointerId)}catch(err){}
-   SIGS[key]=canvas.toDataURL("image/png");
-   save();
-   updateStepper();
-  }
-  canvas.addEventListener("pointerup",endStroke);
-  canvas.addEventListener("pointercancel",endStroke);
+function resizeAllSigPads(){
+ SIG_KEYS.forEach(function(k){
+  var c=$("sig-"+k);
+  if(c&&c._syncSize)c._syncSize();
+ });
+}
 
-  var delBtn=zone.querySelector("[data-sig-del]");
-  if(delBtn){
-   delBtn.addEventListener("pointerdown",function(e){e.stopPropagation()});
-   delBtn.addEventListener("click",function(e){
-    e.stopPropagation();
-    SIGS[key]="";
-    ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,canvas.width,canvas.height);ctx.restore();
-    zone.classList.remove("has-ink");
-    save();
-    updateStepper();
-   });
+function clearSigPad(key,silent){
+ var canvas=$("sig-"+key);
+ var wrap=$("wrap-sig-"+key);
+ if(canvas){
+  var ctx=canvas.getContext("2d");
+  ctx.save();
+  ctx.setTransform(1,0,0,1,0,0);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.restore();
+ }
+ if(wrap)wrap.classList.remove("signed");
+ SIGS[key]="";
+ if(!silent)upd();
+}
+
+function restoreSigPads(){
+ SIG_KEYS.forEach(function(k){
+  var canvas=$("sig-"+k);
+  var wrap=$("wrap-sig-"+k);
+  if(!canvas||!wrap)return;
+  if(canvas._syncSize)canvas._syncSize();
+  var ctx=canvas.getContext("2d");
+  ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,canvas.width,canvas.height);ctx.restore();
+  if(SIGS[k]){
+   wrap.classList.add("signed");
+   var rect=wrap.getBoundingClientRect();
+   var im=new Image();
+   im.onload=function(){ctx.drawImage(im,0,0,rect.width||180,rect.height||82)};
+   im.src=SIGS[k];
+  }else{
+   wrap.classList.remove("signed");
   }
  });
 }
 
-$("clrAllSigsBtn").onclick=function(){
- SIGS={srv:"",nab:"",uz:"",inv:""};
- upd();
- toast("Wyczyszczono podpisy","Wszystkie pola podpisów na arkuszu zostały wyczyszczone.","info");
-};
+document.querySelectorAll("[data-sig-clr]").forEach(function(btn){
+ btn.addEventListener("click",function(){
+  clearSigPad(btn.getAttribute("data-sig-clr"),false);
+ });
+});
 
 var ids=["data","wyrob","nrz","nrs","nabN","nabA","uzN","uzA","invN","invA","dU","dE","usterki","sposob","uwagi","miejsce","opis","zal","eN","eU","eI","sA","sB","sC"];
-var KEY="hv-protokol-v6";
+var KEY="hv-protokol-v5";
 var ARCH_KEY="hv-archive-v1";
 var HIST_KEY="hv-hist-v2";
 var HIST_FIELDS=["sym","wyrob","nrz","nrs","nabN","nabA","uzN","uzA","invN","invA","usterki","sposob","uwagi","miejsce","opis","zal","sA","sB","sC"];
@@ -825,7 +902,7 @@ function updateStepper(){
  var s1=!!(g("wyrob").trim()||g("nabN").trim()||g("uzN").trim());
  var s2=!!(g("usterki").trim()||g("sposob").trim()||g("opis").trim()||g("miejsce").trim());
  var s3=photos.length>0;
- var s4=!!(SIGS.srv||SIGS.nab||SIGS.uz||SIGS.inv);
+ var s4=!!(SIGS.srv||SIGS.nab||SIGS.uz||SIGS.inv||g("sA").trim());
  var states=[s1,s2,s3,s4];
  var steps=document.querySelectorAll("#stepper .step");
  var lines=[$("line-1"),$("line-2"),$("line-3")];
@@ -928,6 +1005,7 @@ $("archBody").addEventListener("click",function(e){
    SIGS=rec.sigs?{srv:rec.sigs.srv||"",nab:rec.sigs.nab||"",uz:rec.sigs.uz||"",inv:rec.sigs.inv||""}:{srv:"",nab:"",uz:"",inv:""};
    photos=[];thumbs();
    document.querySelector('.nav-tab[data-view="editor"]').click();
+   restoreSigPads();
    upd();
    toast("Wczytano protokół","Otwarto protokół Nr "+rec.nr,"info");
   }
@@ -1099,7 +1177,10 @@ function initHistoryControls(){
  });
 }
 
-/* Generowanie dokumentu A4 z bezpośrednimi strefami podpisu S-Pen */
+/* Generowanie dokumentu A4 z osadzonymi podpisami odręcznymi */
+function sigHtml(key){
+ return SIGS[key]?'<div class="sig-img-box"><img src="'+SIGS[key]+'" alt="Podpis"></div>':'';
+}
 function ln(l,v){return '<div class="ln"><b>'+l+'</b><span class="v">'+esc(v)+'</span></div>'}
 function sec(x){return '<div class="sec">'+x+'</div>'}
 function rl(t,n){return '<div class="ruled" style="min-height:'+(n*24)+'px">'+esc(t)+'</div>'}
@@ -1129,12 +1210,8 @@ function render(){
    sec(ln("5. Data rozpoczęcia eksploatacji urządzenia:",fd(g("dE"))))+
    sec('<b>6.&nbsp; Wykaz stwierdzonych/zgłoszonych usterek:</b>'+rl(g("usterki"),5))+
    sec('<b>7.&nbsp; Sposób usunięcia usterek:</b>'+rl(g("sposob"),5)+'<div class="note">Wszystkie nieprawidłowości zostały skutecznie usunięte. W przypadku, gdy naprawy nie można było dokonać na miejscu, zostanie ona dokonana w jak najkrótszym uzasadnionym organizacyjnie i technicznie terminie.<br>'+cnts()+'</div>')+
-   sec('<div class="sig2"><div class="l"><b>8.&nbsp; Protokół sporządzili:</b>'+ln("a)",g("sA"))+ln("b)",g("sB"))+'</div><div class="r"><span>Podpis:</span>'+sigZoneHtml("srv","Podpisz S-Penem")+'</div></div>')+
-   sec('<div class="sig">'+
-    '<div><span>9.&nbsp; Nabywca</span>'+sigZoneHtml("nab","Podpis Nabywcy")+'<small>(imię i nazwisko oraz podpis*)</small></div>'+
-    '<div><span>10.&nbsp; Użytkownik</span>'+sigZoneHtml("uz","Podpis Użytkownika")+'<small>(imię i nazwisko oraz podpis*)</small></div>'+
-    '<div><span>11.&nbsp; Inwestor</span>'+sigZoneHtml("inv","Podpis Inwestora")+'<small>(imię i nazwisko oraz podpis*)</small></div>'+
-   '</div>')+
+   sec('<div class="sig2"><div class="l"><b>8.&nbsp; Protokół sporządzili:</b>'+ln("a)",g("sA"))+ln("b)",g("sB"))+'</div><div class="r"><span>Podpis:</span>'+sigHtml("srv")+'</div></div>')+
+   sec('<div class="sig"><div><span>9.&nbsp; Nabywca</span>'+sigHtml("nab")+'<small>(imię i nazwisko oraz podpis*)</small></div><div><span>10.&nbsp; Użytkownik</span>'+sigHtml("uz")+'<small>(imię i nazwisko oraz podpis*)</small></div><div><span>11.&nbsp; Inwestor</span>'+sigHtml("inv")+'<small>(imię i nazwisko oraz podpis*)</small></div></div>')+
    '</div><div class="fn">* w przypadku odmowy podpisu należy wskazać fakt odmowy w treści protokołu</div>');
  } else {
   var u=t=="u",tk=R("tak")=="TAK";
@@ -1144,18 +1221,19 @@ function render(){
    sec(ln("7. Miejsce instalacji:",g("miejsce")))+
    sec(u?'<b>8.&nbsp; Opis działania urządzenia:</b>'+rl(g("opis"),4):'<b>8.&nbsp; Opis urządzenia:</b><div style="margin:3px 0"><b>Urządzenie zostało zamontowane prawidłowo. Uruchomienie urządzenia nie było możliwe z następujących powodów:</b></div>'+rl(g("opis"),6))+
    sec('<b>9.&nbsp; Zalecenia:</b>'+rl(g("zal"),3))+'</div>');
-  var parties=[{lbl:'11.&nbsp; Nabywca',key:'nab',tip:'Podpis Nabywcy'},{lbl:'12.&nbsp; Użytkownik',key:'uz',tip:'Podpis Użytkownika'},{lbl:'13.&nbsp; Inwestor',key:'inv',tip:'Podpis Inwestora'}];
+  var parties=[{lbl:'11.&nbsp; Nabywca',key:'nab'},{lbl:'12.&nbsp; Użytkownik',key:'uz'},{lbl:'13.&nbsp; Inwestor',key:'inv'}];
   var cm=parties.map(function(p){
-   return '<div><b>'+p.lbl+'</b><b style="margin-top:4px">Miejsce na zgłoszenie uwag:</b><div class="ruled" style="min-height:240px;margin-top:6px"></div>'+sigZoneHtml(p.key,p.tip)+'<small>(imię i nazwisko oraz podpis*)</small></div>';
+   var imgPart=SIGS[p.key]?'<div class="sig3-sign"><img src="'+SIGS[p.key]+'" alt="Podpis"></div>':'';
+   var rH=SIGS[p.key]?268:336;
+   return '<div><b>'+p.lbl+'</b><b style="margin-top:4px">Miejsce na zgłoszenie uwag:</b><div class="ruled" style="min-height:'+rH+'px;margin-top:6px"></div>'+imgPart+'<small>(imię i nazwisko oraz podpis*)</small></div>';
   }).join("");
   pg.push('<div class="box" style="margin-top:0"><h3>OSOBY UCZESTNICZĄCE</h3>'+
    sec('<div class="note" style="margin-top:0"><i>'+cnts()+' Wraz z protokołem przekazano Użytkownikowi niezbędne dokumenty dotyczące eksploatacji wyrobu.</i></div>')+
-   sec('<div class="sig2"><div class="l"><b>10.&nbsp; Protokół sporządzili:</b>'+ln("a)",g("sA"))+ln("b)",g("sB"))+ln("c)",g("sC"))+'</div><div class="r"><span>Podpis:</span>'+sigZoneHtml("srv","Podpisz S-Penem")+'</div></div>')+
+   sec('<div class="sig2"><div class="l"><b>10.&nbsp; Protokół sporządzili:</b>'+ln("a)",g("sA"))+ln("b)",g("sB"))+ln("c)",g("sC"))+'</div><div class="r"><span>Podpis:</span>'+sigHtml("srv")+'</div></div>')+
    sec('<div class="sig3">'+cm+'</div>')+'</div><div class="fn">* w przypadku odmowy podpisu należy wskazać fakt odmowy (oraz przyczynę, jeśli jest znana) w treści protokołu</div>');
  }
  for(var k=0;k<photos.length;k+=4){pg.push(head(false)+'<div class="t"><div class="n">ZAŁĄCZNIK DO PROTOKOŁU Nr '+esc(numer())+'</div><div class="s">Dokumentacja fotograficzna</div></div><div class="ph">'+photos.slice(k,k+4).map(function(p){return '<div><img src="'+p+'" alt=""></div>'}).join("")+'</div>')}
  $("sheet").innerHTML=pg.map(function(p){return '<div class="pg">'+p+'</div>'}).join("");
- bindSheetSigPads();
  fit();
 }
 function fit(){
@@ -1192,12 +1270,14 @@ function syncDates(force){
  lastAutoDay=now;
 }
 
+SIG_KEYS.forEach(setupSigPad);
 load();
 syncDates(true);
 applyType();
 initHistoryControls();
 rememberAll();
 updateArchiveStats();
+restoreSigPads();
 
 document.querySelectorAll("[data-today]").forEach(function(b){
  b.addEventListener("click",function(){
@@ -1220,8 +1300,6 @@ async function makePdf(){
  rememberAll();
  saveToArchive(true);
  var sh=$("sheet"),wr=$("wrap"),tr=sh.style.transform,h=wr.style.height,ov=wr.style.overflow;
- document.querySelectorAll(".sheet-sig-tip,.sheet-sig-clr").forEach(function(el){el.style.display="none"});
- document.querySelectorAll(".sheet-sig-zone").forEach(function(el){el.style.border="0";el.style.background="transparent"});
  busy(true);
  try{
   sh.transform="none";sh.style.transform="none";wr.style.height="auto";wr.style.overflow="visible";
@@ -1240,8 +1318,6 @@ async function makePdf(){
  }catch(e){
   if(!e||e.code!=="declined")alert("Nie udało się zapisać PDF"+(e&&e.message?": "+e.message:""));
  }finally{
-  document.querySelectorAll(".sheet-sig-tip,.sheet-sig-clr").forEach(function(el){el.style.display=""});
-  document.querySelectorAll(".sheet-sig-zone").forEach(function(el){el.style.border="";el.style.background=""});
   sh.style.transform=tr;wr.style.height=h;wr.style.overflow=ov;busy(false);fit();
  }
 }
@@ -1255,7 +1331,7 @@ $("nowy").onclick=function(){
  saveToArchive(true);
  var t=T();M[t].c++;$("cnt").value=M[t].c;
  CL.forEach(function(i){$(i).value=""});
- SIGS.nab="";SIGS.uz="";SIGS.inv="";
+ ["nab","uz","inv"].forEach(function(k){clearSigPad(k,true)});
  syncDates(true);photos=[];thumbs();setR("tak","TAK");upd();
  window.scrollTo(0,0);
  toast("Nowy protokół","Zwiększono licznik do Nr "+numer(),"info");
@@ -1264,11 +1340,11 @@ $("clear").onclick=function(){
  if(!confirm("Wyczyścić wszystkie pola i podpisy?"))return;
  ids.forEach(function(i){$(i).value=""});
  CL.forEach(function(i){$(i).value=""});
- SIGS={srv:"",nab:"",uz:"",inv:""};
+ SIG_KEYS.forEach(function(k){clearSigPad(k,true)});
  $("eN").value=1;$("eU").value=1;$("eI").value=0;
  syncDates(true);photos=[];thumbs();setR("tak","TAK");upd();
 };
-window.addEventListener("resize",fit);
+window.addEventListener("resize",function(){resizeAllSigPads();fit()});
 window.addEventListener("beforeprint",function(){$("sheet").style.transform="none"});
 window.addEventListener("afterprint",fit);
 render();

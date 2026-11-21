@@ -113,7 +113,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.38 "Segoe UI",sy
 .kpi-mini{display:flex;align-items:center;gap:10px;font-size:.78rem;color:var(--mute)}
 .kpi-pill{background:rgba(34,197,94,.14);color:#15803d;font-weight:700;padding:2px 8px;border-radius:12px;font-size:.74rem}
 
-/* Główny układ roboczy z blokadą rozpychania kolumn */
+/* Główny układ roboczy */
 .work-grid{display:grid;grid-template-columns:minmax(320px,420px) minmax(0,1fr);column-gap:16px;align-items:start}
 .form-col,#prev{min-width:0;max-width:100%}
 @media (max-width:960px){.work-grid{grid-template-columns:minmax(0,1fr)}}
@@ -199,11 +199,12 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary-
 .pen-clr-all{min-height:24px;height:24px;padding:0 8px;font-size:.71rem;font-weight:600;border-radius:5px;border:1px solid rgba(220,53,69,.35);background:transparent;color:var(--danger);cursor:pointer}
 .pen-clr-all:hover{background:var(--danger);color:#fff}
 
-/* Arkusz A4 ze ścisłym trzymaniem obrysu pól (zero wychodzenia poza ramkę) */
+/* Arkusz A4 ze ścisłym trzymaniem obrysu pól */
 #wrap{width:100%;max-width:100%;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:0 4px 16px rgba(15,45,82,.08)}
 #sheet{width:794px;padding:0;min-height:0;background:transparent;color:#111;font:12.5px/1.28 "Times New Roman",Times,serif;transform-origin:top left;display:block}
-.pg{width:794px;height:1123px;padding:24px 40px 22px;background:#fff;color:#111;overflow:hidden;margin-bottom:14px;box-shadow:0 0 0 1px #ccc;display:flex;flex-direction:column}
-#sheet .hd{font-weight:700;font-size:13px;line-height:1.2}
+.pg{width:794px;height:1123px;padding:22px 40px 20px;background:#fff;color:#111;overflow:hidden;margin-bottom:14px;box-shadow:0 0 0 1px #ccc;display:flex;flex-direction:column}
+#sheet .hd{display:flex;align-items:center}
+#sheet .hv-logo{display:block;height:46px;width:auto}
 #sheet .t{text-align:center;margin-top:4px}
 #sheet .t .n{font-size:16px;font-weight:700}
 #sheet .t .s{font-size:12.5px;font-weight:700;margin-top:3px}
@@ -252,7 +253,7 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary-
 .ph{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
 .ph div{height:445px;border:1px solid #111;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .ph img{max-width:100%;max-height:100%;object-fit:contain}
-.hdr{display:flex;justify-content:space-between;align-items:flex-start}
+.hdr{display:flex;justify-content:space-between;align-items:center}
 .fc{font-size:12px}
 
 /* Tabela zapisanych protokołów i statystyki */
@@ -287,7 +288,7 @@ tr:hover td{background:var(--bg)}
 @media print{
  @page{size:A4;margin:0}
  body{background:#fff}
- #pinGate,.navbar,.stepper-card,.form-col,.prev-head,#toastBox,#view-archive,.sheet-sig-tip,.sheet-sig-clr{display:none!important}
+ #pinGate,.navbar,.stepper-card,.form-col,.prev-head,#toastBox,#view-archive,.sheet-sig-tip,.sheet-sig-clr{display:none!important}}
  .sheet-sig-zone{border:0!important;background:transparent!important}
  #view-editor{display:block!important}
  .container{max-width:none;padding:0}
@@ -372,7 +373,7 @@ tr:hover td{background:var(--bg)}
   </div>
   <div class="kpi-mini">
    <span>W archiwum: <b id="kpiTotal">0</b></span>
-   <span class="kpi-pill">v8 • Dopasowany obrys</span>
+   <span class="kpi-pill">v9 • Logo HV 1862 w nagłówku</span>
   </div>
  </div>
 
@@ -788,7 +789,7 @@ $("clrAllSigsBtn").onclick=function(){
 };
 
 var ids=["data","wyrob","nrz","nrs","nabN","nabA","uzN","uzA","invN","invA","dU","dE","usterki","sposob","uwagi","miejsce","opis","zal","eN","eU","eI","sA","sB","sC"];
-var KEY="hv-protokol-v8";
+var KEY="hv-protokol-v9";
 var ARCH_KEY="hv-archive-v1";
 var HIST_KEY="hv-hist-v2";
 var HIST_FIELDS=["sym","wyrob","nrz","nrs","nabN","nabA","uzN","uzA","invN","invA","usterki","sposob","uwagi","miejsce","opis","zal","sA","sB","sC"];
@@ -1106,13 +1107,14 @@ function initHistoryControls(){
  });
 }
 
-/* Generowanie dokumentu A4 dopasowanego dokładnie do obrysu */
+/* Generowanie dokumentu A4 z oficjalnym logo HYDRO-VACUUM S.A. 1862 */
+var HV_LOGO_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 92" width="235" height="50">\n  <rect x="2" y="2" width="426" height="72" rx="11" ry="11" fill="#ffffff" stroke="#004B87" stroke-width="2.5"/>\n  <g transform="translate(38, 38)">\n    <circle cx="0" cy="0" r="24" fill="none" stroke="#004B87" stroke-width="4.2"/>\n    <path d="M-12,-14 L-12,14 M12,-14 L12,14 M-12,0 L12,0" stroke="#004B87" stroke-width="4.2" stroke-linecap="round"/>\n    <path d="M-15,-8 L0,16 L15,-8" fill="none" stroke="#004B87" stroke-width="4.2" stroke-linejoin="round" stroke-linecap="round"/>\n  </g>\n  <text x="38" y="88" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="13.5" fill="#004B87">1862</text>\n  <text x="74" y="49" font-family="Georgia, \'Times New Roman\', serif" font-weight="700" font-size="31" letter-spacing="0.4" fill="#004B87">HYDRO-VACUUM</text>\n  <text x="364" y="33" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="13" fill="#004B87">®</text>\n  <text x="373" y="49" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="15.5" fill="#004B87">S.A.</text>\n</svg>';
 function ln(l,v){return '<div class="ln"><b>'+l+'</b><span class="v">'+esc(v)+'</span></div>'}
 function sec(x){return '<div class="sec">'+x+'</div>'}
 function rl(t,n){return '<div class="ruled" style="min-height:'+(n*20)+'px;max-height:'+(n*20)+'px">'+esc(t)+'</div>'}
 function sx(on,t){return on?'<span>'+t+'</span>':'<span class="s1">'+t+'</span>'}
 function cnts(){var t=nn("eN")+nn("eU")+nn("eI")+1;return 'Protokół sporządzono w '+t+' ('+words(t)+') jednobrzmiących egzemplarzach: '+nn("eN")+' ('+words(g("eN"))+') dla Nabywcy, '+nn("eU")+' ('+words(g("eU"))+') dla Użytkownika, '+nn("eI")+' ('+words(g("eI"))+') dla Inwestora i 1 (jeden) dla Hydro-Vacuum S.A.'}
-function head(f){return '<div class="hdr"><div class="hd">HYDRO-VACUUM S.A.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Grudziądz</div>'+(f?'<div class="fc">Form. 4b/IS-7.2/01</div>':'')+'</div>'}
+function head(f){return '<div class="hdr"><div class="hd">'+HV_LOGO_SVG+'</div>'+(f?'<div class="fc">Form. 4b/IS-7.2/01</div>':'')+'</div>'}
 function title(sub){return '<div class="t"><div class="n">PROTOKÓŁ Nr <span class="v" style="display:inline-block;min-width:130px;border:0">'+esc(numer())+'</span></div><div class="s">'+sub+'</div><div class="s">sporządzony w dniu <span class="v" style="display:inline-block;min-width:110px;border:0">'+fd(g("data"))+'</span> r.</div></div>'}
 function dane(){
  return '<h3>DANE DOTYCZĄCE WYROBU</h3>'+
@@ -1245,7 +1247,7 @@ async function makePdf(){
   try{if(window.claude&&window.claude.use)d=await window.claude.use("downloads")}catch(e){}
   if(d){await d.save({filename:name,data:doc.output("blob")})}
   else{var blob=doc.output("blob"),f=new File([blob],name,{type:"application/pdf"});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:name})}else{doc.save(name)}}
-  toast("Wygenerowano PDF","Plik "+name+" (pełna strona A4) został utworzony.","");
+  toast("Wygenerowano PDF","Plik "+name+" z oficjalnym logo HV został utworzony.","");
  }catch(e){
   if(!e||e.code!=="declined")alert("Nie udało się zapisać PDF"+(e&&e.message?": "+e.message:""));
  }finally{

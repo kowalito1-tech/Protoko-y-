@@ -5,26 +5,83 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Protokoły Hydro-Vacuum</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0b5c8f">
+<meta name="theme-color" content="#004B87">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Protokoły">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAABjklEQVR42u3bwQ2AIBAAQTH8sETtwU6wB1u0ABvQhx+E3EwFRjdHSM5U1jrBk9krQByIA3EgDsSBOBAH4kAciAPEgTgQB+JAHIgDcSAOxIE4QByIA3EgDsSBOBAH4kAciANyn491nXu0L7Fsh8mBYwVxIA7EAeJAHIgDcSAOxIE4EAfiQBwgDsSBOBAH4kAciANxIA7EgThAHHySx330Dn8ufTPor78mB+JAHIgDceC2EuoKYHIgDsSBOEAciANxIA7EgTgQB+JAHMRih7QFO6Q4VhAHiANxEOq2YofU5EAciANxIA7EgThAHIgDcSAOxIE4GIAd0hbskOJYQRwgDsRBqNuKHVKTA3EgDsSBOBAH4gBxIA7EgTgQB+JgAHZIW7BDimMFcYA4EAehbit2SE0OxIE4EAfiQByIA8SBOBAH4kAciANxIA7EgThAHIgDcSAOxMH/Ulmrt4DJgTgQB+JAHIgDcSAOxIE4QByIA3EgDsSBOBAH4kAciAPEgTgQB+JAHIgDcSAOxIE4CO4Gnc8agRt/7mYAAAAASUVORK5CYII=">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%23004B87'/%3E%3Ccircle cx='90' cy='90' r='70' fill='none' stroke='%23009FE3' stroke-width='7'/%3E%3Cpath d='M52 34h56l20 20v92H52z' fill='%23ffffff'/%3E%3Crect x='64' y='64' width='52' height='6' fill='%23004B87'/%3E%3Crect x='64' y='83' width='52' height='6' fill='%23004B87'/%3E%3Crect x='64' y='102' width='52' height='6' fill='%23004B87'/%3E%3Crect x='64' y='121' width='52' height='6' fill='%23004B87'/%3E%3C/svg%3E">
 <style>
-:root{--bg:#eef1f4;--panel:#fff;--ink:#14202b;--mute:#5b6b79;--line:#cdd5dc;--acc:#0b5c8f;--accink:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10171d;--panel:#1a242d;--ink:#e6edf2;--mute:#93a3b0;--line:#33424e;--acc:#5db3e8;--accink:#07202f}}
+:root{--bg:#eef1f4;--panel:#fff;--ink:#14202b;--mute:#5b6b79;--line:#cdd5dc;--acc:#004B87;--acc2:#009FE3;--accink:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10171d;--panel:#1a242d;--ink:#e6edf2;--mute:#93a3b0;--line:#33424e;--acc:#009FE3;--acc2:#5db3e8;--accink:#07202f}}
 *,*::before,*::after{box-sizing:inherit}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .app{max-width:900px;margin:0 auto;padding:16px}
-h1{font-size:1.3rem;margin:4px 0 14px}
-fieldset{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:0 0 12px;padding:12px 14px}
-legend{font-weight:700;padding:0 6px}
+.top-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-logo{width:46px;height:46px;border-radius:11px;flex-shrink:0;box-shadow:0 2px 6px rgba(0,75,135,.22)}
+.brand-txt h1{font-size:1.25rem;margin:0;line-height:1.2}
+.brand-txt span{display:block;font-size:.82rem;font-weight:600;color:var(--acc);letter-spacing:.2px}
+.lock-btn{min-height:38px;padding:6px 12px;font-size:.82rem;display:inline-flex;align-items:center;gap:6px;border-radius:8px;color:var(--mute)}
+.lock-btn:hover{color:var(--ink);border-color:var(--acc)}
+
+/* Ekran blokady PIN */
+#pinGate{position:fixed;inset:0;z-index:9999;background:linear-gradient(160deg,#003766 0%,#004B87 55%,#0068b5 100%);color:#fff;display:flex;align-items:center;justify-content:center;padding:20px}
+#pinGate.hidden{display:none!important}
+.pin-card{width:100%;max-width:340px;background:rgba(255,255,255,.1);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.22);border-radius:18px;padding:24px 20px;text-align:center;box-shadow:0 18px 40px rgba(0,0,0,.28)}
+.pin-card svg{width:64px;height:64px;border-radius:15px;margin:0 auto 12px;display:block;box-shadow:0 6px 16px rgba(0,0,0,.25)}
+.pin-card h2{margin:0;font-size:1.2rem;color:#fff}
+.pin-card p{margin:4px 0 16px;font-size:.86rem;color:rgba(255,255,255,.82)}
+.pin-dots{display:flex;justify-content:center;gap:14px;margin:14px 0 10px}
+.pin-dots span{width:15px;height:15px;border-radius:50%;border:2px solid #009FE3;background:transparent;transition:all .15s}
+.pin-dots span.on{background:#fff;border-color:#fff;transform:scale(1.12)}
+.pin-dots.err span{border-color:#ff6b6b;background:#ff6b6b}
+#pinInput{position:absolute;opacity:0;pointer-events:none}
+.pin-err{min-height:20px;font-size:.82rem;color:#ffd1d1;font-weight:600;margin-bottom:8px}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+.pad button{min-height:54px;border-radius:12px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.12);color:#fff;font-size:1.3rem;font-weight:700;cursor:pointer;transition:background .12s,transform .08s}
+.pad button:active{background:rgba(255,255,255,.28);transform:scale(.97)}
+.pad button.fn-key{font-size:.95rem;font-weight:600;background:rgba(0,0,0,.18)}
+.pin-rem{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;font-size:.84rem;color:rgba(255,255,255,.9);cursor:pointer}
+.pin-rem input{width:auto;min-height:auto;accent-color:#009FE3}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.shake{animation:shake .26s ease-in-out}
+
+fieldset{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:0 0 12px;padding:12px 14px;border-top:3px solid var(--acc)}
+legend{font-weight:700;padding:0 6px;color:var(--acc)}
 label{display:block;font-size:.85rem;color:var(--mute);margin:8px 0 3px}
 input,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:9px 10px}
 input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
 textarea{min-height:90px;resize:vertical}
+.date-row{display:flex;gap:6px;align-items:stretch}
+.date-row input{flex:1;min-width:0}
+.btn-today{min-height:44px;padding:0 11px;font-size:.82rem;font-weight:600;border-radius:7px;border:1px solid var(--acc);color:var(--acc);background:transparent;white-space:nowrap;flex-shrink:0}
+.btn-today:hover{background:var(--acc);color:var(--accink)}
+
+/* Zapamiętywanie i lista podpowiedzi */
+.hist-wrap{position:relative}
+.lbl-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:8px 0 3px}
+.lbl-row label{margin:0}
+.hist-btn{min-height:24px;padding:1px 8px;font-size:.76rem;font-weight:600;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--acc);display:inline-flex;align-items:center;gap:4px;cursor:pointer}
+.hist-btn:hover{border-color:var(--acc);background:var(--acc);color:var(--accink)}
+.hist-btn .cnt{opacity:.75;font-weight:400}
+.hist-pop{position:absolute;left:0;right:0;top:100%;margin-top:4px;z-index:120;background:var(--panel);border:1.5px solid var(--acc);border-radius:9px;box-shadow:0 10px 26px rgba(0,0,0,.18);overflow:hidden;display:none}
+.hist-pop.open{display:block}
+.hist-head{display:flex;align-items:center;gap:6px;padding:6px 8px;background:var(--bg);border-bottom:1px solid var(--line)}
+.hist-head input{min-height:32px;padding:4px 8px;font-size:.84rem;background:var(--panel)}
+.hist-clr{min-height:32px;padding:0 8px;font-size:.74rem;color:#c0392b;border-color:transparent;background:transparent;white-space:nowrap}
+.hist-clr:hover{background:rgba(192,57,43,.1)}
+.hist-list{max-height:210px;overflow-y:auto}
+.hist-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border-bottom:1px solid var(--line);cursor:pointer;font-size:.9rem}
+.hist-item:last-child{border-bottom:0}
+.hist-item:hover{background:var(--bg)}
+.hist-txt{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hist-sub{display:block;font-size:.76rem;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hist-del{min-height:26px;min-width:26px;padding:0 6px;border-radius:6px;border:0;background:transparent;color:var(--mute);font-size:.85rem}
+.hist-del:hover{background:rgba(192,57,43,.14);color:#c0392b}
+.hist-empty{padding:12px;text-align:center;font-size:.84rem;color:var(--mute)}
+
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 10px}
 .radios{display:flex;flex-wrap:wrap;gap:6px 16px}
@@ -69,6 +126,7 @@ input,textarea{min-height:44px}
 @media print{
  @page{size:A4;margin:0}
  body{background:#fff}
+ #pinGate{display:none!important}
  .app{display:block!important;max-width:none;padding:0}
  #prev{position:static!important}
  .app>*:not(#prev){display:none!important}
@@ -105,8 +163,60 @@ input,textarea{min-height:44px}
 </style>
 </head>
 <body>
+
+<div id="pinGate" role="dialog" aria-modal="true" aria-labelledby="pinTitle">
+ <div class="pin-card" id="pinCard">
+  <svg viewBox="0 0 180 180" aria-hidden="true">
+   <rect width="180" height="180" fill="#004B87"/>
+   <circle cx="90" cy="90" r="70" fill="none" stroke="#009FE3" stroke-width="7"/>
+   <path d="M52 34h56l20 20v92H52z" fill="#ffffff"/>
+   <rect x="64" y="64" width="52" height="6" fill="#004B87"/>
+   <rect x="64" y="83" width="52" height="6" fill="#004B87"/>
+   <rect x="64" y="102" width="52" height="6" fill="#004B87"/>
+   <rect x="64" y="121" width="52" height="6" fill="#004B87"/>
+  </svg>
+  <h2 id="pinTitle">Protokoły Hydro-Vacuum</h2>
+  <p>Wprowadź kod PIN, aby uzyskać dostęp</p>
+  <input id="pinInput" type="password" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="Kod PIN">
+  <div class="pin-dots" id="pinDots"><span></span><span></span><span></span><span></span></div>
+  <div class="pin-err" id="pinErr"></div>
+  <div class="pad" id="pinPad">
+   <button type="button" data-k="1">1</button>
+   <button type="button" data-k="2">2</button>
+   <button type="button" data-k="3">3</button>
+   <button type="button" data-k="4">4</button>
+   <button type="button" data-k="5">5</button>
+   <button type="button" data-k="6">6</button>
+   <button type="button" data-k="7">7</button>
+   <button type="button" data-k="8">8</button>
+   <button type="button" data-k="9">9</button>
+   <button type="button" class="fn-key" data-k="clr">Wyczyść</button>
+   <button type="button" data-k="0">0</button>
+   <button type="button" class="fn-key" data-k="del">⌫</button>
+  </div>
+  <label class="pin-rem"><input type="checkbox" id="pinRemember" checked> Zapamiętaj to urządzenie</label>
+ </div>
+</div>
+
 <div class="app">
-<h1>Generator protokołów serwisowych</h1>
+<div class="top-bar">
+ <div class="brand">
+  <svg class="brand-logo" viewBox="0 0 180 180" aria-hidden="true">
+   <rect width="180" height="180" fill="#004B87"/>
+   <circle cx="90" cy="90" r="70" fill="none" stroke="#009FE3" stroke-width="7"/>
+   <path d="M52 34h56l20 20v92H52z" fill="#ffffff"/>
+   <rect x="64" y="64" width="52" height="6" fill="#004B87"/>
+   <rect x="64" y="83" width="52" height="6" fill="#004B87"/>
+   <rect x="64" y="102" width="52" height="6" fill="#004B87"/>
+   <rect x="64" y="121" width="52" height="6" fill="#004B87"/>
+  </svg>
+  <div class="brand-txt">
+   <span>HYDRO-VACUUM S.A.</span>
+   <h1>Generator protokołów serwisowych</h1>
+  </div>
+ </div>
+ <button type="button" class="lock-btn" id="lockBtn" title="Zablokuj dostęp kodem PIN">🔒 Zablokuj</button>
+</div>
 
 <fieldset><legend>Rodzaj protokołu</legend>
  <div class="tabs">
@@ -119,7 +229,13 @@ input,textarea{min-height:44px}
 <fieldset><legend>Numer i data</legend>
  <div class="g2">
   <div><label for="nr">Numer protokołu (automatyczny)</label><input id="nr" readonly></div>
-  <div><label for="data">Data sporządzenia</label><input id="data" type="date"></div>
+  <div>
+   <label for="data">Data sporządzenia (auto)</label>
+   <div class="date-row">
+    <input id="data" type="date">
+    <button type="button" class="btn-today" data-today="data" title="Ustaw dzisiejszą datę">Dziś</button>
+   </div>
+  </div>
   <div><label for="cnt">Kolejny numer (osobno dla każdego rodzaju)</label><input id="cnt" type="number" min="1" value="1"></div>
   <div><label for="sym">Symbol (np. inicjały)</label><input id="sym" value="KW"></div>
  </div>
@@ -144,8 +260,20 @@ input,textarea{min-height:44px}
 
 <fieldset><legend>Szczegóły</legend>
  <div class="g2">
-  <div><label for="dU" id="lbDU">Data</label><input id="dU" type="date"></div>
-  <div data-t="s"><label for="dE">Data rozpoczęcia eksploatacji</label><input id="dE" type="date"></div>
+  <div>
+   <label for="dU" id="lbDU">Data</label>
+   <div class="date-row">
+    <input id="dU" type="date">
+    <button type="button" class="btn-today" data-today="dU" title="Ustaw dzisiejszą datę">Dziś</button>
+   </div>
+  </div>
+  <div data-t="s">
+   <label for="dE">Data rozpoczęcia eksploatacji</label>
+   <div class="date-row">
+    <input id="dE" type="date">
+    <button type="button" class="btn-today" data-today="dE" title="Ustaw dzisiejszą datę">Dziś</button>
+   </div>
+  </div>
  </div>
  <div data-t="s">
   <label>Rodzaj (pozostałe zostaną skreślone)</label>
@@ -207,11 +335,85 @@ input,textarea{min-height:44px}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 (function(){
+var CORRECT_PIN="1997";
+var PIN_KEY="hv-pin-unlocked-1997";
+var pinBuf="";
+var gate=$("pinGate"),dots=$("pinDots").children,errEl=$("pinErr"),card=$("pinCard"),pinInp=$("pinInput");
+
+function $(i){return document.getElementById(i)}
+function showGate(){
+ pinBuf="";pinInp.value="";errEl.textContent="";
+ updateDots(false);
+ gate.classList.remove("hidden");
+ setTimeout(function(){try{pinInp.focus()}catch(e){}},50);
+}
+function hideGate(){
+ gate.classList.add("hidden");
+ fit();
+}
+function updateDots(isErr){
+ $("pinDots").classList.toggle("err",!!isErr);
+ for(var i=0;i<4;i++){
+  dots[i].classList.toggle("on",i<pinBuf.length);
+ }
+}
+function checkPin(){
+ if(pinBuf===CORRECT_PIN){
+  try{
+   if($("pinRemember").checked)localStorage.setItem(PIN_KEY,"1");
+   else sessionStorage.setItem(PIN_KEY,"1");
+  }catch(e){}
+  hideGate();
+ }else{
+  updateDots(true);
+  errEl.textContent="Nieprawidłowy kod PIN";
+  card.classList.remove("shake");
+  void card.offsetWidth;
+  card.classList.add("shake");
+  setTimeout(function(){pinBuf="";pinInp.value="";updateDots(false)},450);
+ }
+}
+function pushDigit(d){
+ if(pinBuf.length>=4)return;
+ errEl.textContent="";
+ pinBuf+=d;
+ pinInp.value=pinBuf;
+ updateDots(false);
+ if(pinBuf.length===4)setTimeout(checkPin,110);
+}
+$("pinPad").addEventListener("click",function(e){
+ var b=e.target.closest("button[data-k]");
+ if(!b)return;
+ var k=b.getAttribute("data-k");
+ if(k==="clr"){pinBuf="";pinInp.value="";errEl.textContent="";updateDots(false)}
+ else if(k==="del"){pinBuf=pinBuf.slice(0,-1);pinInp.value=pinBuf;errEl.textContent="";updateDots(false)}
+ else if(/^\d$/.test(k)){pushDigit(k)}
+});
+document.addEventListener("keydown",function(e){
+ if(gate.classList.contains("hidden"))return;
+ if(/^\d$/.test(e.key)){e.preventDefault();pushDigit(e.key)}
+ else if(e.key==="Backspace"){e.preventDefault();pinBuf=pinBuf.slice(0,-1);updateDots(false)}
+ else if(e.key==="Escape"){pinBuf="";updateDots(false)}
+});
+$("lockBtn").onclick=function(){
+ try{localStorage.removeItem(PIN_KEY);sessionStorage.removeItem(PIN_KEY)}catch(e){}
+ showGate();
+};
+(function initAuth(){
+ var ok=false;
+ try{ok=localStorage.getItem(PIN_KEY)==="1"||sessionStorage.getItem(PIN_KEY)==="1"}catch(e){}
+ if(ok)gate.classList.add("hidden");
+ else showGate();
+})();
+
 var ids=["data","wyrob","nrz","nrs","nabN","nabA","uzN","uzA","invN","invA","dU","dE","usterki","sposob","uwagi","miejsce","opis","zal","eN","eU","eI","sA","sB","sC"];
 var KEY="hv-protokol-v2";
+var HIST_KEY="hv-hist-v1";
+var HIST_FIELDS=["sym","wyrob","nrz","nrs","nabN","nabA","uzN","uzA","invN","invA","usterki","sposob","uwagi","miejsce","opis","zal","sA","sB","sC"];
+var PAIRS={nabN:"nabA",uzN:"uzA",invN:"invA"};
+var HIST={};
 var M={s:{c:1,y:"KW"},u:{c:1,y:"MN"},m:{c:1,y:"MN"}};
 var W=["zero","jeden","dwa","trzy","cztery","pięć","sześć","siedem","osiem","dziewięć","dziesięć"];
-function $(i){return document.getElementById(i)}
 function g(i){return $(i).value}
 function esc(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
 function fd(s){if(!s)return"";var p=s.split("-");return p[2]+"."+p[1]+"."+p[0]}
@@ -220,7 +422,160 @@ function words(n){n=parseInt(n,10)||0;return W[n]||String(n)}
 function R(n){return document.querySelector('input[name="'+n+'"]:checked').value}
 function T(){return R("typ")}
 function today(){var d=new Date(),m=d.getMonth()+1,x=d.getDate();return d.getFullYear()+"-"+(m<10?"0":"")+m+"-"+(x<10?"0":"")+x}
-function numer(){var d=(g("data")||today()).split("-"),m=M[T()],n=m.c+"/"+d[1]+"/"+m.y.trim();if(T()=="u")n+="/"+d[0];return n}
+function numer(){var d=(g("data")||today()).split("-"),m=M[T()],n=m.c+"/"+m.y.trim();if(T()=="u")n+="/"+d[0];return n}
+
+/* Zapamiętywanie i wybór z listy */
+function loadHist(){
+ try{HIST=JSON.parse(localStorage.getItem(HIST_KEY)||"{}")||{}}catch(e){HIST={}}
+}
+function saveHist(){
+ try{localStorage.setItem(HIST_KEY,JSON.stringify(HIST))}catch(e){}
+}
+function rememberVal(id,val){
+ if(HIST_FIELDS.indexOf(id)<0)return;
+ var v=String(val||"").trim();
+ if(!v)return;
+ var list=HIST[id]||[];
+ list=list.filter(function(item){
+  var txt=typeof item==="string"?item:item.v;
+  return txt!==v;
+ });
+ var entry=PAIRS[id]?{v:v,sub:g(PAIRS[id]).trim()}:v;
+ list.unshift(entry);
+ if(list.length>30)list.length=30;
+ HIST[id]=list;
+ saveHist();
+ updateHistUI(id);
+}
+function rememberAll(){
+ HIST_FIELDS.forEach(function(id){rememberVal(id,g(id))});
+}
+function updateHistUI(id){
+ var list=HIST[id]||[];
+ var btn=document.querySelector('.hist-btn[data-for="'+id+'"]');
+ if(btn){
+  btn.innerHTML='Lista <span class="cnt">('+list.length+')</span> ▾';
+ }
+ var dl=$("dl-"+id);
+ if(dl){
+  dl.innerHTML=list.map(function(it){
+   var txt=typeof it==="string"?it:it.v;
+   return '<option value="'+esc(txt)+'">';
+  }).join("");
+ }
+}
+function closeAllHist(){
+ document.querySelectorAll(".hist-pop.open").forEach(function(p){p.classList.remove("open")});
+}
+function renderHistPop(id,filter){
+ var pop=$("pop-"+id);
+ if(!pop)return;
+ var list=HIST[id]||[];
+ var q=(filter||"").toLowerCase().trim();
+ var filtered=list.map(function(it,idx){return{it:it,idx:idx}}).filter(function(row){
+  if(!q)return true;
+  var txt=typeof row.it==="string"?row.it:(row.it.v+" "+(row.it.sub||""));
+  return txt.toLowerCase().indexOf(q)>=0;
+ });
+ var box=pop.querySelector(".hist-list");
+ if(!filtered.length){
+  box.innerHTML='<div class="hist-empty">'+(list.length?'Brak pasujących wpisów':'Brak zapisanych wpisów – wpisz tekst i zatwierdź')+'</div>';
+  return;
+ }
+ box.innerHTML=filtered.map(function(row){
+  var txt=typeof row.it==="string"?row.it:row.it.v;
+  var sub=(typeof row.it==="object"&&row.it.sub)?row.it.sub:"";
+  return '<div class="hist-item" data-idx="'+row.idx+'">'+
+   '<div class="hist-txt" title="'+esc(txt)+'">'+esc(txt)+(sub?'<span class="hist-sub">'+esc(sub)+'</span>':'')+'</div>'+
+   '<button type="button" class="hist-del" data-del="'+row.idx+'" title="Usuń z listy">×</button>'+
+  '</div>';
+ }).join("");
+}
+function initHistoryControls(){
+ loadHist();
+ HIST_FIELDS.forEach(function(id){
+  var el=$(id);
+  if(!el)return;
+  var lbl=document.querySelector('label[for="'+id+'"]');
+  var wrap=document.createElement("div");
+  wrap.className="hist-wrap";
+  el.parentNode.insertBefore(wrap,lbl||el);
+  var row=document.createElement("div");
+  row.className="lbl-row";
+  if(lbl)row.appendChild(lbl);
+  var btn=document.createElement("button");
+  btn.type="button";
+  btn.className="hist-btn";
+  btn.setAttribute("data-for",id);
+  row.appendChild(btn);
+  wrap.appendChild(row);
+  wrap.appendChild(el);
+  if(el.tagName==="INPUT"){
+   var dl=document.createElement("datalist");
+   dl.id="dl-"+id;
+   el.setAttribute("list",dl.id);
+   wrap.appendChild(dl);
+  }
+  var pop=document.createElement("div");
+  pop.className="hist-pop";
+  pop.id="pop-"+id;
+  pop.innerHTML='<div class="hist-head"><input type="search" placeholder="Szukaj na liście…" aria-label="Filtruj listę"><button type="button" class="hist-clr">Wyczyść</button></div><div class="hist-list"></div>';
+  wrap.appendChild(pop);
+
+  var searchInp=pop.querySelector("input");
+  searchInp.addEventListener("input",function(){renderHistPop(id,searchInp.value)});
+  pop.querySelector(".hist-clr").addEventListener("click",function(e){
+   e.stopPropagation();
+   HIST[id]=[];saveHist();updateHistUI(id);renderHistPop(id,"");
+  });
+  pop.querySelector(".hist-list").addEventListener("click",function(e){
+   e.stopPropagation();
+   var delBtn=e.target.closest("[data-del]");
+   if(delBtn){
+    var di=parseInt(delBtn.getAttribute("data-del"),10);
+    HIST[id].splice(di,1);
+    saveHist();updateHistUI(id);renderHistPop(id,searchInp.value);
+    return;
+   }
+   var itemEl=e.target.closest(".hist-item");
+   if(itemEl){
+    var idx=parseInt(itemEl.getAttribute("data-idx"),10);
+    var chosen=HIST[id][idx];
+    if(chosen!==undefined){
+     var val=typeof chosen==="string"?chosen:chosen.v;
+     el.value=val;
+     if(PAIRS[id]&&typeof chosen==="object"&&chosen.sub&&!g(PAIRS[id]).trim()){
+      $(PAIRS[id]).value=chosen.sub;
+     }
+     if(id==="sym")M[T()].y=val;
+     upd();
+    }
+    closeAllHist();
+   }
+  });
+  btn.addEventListener("click",function(e){
+   e.stopPropagation();
+   var wasOpen=pop.classList.contains("open");
+   closeAllHist();
+   if(!wasOpen){
+    searchInp.value="";
+    renderHistPop(id,"");
+    pop.classList.add("open");
+    setTimeout(function(){try{searchInp.focus()}catch(err){}},30);
+   }
+  });
+  el.addEventListener("blur",function(){
+   rememberVal(id,el.value);
+   if(id==="nabA"&&g("nabN").trim())rememberVal("nabN",g("nabN"));
+   if(id==="uzA"&&g("uzN").trim())rememberVal("uzN",g("uzN"));
+   if(id==="invA"&&g("invN").trim())rememberVal("invN",g("invN"));
+  });
+  updateHistUI(id);
+ });
+ document.addEventListener("click",function(e){
+  if(!e.target.closest(".hist-wrap"))closeAllHist();
+ });
+}
 function ln(l,v){return '<div class="ln"><b>'+l+'</b><span class="v">'+esc(v)+'</span></div>'}
 function sec(x){return '<div class="sec">'+x+'</div>'}
 function rl(t,n){return '<div class="ruled" style="min-height:'+(n*24)+'px">'+esc(t)+'</div>'}
@@ -293,19 +648,41 @@ function load(){
   if(o.M)M=o.M;setR("typ",o.typ);setR("rodzaj",o.rodzaj);setR("tak",o.tak)}catch(e){}
 }
 function upd(){render();save()}
+var lastAutoDay=today();
+function syncDates(force){
+ var now=today();
+ if(force||!g("data")||g("data")===lastAutoDay)$("data").value=now;
+ if(force||!g("dU")||g("dU")===lastAutoDay)$("dU").value=now;
+ lastAutoDay=now;
+}
 load();
-$("data").value=today();
+syncDates(true);
 applyType();
-document.querySelectorAll("input,textarea").forEach(function(e){e.addEventListener("input",upd)});
+initHistoryControls();
+rememberAll();
+document.querySelectorAll("[data-today]").forEach(function(b){
+ b.addEventListener("click",function(){
+  var target=b.getAttribute("data-today");
+  $(target).value=today();
+  upd();
+ });
+});
+document.addEventListener("visibilitychange",function(){if(!document.hidden){syncDates(false);upd()}});
+window.addEventListener("focus",function(){syncDates(false);upd()});
+document.querySelectorAll("input,textarea").forEach(function(e){
+ if(e.id==="pinInput"||e.closest(".hist-head"))return;
+ e.addEventListener("input",upd);
+});
 document.querySelectorAll('input[name="typ"]').forEach(function(e){e.addEventListener("change",function(){applyType();upd()})});
 $("cnt").addEventListener("input",function(){M[T()].c=parseInt(g("cnt"),10)||1;upd()});
 $("sym").addEventListener("input",function(){M[T()].y=g("sym");upd()});
 function busy(b){var e=$("print");e.disabled=b;e.textContent=b?"Generuję PDF…":"Drukuj / zapisz jako PDF"}
 async function makePdf(){
+ rememberAll();
  var sh=$("sheet"),wr=$("wrap"),tr=sh.style.transform,h=wr.style.height,ov=wr.style.overflow;
  busy(true);
  try{
-  sh.style.transform="none";wr.style.height="auto";wr.style.overflow="visible";
+  sh.transform="none";sh.style.transform="none";wr.style.height="auto";wr.style.overflow="visible";
   var pages=sh.querySelectorAll(".pg"),doc=new window.jspdf.jsPDF({unit:"mm",format:"a4"});
   for(var i=0;i<pages.length;i++){
    var c=await html2canvas(pages[i],{scale:2,backgroundColor:"#ffffff",useCORS:true});
@@ -327,9 +704,9 @@ $("print").onclick=makePdf;
 $("camBtn").onclick=function(){$("cam").click()};
 $("galBtn").onclick=function(){$("gal").click()};
 ["cam","gal"].forEach(function(i){$(i).addEventListener("change",function(e){var f=Array.prototype.slice.call(e.target.files);e.target.value="";addFiles(f)})});
-var CL=["nrz","nrs","dU","dE","usterki","sposob","uwagi","miejsce","opis","zal"];
-$("nowy").onclick=function(){var t=T();M[t].c++;$("cnt").value=M[t].c;$("data").value=today();CL.forEach(function(i){$(i).value=""});photos=[];thumbs();setR("tak","TAK");upd();window.scrollTo(0,0)};
-$("clear").onclick=function(){if(!confirm("Wyczyścić wszystkie pola?"))return;ids.forEach(function(i){$(i).value=""});CL.forEach(function(i){$(i).value=""});$("eN").value=1;$("eU").value=1;$("eI").value=0;$("data").value=today();photos=[];thumbs();setR("tak","TAK");upd()};
+var CL=["nrz","nrs","dE","usterki","sposob","uwagi","miejsce","opis","zal"];
+$("nowy").onclick=function(){rememberAll();var t=T();M[t].c++;$("cnt").value=M[t].c;CL.forEach(function(i){$(i).value=""});syncDates(true);photos=[];thumbs();setR("tak","TAK");upd();window.scrollTo(0,0)};
+$("clear").onclick=function(){if(!confirm("Wyczyścić wszystkie pola?"))return;ids.forEach(function(i){$(i).value=""});CL.forEach(function(i){$(i).value=""});$("eN").value=1;$("eU").value=1;$("eI").value=0;syncDates(true);photos=[];thumbs();setR("tak","TAK");upd()};
 window.addEventListener("resize",fit);
 window.addEventListener("beforeprint",function(){$("sheet").style.transform="none"});
 window.addEventListener("afterprint",fit);

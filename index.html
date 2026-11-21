@@ -16,81 +16,83 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10171d;--panel:#1a242d;--ink:#e6edf2;--mute:#93a3b0;--line:#33424e;--acc:#009FE3;--acc2:#5db3e8;--accink:#07202f}}
 *,*::before,*::after{box-sizing:inherit}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.app{max-width:900px;margin:0 auto;padding:16px}
-.top-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 14px;flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:12px}
-.brand-logo{width:46px;height:46px;border-radius:11px;flex-shrink:0;box-shadow:0 2px 6px rgba(0,75,135,.22)}
-.brand-txt h1{font-size:1.25rem;margin:0;line-height:1.2}
-.brand-txt span{display:block;font-size:.82rem;font-weight:600;color:var(--acc);letter-spacing:.2px}
-.lock-btn{min-height:38px;padding:6px 12px;font-size:.82rem;display:inline-flex;align-items:center;gap:6px;border-radius:8px;color:var(--mute)}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.32 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.app{max-width:860px;margin:0 auto;padding:10px 12px}
+.top-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:2px 0 8px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:9px}
+.brand-logo{width:36px;height:36px;border-radius:8px;flex-shrink:0;box-shadow:0 2px 5px rgba(0,75,135,.2)}
+.brand-txt h1{font-size:1.05rem;margin:0;line-height:1.15}
+.brand-txt span{display:block;font-size:.72rem;font-weight:700;color:var(--acc);letter-spacing:.2px}
+.lock-btn{min-height:32px;padding:4px 10px;font-size:.76rem;display:inline-flex;align-items:center;gap:4px;border-radius:7px;color:var(--mute)}
 .lock-btn:hover{color:var(--ink);border-color:var(--acc)}
 
 /* Ekran blokady PIN */
-#pinGate{position:fixed;inset:0;z-index:9999;background:linear-gradient(160deg,#003766 0%,#004B87 55%,#0068b5 100%);color:#fff;display:flex;align-items:center;justify-content:center;padding:20px}
+#pinGate{position:fixed;inset:0;z-index:9999;background:linear-gradient(160deg,#003766 0%,#004B87 55%,#0068b5 100%);color:#fff;display:flex;align-items:center;justify-content:center;padding:16px}
 #pinGate.hidden{display:none!important}
-.pin-card{width:100%;max-width:340px;background:rgba(255,255,255,.1);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.22);border-radius:18px;padding:24px 20px;text-align:center;box-shadow:0 18px 40px rgba(0,0,0,.28)}
-.pin-card svg{width:64px;height:64px;border-radius:15px;margin:0 auto 12px;display:block;box-shadow:0 6px 16px rgba(0,0,0,.25)}
-.pin-card h2{margin:0;font-size:1.2rem;color:#fff}
-.pin-card p{margin:4px 0 16px;font-size:.86rem;color:rgba(255,255,255,.82)}
-.pin-dots{display:flex;justify-content:center;gap:14px;margin:14px 0 10px}
-.pin-dots span{width:15px;height:15px;border-radius:50%;border:2px solid #009FE3;background:transparent;transition:all .15s}
+.pin-card{width:100%;max-width:320px;background:rgba(255,255,255,.1);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.22);border-radius:16px;padding:20px 16px;text-align:center;box-shadow:0 18px 40px rgba(0,0,0,.28)}
+.pin-card svg{width:54px;height:54px;border-radius:13px;margin:0 auto 10px;display:block;box-shadow:0 6px 16px rgba(0,0,0,.25)}
+.pin-card h2{margin:0;font-size:1.1rem;color:#fff}
+.pin-card p{margin:4px 0 12px;font-size:.82rem;color:rgba(255,255,255,.82)}
+.pin-dots{display:flex;justify-content:center;gap:12px;margin:10px 0 8px}
+.pin-dots span{width:13px;height:13px;border-radius:50%;border:2px solid #009FE3;background:transparent;transition:all .15s}
 .pin-dots span.on{background:#fff;border-color:#fff;transform:scale(1.12)}
 .pin-dots.err span{border-color:#ff6b6b;background:#ff6b6b}
 #pinInput{position:absolute;opacity:0;pointer-events:none}
-.pin-err{min-height:20px;font-size:.82rem;color:#ffd1d1;font-weight:600;margin-bottom:8px}
-.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
-.pad button{min-height:54px;border-radius:12px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.12);color:#fff;font-size:1.3rem;font-weight:700;cursor:pointer;transition:background .12s,transform .08s}
+.pin-err{min-height:18px;font-size:.78rem;color:#ffd1d1;font-weight:600;margin-bottom:6px}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
+.pad button{min-height:46px;border-radius:10px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.12);color:#fff;font-size:1.18rem;font-weight:700;cursor:pointer;transition:background .12s,transform .08s}
 .pad button:active{background:rgba(255,255,255,.28);transform:scale(.97)}
-.pad button.fn-key{font-size:.95rem;font-weight:600;background:rgba(0,0,0,.18)}
-.pin-rem{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;font-size:.84rem;color:rgba(255,255,255,.9);cursor:pointer}
+.pad button.fn-key{font-size:.86rem;font-weight:600;background:rgba(0,0,0,.18)}
+.pin-rem{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-size:.8rem;color:rgba(255,255,255,.9);cursor:pointer}
 .pin-rem input{width:auto;min-height:auto;accent-color:#009FE3}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 .shake{animation:shake .26s ease-in-out}
 
-fieldset{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:0 0 12px;padding:12px 14px;border-top:3px solid var(--acc)}
-legend{font-weight:700;padding:0 6px;color:var(--acc)}
-label{display:block;font-size:.85rem;color:var(--mute);margin:8px 0 3px}
-input,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:9px 10px}
+/* Kompaktowe sekcje i pola formularza */
+fieldset{background:var(--panel);border:1px solid var(--line);border-radius:8px;margin:0 0 8px;padding:7px 10px 9px;border-top:2.5px solid var(--acc)}
+legend{font-weight:700;font-size:.82rem;padding:0 5px;color:var(--acc)}
+label{display:block;font-size:.76rem;color:var(--mute);margin:5px 0 2px}
+input,textarea{width:100%;font:inherit;font-size:.88rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:5px 8px}
+input{min-height:34px;height:34px}
+textarea{min-height:56px;resize:vertical;line-height:1.3}
 input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
-textarea{min-height:90px;resize:vertical}
-.date-row{display:flex;gap:6px;align-items:stretch}
+.date-row{display:flex;gap:4px;align-items:stretch}
 .date-row input{flex:1;min-width:0}
-.btn-today{min-height:44px;padding:0 11px;font-size:.82rem;font-weight:600;border-radius:7px;border:1px solid var(--acc);color:var(--acc);background:transparent;white-space:nowrap;flex-shrink:0}
+.btn-today{min-height:34px;height:34px;padding:0 8px;font-size:.75rem;font-weight:600;border-radius:6px;border:1px solid var(--acc);color:var(--acc);background:transparent;white-space:nowrap;flex-shrink:0}
 .btn-today:hover{background:var(--acc);color:var(--accink)}
 
 /* Zapamiętywanie i lista podpowiedzi */
 .hist-wrap{position:relative}
-.lbl-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:8px 0 3px}
+.lbl-row{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:5px 0 2px}
 .lbl-row label{margin:0}
-.hist-btn{min-height:24px;padding:1px 8px;font-size:.76rem;font-weight:600;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--acc);display:inline-flex;align-items:center;gap:4px;cursor:pointer}
+.hist-btn{min-height:20px;height:20px;padding:0 6px;font-size:.7rem;font-weight:600;border-radius:5px;border:1px solid var(--line);background:var(--bg);color:var(--acc);display:inline-flex;align-items:center;gap:3px;cursor:pointer}
 .hist-btn:hover{border-color:var(--acc);background:var(--acc);color:var(--accink)}
 .hist-btn .cnt{opacity:.75;font-weight:400}
-.hist-pop{position:absolute;left:0;right:0;top:100%;margin-top:4px;z-index:120;background:var(--panel);border:1.5px solid var(--acc);border-radius:9px;box-shadow:0 10px 26px rgba(0,0,0,.18);overflow:hidden;display:none}
+.hist-pop{position:absolute;left:0;right:0;top:100%;margin-top:3px;z-index:120;background:var(--panel);border:1.5px solid var(--acc);border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,.18);overflow:hidden;display:none}
 .hist-pop.open{display:block}
-.hist-head{display:flex;align-items:center;gap:6px;padding:6px 8px;background:var(--bg);border-bottom:1px solid var(--line)}
-.hist-head input{min-height:32px;padding:4px 8px;font-size:.84rem;background:var(--panel)}
-.hist-clr{min-height:32px;padding:0 8px;font-size:.74rem;color:#c0392b;border-color:transparent;background:transparent;white-space:nowrap}
+.hist-head{display:flex;align-items:center;gap:5px;padding:5px 6px;background:var(--bg);border-bottom:1px solid var(--line)}
+.hist-head input{min-height:28px;height:28px;padding:3px 7px;font-size:.8rem;background:var(--panel)}
+.hist-clr{min-height:28px;height:28px;padding:0 7px;font-size:.72rem;color:#c0392b;border-color:transparent;background:transparent;white-space:nowrap}
 .hist-clr:hover{background:rgba(192,57,43,.1)}
-.hist-list{max-height:210px;overflow-y:auto}
-.hist-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border-bottom:1px solid var(--line);cursor:pointer;font-size:.9rem}
+.hist-list{max-height:180px;overflow-y:auto}
+.hist-item{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:6px 8px;border-bottom:1px solid var(--line);cursor:pointer;font-size:.82rem}
 .hist-item:last-child{border-bottom:0}
 .hist-item:hover{background:var(--bg)}
 .hist-txt{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.hist-sub{display:block;font-size:.76rem;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.hist-del{min-height:26px;min-width:26px;padding:0 6px;border-radius:6px;border:0;background:transparent;color:var(--mute);font-size:.85rem}
+.hist-sub{display:block;font-size:.72rem;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hist-del{min-height:22px;height:22px;min-width:22px;padding:0 4px;border-radius:5px;border:0;background:transparent;color:var(--mute);font-size:.8rem}
 .hist-del:hover{background:rgba(192,57,43,.14);color:#c0392b}
-.hist-empty{padding:12px;text-align:center;font-size:.84rem;color:var(--mute)}
+.hist-empty{padding:9px;text-align:center;font-size:.78rem;color:var(--mute)}
 
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
-.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 10px}
-.radios{display:flex;flex-wrap:wrap;gap:6px 16px}
-.radios label{display:flex;align-items:center;gap:6px;color:var(--ink);font-size:.95rem;margin:4px 0}
-.radios input{width:auto}
-.bar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
-button{font:inherit;font-weight:600;border-radius:10px;min-height:46px;padding:11px 20px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:0 8px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 8px}
+.radios{display:flex;flex-wrap:wrap;gap:4px 12px}
+.radios label{display:flex;align-items:center;gap:5px;color:var(--ink);font-size:.84rem;margin:2px 0}
+.radios input{width:auto;min-height:auto;height:auto}
+.bar{display:flex;gap:7px;flex-wrap:wrap;margin:9px 0}
+button{font:inherit;font-size:.84rem;font-weight:600;border-radius:8px;min-height:36px;padding:6px 13px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
 button.p{background:var(--acc);color:var(--accink);border-color:var(--acc)}
-h2{font-size:1rem;margin:20px 0 8px;color:var(--mute)}
+h2{font-size:.9rem;margin:12px 0 6px;color:var(--mute)}
 #wrap{overflow:hidden;border:1px solid var(--line);border-radius:6px;background:#fff}
 #sheet{width:794px;min-height:1123px;padding:44px 50px;background:#fff;color:#111;font:13px/1.35 "Times New Roman",Times,serif;transform-origin:top left}
 #sheet .hd{font-weight:700;font-size:13px}
@@ -116,12 +118,11 @@ h2{font-size:1rem;margin:20px 0 8px;color:var(--mute)}
 .sig2 .l{flex:1}
 .sig2 .r{width:240px;font-weight:700}
 .fn{font-size:9.5px;margin-top:4px}
-input,textarea{min-height:44px}
-@media (max-width:560px){.g2,.g3{grid-template-columns:1fr}}
-@media (min-width:1000px){
- .app{max-width:1500px;display:grid;grid-template-columns:minmax(380px,460px) 1fr;column-gap:20px;align-items:start}
+@media (max-width:520px){.g2,.g3{grid-template-columns:1fr}}
+@media (min-width:960px){
+ .app{max-width:1460px;display:grid;grid-template-columns:minmax(330px,400px) 1fr;column-gap:16px;align-items:start}
  .app>*:not(#prev){grid-column:1}
- #prev{grid-column:2;grid-row:1/span 9;position:sticky;top:calc(12px + env(safe-area-inset-top,0px))}
+ #prev{grid-column:2;grid-row:1/span 9;position:sticky;top:calc(10px + env(safe-area-inset-top,0px))}
 }
 @media print{
  @page{size:A4;margin:0}
@@ -137,10 +138,10 @@ input,textarea{min-height:44px}
 
 #sheet{padding:0!important;min-height:0!important;background:transparent!important;display:block}
 .pg{width:794px;height:1123px;padding:44px 50px;background:#fff;color:#111;overflow:hidden;margin-bottom:14px;box-shadow:0 0 0 1px #ccc}
-.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(74px,1fr));gap:6px}
 .th{position:relative}
-.th img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;display:block;border:1px solid var(--line)}
-.th button{position:absolute;top:4px;right:4px;min-height:32px;padding:0 10px;border-radius:16px;font-size:.8rem}
+.th img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:5px;display:block;border:1px solid var(--line)}
+.th button{position:absolute;top:3px;right:3px;min-height:24px;height:24px;padding:0 7px;border-radius:12px;font-size:.72rem}
 .ph{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
 .ph div{height:430px;border:1px solid #111;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .ph img{max-width:100%;max-height:100%;object-fit:contain}
@@ -150,8 +151,8 @@ input,textarea{min-height:44px}
 .sig3>div{padding:6px 10px;border-right:1px solid #111;display:flex;flex-direction:column}
 .sig3>div:last-child{border-right:0}
 .sig3 small{text-align:center;font-size:9.5px;margin-top:4px}
-.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.tabs label{display:flex;align-items:center;justify-content:center;text-align:center;min-height:48px;margin:0;padding:6px;border:1px solid var(--line);border-radius:8px;color:var(--ink);font-weight:600;cursor:pointer}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.tabs label{display:flex;align-items:center;justify-content:center;text-align:center;min-height:36px;margin:0;padding:4px;border:1px solid var(--line);border-radius:7px;color:var(--ink);font-size:.82rem;font-weight:600;cursor:pointer}
 .tabs input{position:absolute;opacity:0;width:0;height:0}
 .tabs label:has(input:checked){background:var(--acc);color:var(--accink);border-color:var(--acc)}
 .tabs label:has(input:focus-visible){outline:2px solid var(--acc);outline-offset:2px}
@@ -228,34 +229,36 @@ input,textarea{min-height:44px}
 
 <fieldset><legend>Numer i data</legend>
  <div class="g2">
-  <div><label for="nr">Numer protokołu (automatyczny)</label><input id="nr" readonly></div>
+  <div><label for="nr">Numer protokołu (auto)</label><input id="nr" readonly></div>
   <div>
-   <label for="data">Data sporządzenia (auto)</label>
+   <label for="data">Data sporządzenia</label>
    <div class="date-row">
     <input id="data" type="date">
     <button type="button" class="btn-today" data-today="data" title="Ustaw dzisiejszą datę">Dziś</button>
    </div>
   </div>
-  <div><label for="cnt">Kolejny numer (osobno dla każdego rodzaju)</label><input id="cnt" type="number" min="1" value="1"></div>
-  <div><label for="sym">Symbol (np. inicjały)</label><input id="sym" value="KW"></div>
+  <div><label for="cnt">Kolejny numer</label><input id="cnt" type="number" min="1" value="1"></div>
+  <div><label for="sym">Symbol (inicjały)</label><input id="sym" value="KW"></div>
  </div>
 </fieldset>
 
-<fieldset><legend>Dane dotyczące wyrobu</legend>
+<fieldset><legend>Dane wyrobu</legend>
  <label for="wyrob">Nazwa wyrobu</label><input id="wyrob" placeholder="np. PSD 2 E/L0">
  <div class="g2">
-  <div><label for="nrz">Numer fabryczny zestawu</label><input id="nrz"></div>
-  <div><label for="nrs">Numer seryjny układu sterowania</label><input id="nrs"></div>
+  <div><label for="nrz">Nr fabryczny zestawu</label><input id="nrz"></div>
+  <div><label for="nrs">Nr seryjny sterowania</label><input id="nrs"></div>
  </div>
 </fieldset>
 
 <fieldset><legend>Strony</legend>
- <label for="nabN">Nabywca – nazwa</label><input id="nabN">
- <label for="nabA">Nabywca – adres</label><input id="nabA">
- <label for="uzN">Użytkownik – nazwa</label><input id="uzN">
- <label for="uzA">Użytkownik – adres (i NIP)</label><input id="uzA">
- <label for="invN">Inwestor – nazwa</label><input id="invN">
- <label for="invA">Inwestor – adres</label><input id="invA">
+ <div class="g2">
+  <div><label for="nabN">Nabywca – nazwa</label><input id="nabN"></div>
+  <div><label for="nabA">Nabywca – adres</label><input id="nabA"></div>
+  <div><label for="uzN">Użytkownik – nazwa</label><input id="uzN"></div>
+  <div><label for="uzA">Użytkownik – adres (i NIP)</label><input id="uzA"></div>
+  <div><label for="invN">Inwestor – nazwa</label><input id="invN"></div>
+  <div><label for="invA">Inwestor – adres</label><input id="invA"></div>
+ </div>
 </fieldset>
 
 <fieldset><legend>Szczegóły</legend>
@@ -286,7 +289,7 @@ input,textarea{min-height:44px}
   <label for="sposob">Sposób usunięcia usterek</label><textarea id="sposob"></textarea>
  </div>
  <div data-t="um">
-  <label>Czy dane w zgłoszeniu są zgodne ze stanem faktycznym?</label>
+  <label>Zgodność danych ze stanem faktycznym?</label>
   <div class="radios">
    <label><input type="radio" name="tak" value="TAK" checked>TAK</label>
    <label><input type="radio" name="tak" value="NIE">NIE</label>
@@ -298,8 +301,8 @@ input,textarea{min-height:44px}
  </div>
 </fieldset>
 
-<fieldset><legend>Zdjęcia (dołączane na końcu protokołu)</legend>
- <div class="bar" style="margin:0 0 8px">
+<fieldset><legend>Zdjęcia (załącznik)</legend>
+ <div class="bar" style="margin:0 0 6px">
   <button type="button" id="camBtn">Zrób zdjęcie</button>
   <button type="button" id="galBtn">Wybierz z galerii</button>
  </div>
@@ -310,19 +313,21 @@ input,textarea{min-height:44px}
 
 <fieldset><legend>Egzemplarze i podpisy</legend>
  <div class="g3">
-  <div><label for="eN">Egz. dla Nabywcy</label><input id="eN" type="number" min="0" value="1"></div>
-  <div><label for="eU">Egz. dla Użytkownika</label><input id="eU" type="number" min="0" value="1"></div>
-  <div><label for="eI">Egz. dla Inwestora</label><input id="eI" type="number" min="0" value="0"></div>
+  <div><label for="eN">Egz. Nabywca</label><input id="eN" type="number" min="0" value="1"></div>
+  <div><label for="eU">Egz. Użytkownik</label><input id="eU" type="number" min="0" value="1"></div>
+  <div><label for="eI">Egz. Inwestor</label><input id="eI" type="number" min="0" value="0"></div>
  </div>
- <label for="sA">Protokół sporządził (a)</label><input id="sA">
- <label for="sB">Protokół sporządził (b)</label><input id="sB">
+ <div class="g2">
+  <div><label for="sA">Protokół sporządził (a)</label><input id="sA"></div>
+  <div><label for="sB">Protokół sporządził (b)</label><input id="sB"></div>
+ </div>
  <div data-t="um"><label for="sC">Protokół sporządził (c)</label><input id="sC"></div>
 </fieldset>
 
 <div class="bar">
- <button class="p" id="print">Drukuj / zapisz jako PDF</button>
- <button id="nowy">Nowy protokół (numer +1)</button>
- <button id="clear">Wyczyść formularz</button>
+ <button class="p" id="print">Drukuj / zapisz PDF</button>
+ <button id="nowy">Nowy protokół (+1)</button>
+ <button id="clear">Wyczyść</button>
 </div>
 
 <div id="prev">
@@ -407,12 +412,33 @@ $("lockBtn").onclick=function(){
 })();
 
 var ids=["data","wyrob","nrz","nrs","nabN","nabA","uzN","uzA","invN","invA","dU","dE","usterki","sposob","uwagi","miejsce","opis","zal","eN","eU","eI","sA","sB","sC"];
-var KEY="hv-protokol-v2";
-var HIST_KEY="hv-hist-v1";
+var KEY="hv-protokol-v3";
+var HIST_KEY="hv-hist-v2";
 var HIST_FIELDS=["sym","wyrob","nrz","nrs","nabN","nabA","uzN","uzA","invN","invA","usterki","sposob","uwagi","miejsce","opis","zal","sA","sB","sC"];
 var PAIRS={nabN:"nabA",uzN:"uzA",invN:"invA"};
+var DEFAULT_HIST={
+ sym:["KW","KW/MN","MN"],
+ wyrob:["PSD 2 E/L0","TSC 2.15","FZ"],
+ nabN:[
+  {v:"Przedsiębiorstwo Techniki Sanitarnej Eko-Ful",sub:"ul. Droga Łąkowa 16, 86-330"},
+  {v:"HTI Sp. z o.o. Sp. k.",sub:"ul. Mikołaja 9, 62-080 Swadzim"}
+ ],
+ uzN:[
+  {v:"Wspólnota Mieszkaniowa „Zacisze”",sub:"ul. Szwedzka 22-24, 76-200 Słupsk, NIP 8393252055"}
+ ],
+ usterki:[
+  "Awaria PSD 2 E/L0. Oblepiony pływak 1 i 2. Gwarancja oddalona. Przyjazd serwisu płatny. Dok. fotograficzna wysłana do serwisu."
+ ],
+ sposob:[
+  "Mechaniczne oczyszczenie pływaków. Próba ruchowa – zestaw sprawny."
+ ],
+ opis:[
+  "Tłocznia została uruchomiona i sprawdzona. Ciśnienie pracy 4,5 bar. Urządzenie działa prawidłowo. Zamontowano przetwornik ciśnienia MELLER 6 bar / PCX 150.",
+  "Montaż przepływomierza FM-300. Sprawdzono poprawność odczytania wskazań."
+ ]
+};
 var HIST={};
-var M={s:{c:1,y:"KW"},u:{c:1,y:"MN"},m:{c:1,y:"MN"}};
+var M={s:{c:1,y:"KW"},u:{c:1,y:"KW/MN"},m:{c:1,y:"MN"}};
 var W=["zero","jeden","dwa","trzy","cztery","pięć","sześć","siedem","osiem","dziewięć","dziesięć"];
 function g(i){return $(i).value}
 function esc(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
@@ -426,7 +452,12 @@ function numer(){var d=(g("data")||today()).split("-"),m=M[T()],n=m.c+"/"+m.y.tr
 
 /* Zapamiętywanie i wybór z listy */
 function loadHist(){
- try{HIST=JSON.parse(localStorage.getItem(HIST_KEY)||"{}")||{}}catch(e){HIST={}}
+ try{
+  var raw=localStorage.getItem(HIST_KEY);
+  HIST=raw?JSON.parse(raw):JSON.parse(JSON.stringify(DEFAULT_HIST));
+ }catch(e){
+  HIST=JSON.parse(JSON.stringify(DEFAULT_HIST));
+ }
 }
 function saveHist(){
  try{localStorage.setItem(HIST_KEY,JSON.stringify(HIST))}catch(e){}
@@ -676,7 +707,7 @@ document.querySelectorAll("input,textarea").forEach(function(e){
 document.querySelectorAll('input[name="typ"]').forEach(function(e){e.addEventListener("change",function(){applyType();upd()})});
 $("cnt").addEventListener("input",function(){M[T()].c=parseInt(g("cnt"),10)||1;upd()});
 $("sym").addEventListener("input",function(){M[T()].y=g("sym");upd()});
-function busy(b){var e=$("print");e.disabled=b;e.textContent=b?"Generuję PDF…":"Drukuj / zapisz jako PDF"}
+function busy(b){var e=$("print");e.disabled=b;e.textContent=b?"Generuję PDF…":"Drukuj / zapisz PDF"}
 async function makePdf(){
  rememberAll();
  var sh=$("sheet"),wr=$("wrap"),tr=sh.style.transform,h=wr.style.height,ov=wr.style.overflow;

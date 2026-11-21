@@ -42,8 +42,8 @@
   }
 }
 *,*::before,*::after{box-sizing:inherit}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.38 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+html{scroll-padding-top:env(safe-area-inset-top,0px);overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.38 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif;overflow-x:hidden}
 
 /* Ekran blokady PIN (1997) */
 #pinGate{position:fixed;inset:0;z-index:9999;background:linear-gradient(150deg,#081a30 0%,#0F2D52 55%,#005294 100%);color:#fff;display:flex;align-items:center;justify-content:center;padding:16px}
@@ -98,11 +98,11 @@ body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.38 "Segoe UI",sy
 /* Widoki nawigacji */
 .view{display:none}
 .view.active{display:block}
-.container{max-width:1460px;margin:0 auto;padding:12px 14px}
+.container{max-width:1460px;margin:0 auto;padding:12px 14px;width:100%}
 
 /* Pasek etapów (Stepper) */
 .stepper-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.stepper{display:flex;align-items:center;gap:6px;flex:1;min-width:260px}
+.stepper{display:flex;align-items:center;gap:6px;flex:1;min-width:240px;overflow-x:auto}
 .step{display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:var(--mute);cursor:pointer;white-space:nowrap}
 .step .num{width:22px;height:22px;border-radius:50%;background:var(--light-gray);color:var(--mute);display:flex;align-items:center;justify-content:center;font-size:.74rem;font-weight:700;transition:all .15s}
 .step.done .num{background:var(--accent);color:#fff}
@@ -113,35 +113,36 @@ body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.38 "Segoe UI",sy
 .kpi-mini{display:flex;align-items:center;gap:10px;font-size:.78rem;color:var(--mute)}
 .kpi-pill{background:rgba(34,197,94,.14);color:#15803d;font-weight:700;padding:2px 8px;border-radius:12px;font-size:.74rem}
 
-/* Główny układ roboczy */
-.work-grid{display:grid;grid-template-columns:minmax(340px,420px) 1fr;column-gap:16px;align-items:start}
-@media (max-width:960px){.work-grid{grid-template-columns:1fr}}
+/* Główny układ roboczy z blokadą rozpychania kolumn */
+.work-grid{display:grid;grid-template-columns:minmax(320px,420px) minmax(0,1fr);column-gap:16px;align-items:start}
+.form-col,#prev{min-width:0;max-width:100%}
+@media (max-width:960px){.work-grid{grid-template-columns:minmax(0,1fr)}}
 
 /* Karty formularza */
-.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;padding-bottom:5px;border-bottom:1px solid var(--light-gray)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.04);min-width:0;overflow:visible}
+.card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;padding-bottom:5px;border-bottom:1px solid var(--light-gray);gap:6px}
 .card-hd h3{margin:0;font-size:.84rem;font-weight:700;color:var(--primary);display:flex;align-items:center;gap:6px}
 @media (prefers-color-scheme:dark){.card-hd h3{color:#63b3ed}}
-.badge-step{background:rgba(0,120,212,.12);color:var(--primary-light);font-size:.7rem;font-weight:700;padding:1px 7px;border-radius:10px}
+.badge-step{background:rgba(0,120,212,.12);color:var(--primary-light);font-size:.7rem;font-weight:700;padding:1px 7px;border-radius:10px;white-space:nowrap}
 
 label{display:block;font-size:.75rem;font-weight:600;color:var(--mute);margin:5px 0 2px}
-input,textarea,select{width:100%;font:inherit;font-size:.86rem;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:5px 9px;transition:border-color .15s,box-shadow .15s}
+input,textarea,select{width:100%;max-width:100%;min-width:0;font:inherit;font-size:.86rem;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:5px 9px;transition:border-color .15s,box-shadow .15s}
 input,select{min-height:34px;height:34px}
 input[readonly]{background:var(--light-gray);font-weight:700;color:var(--primary)}
 @media (prefers-color-scheme:dark){input[readonly]{color:#63b3ed}}
 textarea{min-height:54px;resize:vertical;line-height:1.32}
 input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary-light);box-shadow:0 0 0 3px rgba(0,120,212,.16)}
 
-.date-row{display:flex;gap:4px;align-items:stretch}
+.date-row{display:flex;gap:4px;align-items:stretch;min-width:0}
 .date-row input{flex:1;min-width:0}
 .btn-today{min-height:34px;height:34px;padding:0 9px;font-size:.74rem;font-weight:600;border-radius:6px;border:1px solid var(--primary-light);color:var(--primary-light);background:transparent;white-space:nowrap;flex-shrink:0;cursor:pointer}
 .btn-today:hover{background:var(--primary-light);color:#fff}
 
 /* Zapamiętywanie i lista podpowiedzi */
-.hist-wrap{position:relative}
-.lbl-row{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:5px 0 2px}
-.lbl-row label{margin:0}
-.hist-btn{min-height:20px;height:20px;padding:0 7px;font-size:.7rem;font-weight:600;border-radius:5px;border:1px solid var(--line);background:var(--bg);color:var(--primary-light);display:inline-flex;align-items:center;gap:3px;cursor:pointer}
+.hist-wrap{position:relative;min-width:0}
+.lbl-row{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:5px 0 2px;min-width:0}
+.lbl-row label{margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hist-btn{min-height:20px;height:20px;padding:0 7px;font-size:.7rem;font-weight:600;border-radius:5px;border:1px solid var(--line);background:var(--bg);color:var(--primary-light);display:inline-flex;align-items:center;gap:3px;cursor:pointer;flex-shrink:0}
 .hist-btn:hover{border-color:var(--primary-light);background:var(--primary-light);color:#fff}
 .hist-btn .cnt{opacity:.78;font-weight:400}
 .hist-pop{position:absolute;left:0;right:0;top:100%;margin-top:3px;z-index:120;background:var(--panel);border:1.5px solid var(--primary-light);border-radius:8px;box-shadow:0 10px 24px rgba(15,45,82,.18);overflow:hidden;display:none}
@@ -167,9 +168,10 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary-
 .tabs label:has(input:checked){background:var(--primary-light);color:#fff;border-color:var(--primary-light);box-shadow:0 2px 6px rgba(0,120,212,.25)}
 
 /* Siatki i przyciski */
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:0 8px}
-.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 8px}
-@media (max-width:520px){.g2,.g3{grid-template-columns:1fr}}
+.g2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 8px}
+.g3{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);gap:0 8px}
+.g2>div,.g3>div{min-width:0}
+@media (max-width:520px){.g2,.g3{grid-template-columns:minmax(0,1fr)}}
 .radios{display:flex;flex-wrap:wrap;gap:4px 12px}
 .radios label{display:flex;align-items:center;gap:5px;color:var(--ink);font-size:.82rem;font-weight:500;margin:2px 0;cursor:pointer}
 .radios input{width:auto;min-height:auto;height:auto;accent-color:var(--primary-light)}
@@ -189,7 +191,7 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary-
 .prev-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;flex-wrap:wrap}
 .prev-head h2{font-size:.88rem;margin:0;color:var(--primary);font-weight:700}
 @media (prefers-color-scheme:dark){.prev-head h2{color:#63b3ed}}
-.pen-toolbar{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:4px 10px;font-size:.75rem;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.pen-toolbar{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:4px 10px;font-size:.75rem;box-shadow:0 1px 3px rgba(0,0,0,.04);flex-wrap:wrap}
 .pen-dot{width:19px;height:19px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0;flex-shrink:0}
 .pen-dot.act{border-color:var(--warning);transform:scale(1.12)}
 .pen-only-chk{display:flex;align-items:center;gap:4px;margin:0;font-size:.74rem;color:var(--ink);cursor:pointer;white-space:nowrap}
@@ -197,8 +199,8 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary-
 .pen-clr-all{min-height:24px;height:24px;padding:0 8px;font-size:.71rem;font-weight:600;border-radius:5px;border:1px solid rgba(220,53,69,.35);background:transparent;color:var(--danger);cursor:pointer}
 .pen-clr-all:hover{background:var(--danger);color:#fff}
 
-/* Arkusz A4 dopasowany dokładnie do 794x1123 px bez ucinania dołu */
-#wrap{overflow:hidden;border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:0 4px 16px rgba(15,45,82,.08)}
+/* Arkusz A4 ze ścisłym trzymaniem obrysu pól (zero wychodzenia poza ramkę) */
+#wrap{width:100%;max-width:100%;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:0 4px 16px rgba(15,45,82,.08)}
 #sheet{width:794px;padding:0;min-height:0;background:transparent;color:#111;font:12.5px/1.28 "Times New Roman",Times,serif;transform-origin:top left;display:block}
 .pg{width:794px;height:1123px;padding:24px 40px 22px;background:#fff;color:#111;overflow:hidden;margin-bottom:14px;box-shadow:0 0 0 1px #ccc;display:flex;flex-direction:column}
 #sheet .hd{font-weight:700;font-size:13px;line-height:1.2}
@@ -206,27 +208,27 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary-
 #sheet .t .n{font-size:16px;font-weight:700}
 #sheet .t .s{font-size:12.5px;font-weight:700;margin-top:3px}
 .s1{text-decoration:line-through;color:#777}
-.box{border:1.5px solid #111;margin-top:8px}
+.box{border:1.5px solid #111;margin-top:8px;width:100%;overflow:hidden}
 .box h3{margin:0;text-align:center;font-size:13.5px;padding:4px;border-bottom:1.5px solid #111}
-.sec{padding:4px 9px;border-bottom:1px solid #111}
+.sec{padding:4px 9px;border-bottom:1px solid #111;overflow:hidden}
 .sec:last-child{border-bottom:0}
-.ln{display:flex;gap:6px;align-items:flex-end;margin:3px 0}
-.ln b{white-space:nowrap}
-.v{flex:1;min-height:15px;border-bottom:1px dotted #111;color:#12348a;font:14px "Segoe Script","Bradley Hand","Comic Sans MS",cursive;line-height:1.15;padding-left:4px}
-.ind{padding-left:18px}
-.ruled{color:#12348a;font:14px/20px "Segoe Script","Bradley Hand","Comic Sans MS",cursive;min-height:80px;white-space:pre-wrap;background:repeating-linear-gradient(to bottom,transparent 0,transparent 19px,#111 19px,#111 20px);background-size:100% 20px;margin-top:2px}
+.ln{display:flex;gap:6px;align-items:flex-end;margin:3px 0;min-width:0;max-width:100%}
+.ln b{white-space:nowrap;flex-shrink:0}
+.v{flex:1;min-width:0;min-height:15px;border-bottom:1px dotted #111;color:#12348a;font:13.5px "Segoe Script","Bradley Hand","Comic Sans MS",cursive;line-height:1.18;padding:0 4px;overflow-wrap:anywhere;word-break:break-word}
+.ind{padding-left:18px;min-width:0}
+.ruled{width:100%;max-width:100%;color:#12348a;font:13.5px/20px "Segoe Script","Bradley Hand","Comic Sans MS",cursive;min-height:80px;max-height:100px;overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;background:repeating-linear-gradient(to bottom,transparent 0,transparent 19px,#111 19px,#111 20px);background-size:100% 20px;margin-top:2px;padding:0 2px}
 .note{font-size:9px;line-height:1.2;margin-top:4px}
 
-/* Interaktywne pola podpisu bezpośrednio na arkuszu A4 */
-.sig{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid #111;margin:0 -9px -4px}
-.sig>div{height:92px;padding:4px 8px;border-right:1px solid #111;font-weight:700;position:relative;display:flex;flex-direction:column}
+/* Interaktywne pola podpisu ściśle zamknięte w obrysie komórek */
+.sig{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #111;margin:0 -9px -4px}
+.sig>div{height:92px;padding:4px 8px;border-right:1px solid #111;font-weight:700;position:relative;display:flex;flex-direction:column;min-width:0;overflow:hidden}
 .sig>div:last-child{border-right:0}
 .sig small{position:absolute;left:0;right:0;bottom:3px;text-align:center;font-weight:400;font-size:9px;pointer-events:none}
-.sig2{display:flex;justify-content:space-between;align-items:stretch;gap:10px}
-.sig2 .l{flex:1}
-.sig2 .r{width:255px;font-weight:700;display:flex;flex-direction:column}
+.sig2{display:flex;justify-content:space-between;align-items:stretch;gap:10px;min-width:0}
+.sig2 .l{flex:1;min-width:0}
+.sig2 .r{width:255px;flex-shrink:0;font-weight:700;display:flex;flex-direction:column;overflow:hidden}
 
-.sheet-sig-zone{position:relative;flex:1;min-height:54px;margin-top:2px;margin-bottom:11px;border-radius:4px;background:rgba(0,120,212,.03);border:1px dashed rgba(0,120,212,.35);touch-action:none;cursor:crosshair;overflow:hidden}
+.sheet-sig-zone{position:relative;width:100%;flex:1;min-height:54px;margin-top:2px;margin-bottom:11px;border-radius:4px;background:rgba(0,120,212,.03);border:1px dashed rgba(0,120,212,.35);touch-action:none;cursor:crosshair;overflow:hidden}
 .sheet-sig-zone.has-ink{background:transparent;border-color:transparent}
 .sheet-sig-zone:hover{background:rgba(0,120,212,.06);border-color:#0078D4}
 .sheet-sig-zone canvas{display:block;width:100%;height:100%;touch-action:none}
@@ -235,9 +237,10 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary-
 .sheet-sig-clr{position:absolute;top:2px;right:2px;z-index:5;min-height:18px;height:18px;padding:0 5px;font:700 10px "Segoe UI",sans-serif;border-radius:4px;border:1px solid #dc3545;background:rgba(255,255,255,.92);color:#dc3545;cursor:pointer;display:none}
 .sheet-sig-zone.has-ink:hover .sheet-sig-clr,.sheet-sig-zone.has-ink:focus-within .sheet-sig-clr{display:block}
 .sig2 .r .sheet-sig-zone{min-height:46px;margin-bottom:0}
-.sig3{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid #111;margin:0 -9px -4px}
-.sig3>div{padding:5px 8px;border-right:1px solid #111;display:flex;flex-direction:column}
+.sig3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #111;margin:0 -9px -4px}
+.sig3>div{padding:5px 8px;border-right:1px solid #111;display:flex;flex-direction:column;min-width:0;overflow:hidden}
 .sig3>div:last-child{border-right:0}
+.sig3 .ruled{max-height:220px}
 .sig3 small{text-align:center;font-size:9px;margin-top:3px;pointer-events:none}
 .sig3 .sheet-sig-zone{flex:none;height:74px;margin-top:5px;margin-bottom:2px}
 
@@ -369,7 +372,7 @@ tr:hover td{background:var(--bg)}
   </div>
   <div class="kpi-mini">
    <span>W archiwum: <b id="kpiTotal">0</b></span>
-   <span class="kpi-pill">v7 • Pełny arkusz A4</span>
+   <span class="kpi-pill">v8 • Dopasowany obrys</span>
   </div>
  </div>
 
@@ -660,7 +663,7 @@ document.querySelectorAll("[data-jump]").forEach(function(st){
  });
 });
 
-/* Bezpośrednie podpisywanie S-Penem na polach arkusza A4 */
+/* Bezpośrednie podpisywanie S-Penem z przycinaniem współrzędnych do obrysu pola */
 var SIG_KEYS=["srv","nab","uz","inv"];
 var SIGS={srv:"",nab:"",uz:"",inv:""};
 var penColor="#12348a";
@@ -705,11 +708,15 @@ function bindSheetSigPads(){
   var drawing=false;
   var lastX=0,lastY=0,lastW=1.8;
 
+  function clamp(val,min,max){return Math.max(min,Math.min(max,val))}
+
   function getLocalPos(e){
    var r=canvas.getBoundingClientRect();
    var scaleX=w/(r.width||w);
    var scaleY=h/(r.height||h);
-   return{x:(e.clientX-r.left)*scaleX,y:(e.clientY-r.top)*scaleY};
+   var rawX=(e.clientX-r.left)*scaleX;
+   var rawY=(e.clientY-r.top)*scaleY;
+   return{x:clamp(rawX,1,w-1),y:clamp(rawY,1,h-1)};
   }
 
   canvas.addEventListener("pointerdown",function(e){
@@ -781,7 +788,7 @@ $("clrAllSigsBtn").onclick=function(){
 };
 
 var ids=["data","wyrob","nrz","nrs","nabN","nabA","uzN","uzA","invN","invA","dU","dE","usterki","sposob","uwagi","miejsce","opis","zal","eN","eU","eI","sA","sB","sC"];
-var KEY="hv-protokol-v7";
+var KEY="hv-protokol-v8";
 var ARCH_KEY="hv-archive-v1";
 var HIST_KEY="hv-hist-v2";
 var HIST_FIELDS=["sym","wyrob","nrz","nrs","nabN","nabA","uzN","uzA","invN","invA","usterki","sposob","uwagi","miejsce","opis","zal","sA","sB","sC"];
@@ -1099,10 +1106,10 @@ function initHistoryControls(){
  });
 }
 
-/* Generowanie dokumentu A4 dopasowanego dokładnie do strony bez ucinania dołu */
+/* Generowanie dokumentu A4 dopasowanego dokładnie do obrysu */
 function ln(l,v){return '<div class="ln"><b>'+l+'</b><span class="v">'+esc(v)+'</span></div>'}
 function sec(x){return '<div class="sec">'+x+'</div>'}
-function rl(t,n){return '<div class="ruled" style="min-height:'+(n*20)+'px">'+esc(t)+'</div>'}
+function rl(t,n){return '<div class="ruled" style="min-height:'+(n*20)+'px;max-height:'+(n*20)+'px">'+esc(t)+'</div>'}
 function sx(on,t){return on?'<span>'+t+'</span>':'<span class="s1">'+t+'</span>'}
 function cnts(){var t=nn("eN")+nn("eU")+nn("eI")+1;return 'Protokół sporządzono w '+t+' ('+words(t)+') jednobrzmiących egzemplarzach: '+nn("eN")+' ('+words(g("eN"))+') dla Nabywcy, '+nn("eU")+' ('+words(g("eU"))+') dla Użytkownika, '+nn("eI")+' ('+words(g("eI"))+') dla Inwestora i 1 (jeden) dla Hydro-Vacuum S.A.'}
 function head(f){return '<div class="hdr"><div class="hd">HYDRO-VACUUM S.A.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Grudziądz</div>'+(f?'<div class="fc">Form. 4b/IS-7.2/01</div>':'')+'</div>'}
@@ -1146,7 +1153,7 @@ function render(){
    sec('<b>9.&nbsp; Zalecenia:</b>'+rl(g("zal"),3))+'</div>');
   var parties=[{lbl:'11.&nbsp; Nabywca',key:'nab',tip:'Podpis Nabywcy'},{lbl:'12.&nbsp; Użytkownik',key:'uz',tip:'Podpis Użytkownika'},{lbl:'13.&nbsp; Inwestor',key:'inv',tip:'Podpis Inwestora'}];
   var cm=parties.map(function(p){
-   return '<div><b>'+p.lbl+'</b><b style="margin-top:3px">Miejsce na zgłoszenie uwag:</b><div class="ruled" style="min-height:220px;margin-top:4px"></div>'+sigZoneHtml(p.key,p.tip)+'<small>(imię i nazwisko oraz podpis*)</small></div>';
+   return '<div><b>'+p.lbl+'</b><b style="margin-top:3px">Miejsce na zgłoszenie uwag:</b><div class="ruled" style="min-height:220px;max-height:220px;margin-top:4px"></div>'+sigZoneHtml(p.key,p.tip)+'<small>(imię i nazwisko oraz podpis*)</small></div>';
   }).join("");
   pg.push('<div class="box" style="margin-top:0"><h3>OSOBY UCZESTNICZĄCE</h3>'+
    sec('<div class="note" style="margin-top:0"><i>'+cnts()+' Wraz z protokołem przekazano Użytkownikowi niezbędne dokumenty dotyczące eksploatacji wyrobu.</i></div>')+

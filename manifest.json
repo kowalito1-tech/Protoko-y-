@@ -1,12 +1,12 @@
 {
-  "name": "Protokoły Hydro-Vacuum",
+  "name": "Hydro Pro Service – Protokoły Hydro-Vacuum",
   "short_name": "Protokoły",
   "lang": "pl",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#eef1f4",
-  "theme_color": "#004B87",
+  "background_color": "#F8F9FA",
+  "theme_color": "#0F2D52",
   "icons": [
     {
       "src": "icon-192.png",

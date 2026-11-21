@@ -3,97 +3,195 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Protokoły Hydro-Vacuum</title>
+<title>Hydro Pro Service – Protokoły Hydro-Vacuum</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#004B87">
+<meta name="theme-color" content="#0F2D52">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Protokoły">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%23004B87'/%3E%3Ccircle cx='90' cy='90' r='70' fill='none' stroke='%23009FE3' stroke-width='7'/%3E%3Cpath d='M52 34h56l20 20v92H52z' fill='%23ffffff'/%3E%3Crect x='64' y='64' width='52' height='6' fill='%23004B87'/%3E%3Crect x='64' y='83' width='52' height='6' fill='%23004B87'/%3E%3Crect x='64' y='102' width='52' height='6' fill='%23004B87'/%3E%3Crect x='64' y='121' width='52' height='6' fill='%23004B87'/%3E%3C/svg%3E">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%230F2D52'/%3E%3Ccircle cx='90' cy='90' r='72' fill='none' stroke='%230078D4' stroke-width='7'/%3E%3Cpath d='M52 34h56l20 20v92H52z' fill='%23ffffff'/%3E%3Crect x='64' y='64' width='52' height='6' fill='%230F2D52'/%3E%3Crect x='64' y='83' width='52' height='6' fill='%230F2D52'/%3E%3Crect x='64' y='102' width='52' height='6' fill='%230F2D52'/%3E%3Crect x='64' y='121' width='52' height='6' fill='%230F2D52'/%3E%3C/svg%3E">
 <style>
-:root{--bg:#eef1f4;--panel:#fff;--ink:#14202b;--mute:#5b6b79;--line:#cdd5dc;--acc:#004B87;--acc2:#009FE3;--accink:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10171d;--panel:#1a242d;--ink:#e6edf2;--mute:#93a3b0;--line:#33424e;--acc:#009FE3;--acc2:#5db3e8;--accink:#07202f}}
+:root{
+  --primary:#0F2D52;
+  --primary-light:#0078D4;
+  --primary-hover:#0062ad;
+  --accent:#22C55E;
+  --warning:#FFB000;
+  --danger:#DC3545;
+  --dark:#212529;
+  --gray:#6C757D;
+  --light-gray:#E9ECEF;
+  --bg:#F8F9FA;
+  --panel:#FFFFFF;
+  --line:#DEE2E6;
+  --ink:#212529;
+  --mute:#6C757D;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d131a;
+    --panel:#161f29;
+    --line:#283544;
+    --ink:#edf2f7;
+    --mute:#9aa8b6;
+    --light-gray:#1f2b38;
+  }
+}
 *,*::before,*::after{box-sizing:inherit}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.32 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.app{max-width:860px;margin:0 auto;padding:10px 12px}
-.top-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:2px 0 8px;flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:9px}
-.brand-logo{width:36px;height:36px;border-radius:8px;flex-shrink:0;box-shadow:0 2px 5px rgba(0,75,135,.2)}
-.brand-txt h1{font-size:1.05rem;margin:0;line-height:1.15}
-.brand-txt span{display:block;font-size:.72rem;font-weight:700;color:var(--acc);letter-spacing:.2px}
-.lock-btn{min-height:32px;padding:4px 10px;font-size:.76rem;display:inline-flex;align-items:center;gap:4px;border-radius:7px;color:var(--mute)}
-.lock-btn:hover{color:var(--ink);border-color:var(--acc)}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.38 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
 
-/* Ekran blokady PIN */
-#pinGate{position:fixed;inset:0;z-index:9999;background:linear-gradient(160deg,#003766 0%,#004B87 55%,#0068b5 100%);color:#fff;display:flex;align-items:center;justify-content:center;padding:16px}
+/* Ekran blokady PIN (1997) */
+#pinGate{position:fixed;inset:0;z-index:9999;background:linear-gradient(150deg,#081a30 0%,#0F2D52 55%,#005294 100%);color:#fff;display:flex;align-items:center;justify-content:center;padding:16px}
 #pinGate.hidden{display:none!important}
-.pin-card{width:100%;max-width:320px;background:rgba(255,255,255,.1);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.22);border-radius:16px;padding:20px 16px;text-align:center;box-shadow:0 18px 40px rgba(0,0,0,.28)}
-.pin-card svg{width:54px;height:54px;border-radius:13px;margin:0 auto 10px;display:block;box-shadow:0 6px 16px rgba(0,0,0,.25)}
-.pin-card h2{margin:0;font-size:1.1rem;color:#fff}
-.pin-card p{margin:4px 0 12px;font-size:.82rem;color:rgba(255,255,255,.82)}
+.pin-card{width:100%;max-width:320px;background:rgba(255,255,255,.08);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:22px 18px;text-align:center;box-shadow:0 20px 44px rgba(0,0,0,.35)}
+.pin-logo-box{display:inline-flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:13px;background:#fff;color:#0F2D52;font-weight:900;font-size:1.9rem;font-style:italic;border:3px solid #0078D4;margin:0 auto 10px;box-shadow:0 6px 16px rgba(0,0,0,.25)}
+.pin-card h2{margin:0;font-size:1.12rem;font-weight:700;color:#fff;letter-spacing:.4px}
+.pin-card p{margin:4px 0 12px;font-size:.82rem;color:rgba(255,255,255,.78)}
 .pin-dots{display:flex;justify-content:center;gap:12px;margin:10px 0 8px}
-.pin-dots span{width:13px;height:13px;border-radius:50%;border:2px solid #009FE3;background:transparent;transition:all .15s}
-.pin-dots span.on{background:#fff;border-color:#fff;transform:scale(1.12)}
-.pin-dots.err span{border-color:#ff6b6b;background:#ff6b6b}
+.pin-dots span{width:13px;height:13px;border-radius:50%;border:2px solid #0078D4;background:transparent;transition:all .15s}
+.pin-dots span.on{background:#22C55E;border-color:#22C55E;transform:scale(1.14)}
+.pin-dots.err span{border-color:#DC3545;background:#DC3545}
 #pinInput{position:absolute;opacity:0;pointer-events:none}
-.pin-err{min-height:18px;font-size:.78rem;color:#ffd1d1;font-weight:600;margin-bottom:6px}
+.pin-err{min-height:18px;font-size:.78rem;color:#ffb4bc;font-weight:600;margin-bottom:6px}
 .pad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
-.pad button{min-height:46px;border-radius:10px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.12);color:#fff;font-size:1.18rem;font-weight:700;cursor:pointer;transition:background .12s,transform .08s}
-.pad button:active{background:rgba(255,255,255,.28);transform:scale(.97)}
-.pad button.fn-key{font-size:.86rem;font-weight:600;background:rgba(0,0,0,.18)}
-.pin-rem{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-size:.8rem;color:rgba(255,255,255,.9);cursor:pointer}
-.pin-rem input{width:auto;min-height:auto;accent-color:#009FE3}
+.pad button{min-height:46px;border-radius:10px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.1);color:#fff;font-size:1.18rem;font-weight:700;cursor:pointer;transition:background .12s,transform .08s}
+.pad button:active{background:rgba(0,120,212,.55);transform:scale(.97)}
+.pad button.fn-key{font-size:.84rem;font-weight:600;background:rgba(0,0,0,.22)}
+.pin-rem{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-size:.8rem;color:rgba(255,255,255,.88);cursor:pointer}
+.pin-rem input{width:auto;min-height:auto;height:auto;accent-color:#0078D4}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 .shake{animation:shake .26s ease-in-out}
 
-/* Kompaktowe sekcje i pola formularza */
-fieldset{background:var(--panel);border:1px solid var(--line);border-radius:8px;margin:0 0 8px;padding:7px 10px 9px;border-top:2.5px solid var(--acc)}
-legend{font-weight:700;font-size:.82rem;padding:0 5px;color:var(--acc)}
-label{display:block;font-size:.76rem;color:var(--mute);margin:5px 0 2px}
-input,textarea{width:100%;font:inherit;font-size:.88rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:5px 8px}
-input{min-height:34px;height:34px}
-textarea{min-height:56px;resize:vertical;line-height:1.3}
-input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+/* Pasek nawigacji HYDRO PRO SERVICE */
+.navbar{background:var(--primary);color:#fff;padding:0 16px;min-height:54px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 2px 8px rgba(15,45,82,.22);position:sticky;top:0;z-index:100}
+.nav-left{display:flex;align-items:center;gap:18px;min-width:0}
+.nav-brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:#fff;flex-shrink:0}
+.h-badge{width:32px;height:32px;border-radius:7px;background:#fff;color:var(--primary);border:2px solid var(--primary-light);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.25rem;font-style:italic;letter-spacing:-1px}
+.nav-title{line-height:1.05}
+.nav-title strong{display:block;font-size:.95rem;letter-spacing:.4px}
+.nav-title strong em{font-style:normal;color:#4db2ff}
+.nav-title span{display:block;font-size:.64rem;letter-spacing:2.4px;color:rgba(255,255,255,.78);font-weight:600}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-tab{background:transparent;border:0;color:rgba(255,255,255,.82);padding:7px 11px;min-height:34px;border-radius:6px;font-size:.82rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.nav-tab:hover{background:rgba(255,255,255,.1);color:#fff}
+.nav-tab.active{background:var(--primary-light);color:#fff}
+.nav-tab .pill{background:rgba(255,255,255,.2);padding:1px 6px;border-radius:10px;font-size:.7rem}
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.user-chip{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.1);padding:4px 10px 4px 5px;border-radius:20px;font-size:.76rem}
+.user-av{width:24px;height:24px;border-radius:50%;background:var(--primary-light);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.72rem}
+.user-meta{line-height:1.1}
+.user-meta b{display:block;font-size:.75rem}
+.user-meta small{display:block;font-size:.65rem;color:rgba(255,255,255,.72)}
+.nav-lock{min-height:32px;padding:4px 9px;border-radius:6px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;font-size:.75rem;font-weight:600;cursor:pointer}
+.nav-lock:hover{background:rgba(220,53,69,.85);border-color:#DC3545}
+@media (max-width:680px){
+  .user-meta{display:none}
+  .navbar{padding:6px 10px;flex-wrap:wrap}
+  .nav-links{order:3;width:100%;overflow-x:auto;padding-top:4px;border-top:1px solid rgba(255,255,255,.12)}
+}
+
+/* Widoki nawigacji */
+.view{display:none}
+.view.active{display:block}
+.container{max-width:1460px;margin:0 auto;padding:12px 14px}
+
+/* Pasek etapów (Stepper z UI Kit) */
+.stepper-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.stepper{display:flex;align-items:center;gap:6px;flex:1;min-width:260px}
+.step{display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:var(--mute);cursor:pointer;white-space:nowrap}
+.step .num{width:22px;height:22px;border-radius:50%;background:var(--light-gray);color:var(--mute);display:flex;align-items:center;justify-content:center;font-size:.74rem;font-weight:700;transition:all .15s}
+.step.done .num{background:var(--accent);color:#fff}
+.step.cur{color:var(--primary-light)}
+.step.cur .num{background:var(--primary-light);color:#fff;box-shadow:0 0 0 3px rgba(0,120,212,.2)}
+.step-line{flex:1;height:2px;background:var(--line);min-width:12px}
+.step-line.done{background:var(--accent)}
+.kpi-mini{display:flex;align-items:center;gap:10px;font-size:.78rem;color:var(--mute)}
+.kpi-pill{background:rgba(34,197,94,.14);color:#15803d;font-weight:700;padding:2px 8px;border-radius:12px;font-size:.74rem}
+
+/* Główny układ roboczy (Formularz + Podgląd A4) */
+.work-grid{display:grid;grid-template-columns:minmax(340px,420px) 1fr;column-gap:16px;align-items:start}
+@media (max-width:960px){.work-grid{grid-template-columns:1fr}}
+
+/* Karty formularza */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;padding-bottom:5px;border-bottom:1px solid var(--light-gray)}
+.card-hd h3{margin:0;font-size:.84rem;font-weight:700;color:var(--primary);display:flex;align-items:center;gap:6px}
+@media (prefers-color-scheme:dark){.card-hd h3{color:#63b3ed}}
+.badge-step{background:rgba(0,120,212,.12);color:var(--primary-light);font-size:.7rem;font-weight:700;padding:1px 7px;border-radius:10px}
+
+label{display:block;font-size:.75rem;font-weight:600;color:var(--mute);margin:5px 0 2px}
+input,textarea,select{width:100%;font:inherit;font-size:.86rem;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:5px 9px;transition:border-color .15s,box-shadow .15s}
+input,select{min-height:34px;height:34px}
+input[readonly]{background:var(--light-gray);font-weight:700;color:var(--primary)}
+@media (prefers-color-scheme:dark){input[readonly]{color:#63b3ed}}
+textarea{min-height:54px;resize:vertical;line-height:1.32}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary-light);box-shadow:0 0 0 3px rgba(0,120,212,.16)}
+
 .date-row{display:flex;gap:4px;align-items:stretch}
 .date-row input{flex:1;min-width:0}
-.btn-today{min-height:34px;height:34px;padding:0 8px;font-size:.75rem;font-weight:600;border-radius:6px;border:1px solid var(--acc);color:var(--acc);background:transparent;white-space:nowrap;flex-shrink:0}
-.btn-today:hover{background:var(--acc);color:var(--accink)}
+.btn-today{min-height:34px;height:34px;padding:0 9px;font-size:.74rem;font-weight:600;border-radius:6px;border:1px solid var(--primary-light);color:var(--primary-light);background:transparent;white-space:nowrap;flex-shrink:0;cursor:pointer}
+.btn-today:hover{background:var(--primary-light);color:#fff}
 
 /* Zapamiętywanie i lista podpowiedzi */
 .hist-wrap{position:relative}
 .lbl-row{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:5px 0 2px}
 .lbl-row label{margin:0}
-.hist-btn{min-height:20px;height:20px;padding:0 6px;font-size:.7rem;font-weight:600;border-radius:5px;border:1px solid var(--line);background:var(--bg);color:var(--acc);display:inline-flex;align-items:center;gap:3px;cursor:pointer}
-.hist-btn:hover{border-color:var(--acc);background:var(--acc);color:var(--accink)}
-.hist-btn .cnt{opacity:.75;font-weight:400}
-.hist-pop{position:absolute;left:0;right:0;top:100%;margin-top:3px;z-index:120;background:var(--panel);border:1.5px solid var(--acc);border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,.18);overflow:hidden;display:none}
+.hist-btn{min-height:20px;height:20px;padding:0 7px;font-size:.7rem;font-weight:600;border-radius:5px;border:1px solid var(--line);background:var(--bg);color:var(--primary-light);display:inline-flex;align-items:center;gap:3px;cursor:pointer}
+.hist-btn:hover{border-color:var(--primary-light);background:var(--primary-light);color:#fff}
+.hist-btn .cnt{opacity:.78;font-weight:400}
+.hist-pop{position:absolute;left:0;right:0;top:100%;margin-top:3px;z-index:120;background:var(--panel);border:1.5px solid var(--primary-light);border-radius:8px;box-shadow:0 10px 24px rgba(15,45,82,.18);overflow:hidden;display:none}
 .hist-pop.open{display:block}
 .hist-head{display:flex;align-items:center;gap:5px;padding:5px 6px;background:var(--bg);border-bottom:1px solid var(--line)}
-.hist-head input{min-height:28px;height:28px;padding:3px 7px;font-size:.8rem;background:var(--panel)}
-.hist-clr{min-height:28px;height:28px;padding:0 7px;font-size:.72rem;color:#c0392b;border-color:transparent;background:transparent;white-space:nowrap}
-.hist-clr:hover{background:rgba(192,57,43,.1)}
-.hist-list{max-height:180px;overflow-y:auto}
+.hist-head input{min-height:28px;height:28px;padding:3px 7px;font-size:.8rem}
+.hist-clr{min-height:28px;height:28px;padding:0 7px;font-size:.72rem;color:var(--danger);border:0;background:transparent;white-space:nowrap;cursor:pointer}
+.hist-clr:hover{background:rgba(220,53,69,.1)}
+.hist-list{max-height:185px;overflow-y:auto}
 .hist-item{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:6px 8px;border-bottom:1px solid var(--line);cursor:pointer;font-size:.82rem}
 .hist-item:last-child{border-bottom:0}
 .hist-item:hover{background:var(--bg)}
 .hist-txt{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.hist-sub{display:block;font-size:.72rem;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.hist-del{min-height:22px;height:22px;min-width:22px;padding:0 4px;border-radius:5px;border:0;background:transparent;color:var(--mute);font-size:.8rem}
-.hist-del:hover{background:rgba(192,57,43,.14);color:#c0392b}
+.hist-sub{display:block;font-size:.71rem;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hist-del{min-height:22px;height:22px;min-width:22px;padding:0 4px;border-radius:5px;border:0;background:transparent;color:var(--mute);font-size:.82rem;cursor:pointer}
+.hist-del:hover{background:rgba(220,53,69,.14);color:var(--danger)}
 .hist-empty{padding:9px;text-align:center;font-size:.78rem;color:var(--mute)}
 
+/* Zakładki rodzaju protokołu */
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.tabs label{display:flex;align-items:center;justify-content:center;text-align:center;min-height:36px;margin:0;padding:4px 6px;border:1px solid var(--line);border-radius:7px;color:var(--ink);font-size:.8rem;font-weight:600;cursor:pointer;background:var(--bg);transition:all .15s}
+.tabs input{position:absolute;opacity:0;width:0;height:0}
+.tabs label:has(input:checked){background:var(--primary-light);color:#fff;border-color:var(--primary-light);box-shadow:0 2px 6px rgba(0,120,212,.25)}
+
+/* Siatki i przyciski zgodnie z UI Kit */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:0 8px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 8px}
+@media (max-width:520px){.g2,.g3{grid-template-columns:1fr}}
 .radios{display:flex;flex-wrap:wrap;gap:4px 12px}
-.radios label{display:flex;align-items:center;gap:5px;color:var(--ink);font-size:.84rem;margin:2px 0}
-.radios input{width:auto;min-height:auto;height:auto}
-.bar{display:flex;gap:7px;flex-wrap:wrap;margin:9px 0}
-button{font:inherit;font-size:.84rem;font-weight:600;border-radius:8px;min-height:36px;padding:6px 13px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
-button.p{background:var(--acc);color:var(--accink);border-color:var(--acc)}
-h2{font-size:.9rem;margin:12px 0 6px;color:var(--mute)}
-#wrap{overflow:hidden;border:1px solid var(--line);border-radius:6px;background:#fff}
+.radios label{display:flex;align-items:center;gap:5px;color:var(--ink);font-size:.82rem;font-weight:500;margin:2px 0;cursor:pointer}
+.radios input{width:auto;min-height:auto;height:auto;accent-color:var(--primary-light)}
+
+.btn-row{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}
+.btn{font:inherit;font-size:.82rem;font-weight:600;border-radius:7px;min-height:36px;padding:6px 13px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:all .14s}
+.btn:hover{border-color:var(--primary-light);color:var(--primary-light)}
+.btn-primary{background:var(--primary-light);color:#fff;border-color:var(--primary-light);box-shadow:0 2px 5px rgba(0,120,212,.22)}
+.btn-primary:hover{background:var(--primary-hover);color:#fff}
+.btn-success{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-success:hover{filter:brightness(.94);color:#fff}
+.btn-danger{background:transparent;color:var(--danger);border-color:rgba(220,53,69,.4)}
+.btn-danger:hover{background:var(--danger);color:#fff}
+
+/* Podgląd A4 po prawej stronie */
+#prev{position:sticky;top:64px}
+.prev-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.prev-head h2{font-size:.88rem;margin:0;color:var(--primary);font-weight:700}
+@media (prefers-color-scheme:dark){.prev-head h2{color:#63b3ed}}
+.status-tag{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;border-radius:12px;font-size:.74rem;font-weight:700;background:rgba(0,120,212,.12);color:var(--primary-light)}
+.status-tag.ok{background:rgba(34,197,94,.15);color:#15803d}
+#wrap{overflow:hidden;border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:0 4px 16px rgba(15,45,82,.08)}
 #sheet{width:794px;min-height:1123px;padding:44px 50px;background:#fff;color:#111;font:13px/1.35 "Times New Roman",Times,serif;transform-origin:top left}
 #sheet .hd{font-weight:700;font-size:13px}
 #sheet .t{text-align:center;margin-top:8px}
@@ -118,30 +216,12 @@ h2{font-size:.9rem;margin:12px 0 6px;color:var(--mute)}
 .sig2 .l{flex:1}
 .sig2 .r{width:240px;font-weight:700}
 .fn{font-size:9.5px;margin-top:4px}
-@media (max-width:520px){.g2,.g3{grid-template-columns:1fr}}
-@media (min-width:960px){
- .app{max-width:1460px;display:grid;grid-template-columns:minmax(330px,400px) 1fr;column-gap:16px;align-items:start}
- .app>*:not(#prev){grid-column:1}
- #prev{grid-column:2;grid-row:1/span 9;position:sticky;top:calc(10px + env(safe-area-inset-top,0px))}
-}
-@media print{
- @page{size:A4;margin:0}
- body{background:#fff}
- #pinGate{display:none!important}
- .app{display:block!important;max-width:none;padding:0}
- #prev{position:static!important}
- .app>*:not(#prev){display:none!important}
- #prev>h2{display:none}
- #wrap{border:0;height:auto!important}
- #sheet{transform:none!important;margin:0;width:210mm;min-height:297mm;padding:12mm 14mm}
-}
-
 #sheet{padding:0!important;min-height:0!important;background:transparent!important;display:block}
 .pg{width:794px;height:1123px;padding:44px 50px;background:#fff;color:#111;overflow:hidden;margin-bottom:14px;box-shadow:0 0 0 1px #ccc}
 .thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(74px,1fr));gap:6px}
 .th{position:relative}
-.th img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:5px;display:block;border:1px solid var(--line)}
-.th button{position:absolute;top:3px;right:3px;min-height:24px;height:24px;padding:0 7px;border-radius:12px;font-size:.72rem}
+.th img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;display:block;border:1px solid var(--line)}
+.th button{position:absolute;top:3px;right:3px;min-height:22px;height:22px;padding:0 6px;border-radius:11px;font-size:.7rem;background:rgba(220,53,69,.9);color:#fff;border:0;cursor:pointer}
 .ph{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
 .ph div{height:430px;border:1px solid #111;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .ph img{max-width:100%;max-height:100%;object-fit:contain}
@@ -151,13 +231,46 @@ h2{font-size:.9rem;margin:12px 0 6px;color:var(--mute)}
 .sig3>div{padding:6px 10px;border-right:1px solid #111;display:flex;flex-direction:column}
 .sig3>div:last-child{border-right:0}
 .sig3 small{text-align:center;font-size:9.5px;margin-top:4px}
-.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.tabs label{display:flex;align-items:center;justify-content:center;text-align:center;min-height:36px;margin:0;padding:4px;border:1px solid var(--line);border-radius:7px;color:var(--ink);font-size:.82rem;font-weight:600;cursor:pointer}
-.tabs input{position:absolute;opacity:0;width:0;height:0}
-.tabs label:has(input:checked){background:var(--acc);color:var(--accink);border-color:var(--acc)}
-.tabs label:has(input:focus-visible){outline:2px solid var(--acc);outline-offset:2px}
+
+/* Tabela zapisanych protokołów i statystyki (z UI Kit) */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+@media (max-width:720px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+.kpi-box{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.kpi-box span{font-size:.76rem;color:var(--mute);font-weight:600;display:block}
+.kpi-box strong{font-size:1.55rem;color:var(--primary);display:block;margin:3px 0}
+@media (prefers-color-scheme:dark){.kpi-box strong{color:#63b3ed}}
+.kpi-box small{font-size:.74rem;color:#15803d;font-weight:600}
+.tbl-wrap{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.tbl-bar{padding:10px 12px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.tbl-bar input{max-width:260px}
+table{width:100%;border-collapse:collapse;font-size:.83rem}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line)}
+th{background:var(--bg);color:var(--mute);font-weight:700;font-size:.76rem;text-transform:uppercase;letter-spacing:.3px}
+tr:hover td{background:var(--bg)}
+.tag{display:inline-block;padding:2px 8px;border-radius:12px;font-size:.72rem;font-weight:700}
+.tag-s{background:rgba(255,176,0,.18);color:#9a6700}
+.tag-u{background:rgba(34,197,94,.16);color:#15803d}
+.tag-m{background:rgba(0,120,212,.14);color:var(--primary-light)}
+
+/* Powiadomienia Toast (z UI Kit) */
+#toastBox{position:fixed;right:14px;bottom:14px;z-index:9000;display:flex;flex-direction:column;gap:8px;max-width:320px}
+.toast{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:10px 12px;box-shadow:0 8px 22px rgba(0,0,0,.16);font-size:.82rem;animation:slideIn .2s ease}
+.toast.info{border-left-color:var(--primary-light)}
+.toast.warn{border-left-color:var(--warning)}
+.toast b{display:block;margin-bottom:2px;color:var(--ink)}
+.toast span{color:var(--mute);font-size:.76rem}
+@keyframes slideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
 @media print{
- #sheet{width:210mm!important;padding:0!important}
+ @page{size:A4;margin:0}
+ body{background:#fff}
+ #pinGate,.navbar,.stepper-card,.form-col,.prev-head,#toastBox,#view-archive{display:none!important}
+ #view-editor{display:block!important}
+ .container{max-width:none;padding:0}
+ .work-grid{display:block!important}
+ #prev{position:static!important}
+ #wrap{border:0;height:auto!important;box-shadow:none}
+ #sheet{width:210mm!important;padding:0!important;transform:none!important}
  .pg{width:210mm;height:297mm;padding:12mm 14mm;margin:0;box-shadow:none;break-after:page;page-break-after:always}
  .pg:last-child{break-after:auto;page-break-after:auto}
 }
@@ -165,19 +278,12 @@ h2{font-size:.9rem;margin:12px 0 6px;color:var(--mute)}
 </head>
 <body>
 
+<!-- Ekran PIN 1997 -->
 <div id="pinGate" role="dialog" aria-modal="true" aria-labelledby="pinTitle">
  <div class="pin-card" id="pinCard">
-  <svg viewBox="0 0 180 180" aria-hidden="true">
-   <rect width="180" height="180" fill="#004B87"/>
-   <circle cx="90" cy="90" r="70" fill="none" stroke="#009FE3" stroke-width="7"/>
-   <path d="M52 34h56l20 20v92H52z" fill="#ffffff"/>
-   <rect x="64" y="64" width="52" height="6" fill="#004B87"/>
-   <rect x="64" y="83" width="52" height="6" fill="#004B87"/>
-   <rect x="64" y="102" width="52" height="6" fill="#004B87"/>
-   <rect x="64" y="121" width="52" height="6" fill="#004B87"/>
-  </svg>
-  <h2 id="pinTitle">Protokoły Hydro-Vacuum</h2>
-  <p>Wprowadź kod PIN, aby uzyskać dostęp</p>
+  <div class="pin-logo-box">H</div>
+  <h2 id="pinTitle">HYDRO PRO SERVICE</h2>
+  <p>System protokołów Hydro-Vacuum S.A.</p>
   <input id="pinInput" type="password" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="Kod PIN">
   <div class="pin-dots" id="pinDots"><span></span><span></span><span></span><span></span></div>
   <div class="pin-err" id="pinErr"></div>
@@ -199,142 +305,231 @@ h2{font-size:.9rem;margin:12px 0 6px;color:var(--mute)}
  </div>
 </div>
 
-<div class="app">
-<div class="top-bar">
- <div class="brand">
-  <svg class="brand-logo" viewBox="0 0 180 180" aria-hidden="true">
-   <rect width="180" height="180" fill="#004B87"/>
-   <circle cx="90" cy="90" r="70" fill="none" stroke="#009FE3" stroke-width="7"/>
-   <path d="M52 34h56l20 20v92H52z" fill="#ffffff"/>
-   <rect x="64" y="64" width="52" height="6" fill="#004B87"/>
-   <rect x="64" y="83" width="52" height="6" fill="#004B87"/>
-   <rect x="64" y="102" width="52" height="6" fill="#004B87"/>
-   <rect x="64" y="121" width="52" height="6" fill="#004B87"/>
-  </svg>
-  <div class="brand-txt">
-   <span>HYDRO-VACUUM S.A.</span>
-   <h1>Generator protokołów serwisowych</h1>
-  </div>
- </div>
- <button type="button" class="lock-btn" id="lockBtn" title="Zablokuj dostęp kodem PIN">🔒 Zablokuj</button>
-</div>
-
-<fieldset><legend>Rodzaj protokołu</legend>
- <div class="tabs">
-  <label><input type="radio" name="typ" value="s" checked>Usterki / naprawa</label>
-  <label><input type="radio" name="typ" value="u">Uruchomienie</label>
-  <label><input type="radio" name="typ" value="m">Montaż</label>
- </div>
-</fieldset>
-
-<fieldset><legend>Numer i data</legend>
- <div class="g2">
-  <div><label for="nr">Numer protokołu (auto)</label><input id="nr" readonly></div>
-  <div>
-   <label for="data">Data sporządzenia</label>
-   <div class="date-row">
-    <input id="data" type="date">
-    <button type="button" class="btn-today" data-today="data" title="Ustaw dzisiejszą datę">Dziś</button>
+<!-- Górny pasek nawigacji HYDRO PRO SERVICE -->
+<header class="navbar">
+ <div class="nav-left">
+  <div class="nav-brand">
+   <div class="h-badge">H</div>
+   <div class="nav-title">
+    <strong>HYDRO <em>PRO</em></strong>
+    <span>SERVICE</span>
    </div>
   </div>
-  <div><label for="cnt">Kolejny numer</label><input id="cnt" type="number" min="1" value="1"></div>
-  <div><label for="sym">Symbol (inicjały)</label><input id="sym" value="KW"></div>
+  <nav class="nav-links" aria-label="Nawigacja główna">
+   <button type="button" class="nav-tab active" data-view="editor">Generator protokołu</button>
+   <button type="button" class="nav-tab" data-view="archive">Zapisane protokoły <span class="pill" id="archCount">0</span></button>
+  </nav>
  </div>
-</fieldset>
-
-<fieldset><legend>Dane wyrobu</legend>
- <label for="wyrob">Nazwa wyrobu</label><input id="wyrob" placeholder="np. PSD 2 E/L0">
- <div class="g2">
-  <div><label for="nrz">Nr fabryczny zestawu</label><input id="nrz"></div>
-  <div><label for="nrs">Nr seryjny sterowania</label><input id="nrs"></div>
- </div>
-</fieldset>
-
-<fieldset><legend>Strony</legend>
- <div class="g2">
-  <div><label for="nabN">Nabywca – nazwa</label><input id="nabN"></div>
-  <div><label for="nabA">Nabywca – adres</label><input id="nabA"></div>
-  <div><label for="uzN">Użytkownik – nazwa</label><input id="uzN"></div>
-  <div><label for="uzA">Użytkownik – adres (i NIP)</label><input id="uzA"></div>
-  <div><label for="invN">Inwestor – nazwa</label><input id="invN"></div>
-  <div><label for="invA">Inwestor – adres</label><input id="invA"></div>
- </div>
-</fieldset>
-
-<fieldset><legend>Szczegóły</legend>
- <div class="g2">
-  <div>
-   <label for="dU" id="lbDU">Data</label>
-   <div class="date-row">
-    <input id="dU" type="date">
-    <button type="button" class="btn-today" data-today="dU" title="Ustaw dzisiejszą datę">Dziś</button>
+ <div class="nav-right">
+  <div class="user-chip">
+   <div class="user-av" id="navAv">KW</div>
+   <div class="user-meta">
+    <b id="navUser">Serwisant HV</b>
+    <small>Hydro-Vacuum S.A.</small>
    </div>
   </div>
-  <div data-t="s">
-   <label for="dE">Data rozpoczęcia eksploatacji</label>
-   <div class="date-row">
-    <input id="dE" type="date">
-    <button type="button" class="btn-today" data-today="dE" title="Ustaw dzisiejszą datę">Dziś</button>
+  <button type="button" class="nav-lock" id="lockBtn" title="Zablokuj dostęp kodem PIN">🔒 Zablokuj</button>
+ </div>
+</header>
+
+<!-- WIDOK 1: EDYTOR PROTOKOŁU -->
+<main class="container view active" id="view-editor">
+
+ <!-- Pasek postępu / etapy -->
+ <div class="stepper-card">
+  <div class="stepper" id="stepper">
+   <div class="step cur" data-jump="sec-1"><span class="num">1</span>Dane podstawowe</div>
+   <div class="step-line" id="line-1"></div>
+   <div class="step" data-jump="sec-2"><span class="num">2</span>Opis prac</div>
+   <div class="step-line" id="line-2"></div>
+   <div class="step" data-jump="sec-3"><span class="num">3</span>Załączniki</div>
+   <div class="step-line" id="line-3"></div>
+   <div class="step" data-jump="sec-4"><span class="num">4</span>Podsumowanie</div>
+  </div>
+  <div class="kpi-mini">
+   <span>W archiwum: <b id="kpiTotal">0</b></span>
+   <span class="kpi-pill">v4 • Gotowy do PDF</span>
+  </div>
+ </div>
+
+ <div class="work-grid">
+  <div class="form-col">
+
+   <!-- Krok 1: Rodzaj i numeracja -->
+   <div class="card" id="sec-1">
+    <div class="card-hd">
+     <h3>1. Rodzaj, numer i data</h3>
+     <span class="badge-step">Krok 1/4</span>
+    </div>
+    <div class="tabs" style="margin-bottom:6px">
+     <label><input type="radio" name="typ" value="s" checked>Usterki / naprawa</label>
+     <label><input type="radio" name="typ" value="u">Uruchomienie</label>
+     <label><input type="radio" name="typ" value="m">Montaż</label>
+    </div>
+    <div class="g2">
+     <div><label for="nr">Numer protokołu (auto)</label><input id="nr" readonly></div>
+     <div>
+      <label for="data">Data sporządzenia</label>
+      <div class="date-row">
+       <input id="data" type="date">
+       <button type="button" class="btn-today" data-today="data">Dziś</button>
+      </div>
+     </div>
+     <div><label for="cnt">Kolejny numer</label><input id="cnt" type="number" min="1" value="1"></div>
+     <div><label for="sym">Symbol (inicjały)</label><input id="sym" value="KW"></div>
+    </div>
+   </div>
+
+   <!-- Wyrób i Strony -->
+   <div class="card">
+    <div class="card-hd">
+     <h3>Dane wyrobu i strony</h3>
+     <span class="badge-step">Słownik podpowiedzi</span>
+    </div>
+    <label for="wyrob">Nazwa wyrobu</label><input id="wyrob" placeholder="np. PSD 2 E/L0">
+    <div class="g2">
+     <div><label for="nrz">Nr fabryczny zestawu</label><input id="nrz"></div>
+     <div><label for="nrs">Nr seryjny sterowania</label><input id="nrs"></div>
+     <div><label for="nabN">Nabywca – nazwa</label><input id="nabN"></div>
+     <div><label for="nabA">Nabywca – adres</label><input id="nabA"></div>
+     <div><label for="uzN">Użytkownik – nazwa</label><input id="uzN"></div>
+     <div><label for="uzA">Użytkownik – adres (i NIP)</label><input id="uzA"></div>
+     <div><label for="invN">Inwestor – nazwa</label><input id="invN"></div>
+     <div><label for="invA">Inwestor – adres</label><input id="invA"></div>
+    </div>
+   </div>
+
+   <!-- Krok 2: Opis prac -->
+   <div class="card" id="sec-2">
+    <div class="card-hd">
+     <h3>2. Szczegóły i opis prac</h3>
+     <span class="badge-step">Krok 2/4</span>
+    </div>
+    <div class="g2">
+     <div>
+      <label for="dU" id="lbDU">Data</label>
+      <div class="date-row">
+       <input id="dU" type="date">
+       <button type="button" class="btn-today" data-today="dU">Dziś</button>
+      </div>
+     </div>
+     <div data-t="s">
+      <label for="dE">Data rozpoczęcia eksploatacji</label>
+      <div class="date-row">
+       <input id="dE" type="date">
+       <button type="button" class="btn-today" data-today="dE">Dziś</button>
+      </div>
+     </div>
+    </div>
+    <div data-t="s">
+     <label>Rodzaj (pozostałe zostaną skreślone)</label>
+     <div class="radios">
+      <label><input type="radio" name="rodzaj" value="0" checked>usuwanie usterek</label>
+      <label><input type="radio" name="rodzaj" value="1">naprawa gwarancyjna</label>
+      <label><input type="radio" name="rodzaj" value="2">wykonane zlecenie</label>
+     </div>
+     <label for="usterki">Wykaz stwierdzonych/zgłoszonych usterek</label><textarea id="usterki"></textarea>
+     <label for="sposob">Sposób usunięcia usterek</label><textarea id="sposob"></textarea>
+    </div>
+    <div data-t="um">
+     <label>Zgodność danych ze stanem faktycznym?</label>
+     <div class="radios">
+      <label><input type="radio" name="tak" value="TAK" checked>TAK</label>
+      <label><input type="radio" name="tak" value="NIE">NIE</label>
+     </div>
+     <label for="uwagi">Uwagi do pkt. 5</label><textarea id="uwagi"></textarea>
+     <label for="miejsce">Miejsce instalacji</label><input id="miejsce">
+     <label for="opis" id="lbOpis">Opis</label><textarea id="opis"></textarea>
+     <label for="zal">Zalecenia</label><textarea id="zal"></textarea>
+    </div>
+   </div>
+
+   <!-- Krok 3: Zdjęcia -->
+   <div class="card" id="sec-3">
+    <div class="card-hd">
+     <h3>3. Dokumentacja fotograficzna</h3>
+     <span class="badge-step">Krok 3/4</span>
+    </div>
+    <div class="btn-row" style="margin:2px 0 6px">
+     <button type="button" class="btn" id="camBtn">📷 Zrób zdjęcie</button>
+     <button type="button" class="btn" id="galBtn">🖼️ Wybierz z galerii</button>
+    </div>
+    <input id="cam" type="file" accept="image/*" capture="environment" hidden>
+    <input id="gal" type="file" accept="image/*" multiple hidden>
+    <div id="thumbs" class="thumbs"></div>
+   </div>
+
+   <!-- Krok 4: Egzemplarze i podpisy -->
+   <div class="card" id="sec-4">
+    <div class="card-hd">
+     <h3>4. Egzemplarze i osoby sporządzające</h3>
+     <span class="badge-step">Krok 4/4</span>
+    </div>
+    <div class="g3">
+     <div><label for="eN">Egz. Nabywca</label><input id="eN" type="number" min="0" value="1"></div>
+     <div><label for="eU">Egz. Użytkownik</label><input id="eU" type="number" min="0" value="1"></div>
+     <div><label for="eI">Egz. Inwestor</label><input id="eI" type="number" min="0" value="0"></div>
+    </div>
+    <div class="g2">
+     <div><label for="sA">Protokół sporządził (a)</label><input id="sA"></div>
+     <div><label for="sB">Protokół sporządził (b)</label><input id="sB"></div>
+    </div>
+    <div data-t="um"><label for="sC">Protokół sporządził (c)</label><input id="sC"></div>
+   </div>
+
+   <!-- Przyciski akcji -->
+   <div class="btn-row">
+    <button type="button" class="btn btn-primary" id="print">🖨️ Zapisz jako PDF</button>
+    <button type="button" class="btn btn-success" id="saveArchBtn">💾 Zapisz w archiwum</button>
+    <button type="button" class="btn" id="nowy">➕ Nowy (+1)</button>
+    <button type="button" class="btn btn-danger" id="clear">Wyczyść</button>
    </div>
   </div>
- </div>
- <div data-t="s">
-  <label>Rodzaj (pozostałe zostaną skreślone)</label>
-  <div class="radios">
-   <label><input type="radio" name="rodzaj" value="0" checked>usuwanie usterek</label>
-   <label><input type="radio" name="rodzaj" value="1">naprawa gwarancyjna</label>
-   <label><input type="radio" name="rodzaj" value="2">wykonane zlecenie</label>
+
+  <!-- Kolumna prawa: Podgląd wydruku A4 -->
+  <div id="prev">
+   <div class="prev-head">
+    <h2>Podgląd arkusza A4 (Hydro-Vacuum S.A.)</h2>
+    <span class="status-tag ok" id="prevBadge">Gotowy do wydruku</span>
+   </div>
+   <div id="wrap"><div id="sheet"></div></div>
   </div>
-  <label for="usterki">Wykaz stwierdzonych/zgłoszonych usterek</label><textarea id="usterki"></textarea>
-  <label for="sposob">Sposób usunięcia usterek</label><textarea id="sposob"></textarea>
  </div>
- <div data-t="um">
-  <label>Zgodność danych ze stanem faktycznym?</label>
-  <div class="radios">
-   <label><input type="radio" name="tak" value="TAK" checked>TAK</label>
-   <label><input type="radio" name="tak" value="NIE">NIE</label>
+</main>
+
+<!-- WIDOK 2: ARCHIWUM / TABELA PROTOKOŁÓW (z UI Kit) -->
+<section class="container view" id="view-archive">
+ <div class="kpi-grid">
+  <div class="kpi-box"><span>Wszystkie protokoły</span><strong id="stAll">0</strong><small>Zapisane lokalnie offline</small></div>
+  <div class="kpi-box"><span>Usterki / naprawy</span><strong id="stS">0</strong><small>Protokoły serwisowe</small></div>
+  <div class="kpi-box"><span>Uruchomienia</span><strong id="stU">0</strong><small>Form. 4b/IS-7.2/01</small></div>
+  <div class="kpi-box"><span>Montaże</span><strong id="stM">0</strong><small>Protokoły montażowe</small></div>
+ </div>
+
+ <div class="tbl-wrap">
+  <div class="tbl-bar">
+   <strong style="color:var(--primary)">Rejestr zapisanych protokołów</strong>
+   <input type="search" id="archSearch" placeholder="🔍 Szukaj po numerze, kliencie lub wyrobie...">
   </div>
-  <label for="uwagi">Uwagi do pkt. 5</label><textarea id="uwagi"></textarea>
-  <label for="miejsce">Miejsce instalacji</label><input id="miejsce">
-  <label for="opis" id="lbOpis">Opis</label><textarea id="opis"></textarea>
-  <label for="zal">Zalecenia</label><textarea id="zal"></textarea>
+  <div style="overflow-x:auto">
+   <table>
+    <thead>
+     <tr>
+      <th>Nr protokołu</th>
+      <th>Data</th>
+      <th>Rodzaj</th>
+      <th>Wyrób</th>
+      <th>Klient / Miejsce</th>
+      <th>Akcje</th>
+     </tr>
+    </thead>
+    <tbody id="archBody"></tbody>
+   </table>
+  </div>
  </div>
-</fieldset>
+</section>
 
-<fieldset><legend>Zdjęcia (załącznik)</legend>
- <div class="bar" style="margin:0 0 6px">
-  <button type="button" id="camBtn">Zrób zdjęcie</button>
-  <button type="button" id="galBtn">Wybierz z galerii</button>
- </div>
- <input id="cam" type="file" accept="image/*" capture="environment" hidden>
- <input id="gal" type="file" accept="image/*" multiple hidden>
- <div id="thumbs" class="thumbs"></div>
-</fieldset>
-
-<fieldset><legend>Egzemplarze i podpisy</legend>
- <div class="g3">
-  <div><label for="eN">Egz. Nabywca</label><input id="eN" type="number" min="0" value="1"></div>
-  <div><label for="eU">Egz. Użytkownik</label><input id="eU" type="number" min="0" value="1"></div>
-  <div><label for="eI">Egz. Inwestor</label><input id="eI" type="number" min="0" value="0"></div>
- </div>
- <div class="g2">
-  <div><label for="sA">Protokół sporządził (a)</label><input id="sA"></div>
-  <div><label for="sB">Protokół sporządził (b)</label><input id="sB"></div>
- </div>
- <div data-t="um"><label for="sC">Protokół sporządził (c)</label><input id="sC"></div>
-</fieldset>
-
-<div class="bar">
- <button class="p" id="print">Drukuj / zapisz PDF</button>
- <button id="nowy">Nowy protokół (+1)</button>
- <button id="clear">Wyczyść</button>
-</div>
-
-<div id="prev">
-<h2>Podgląd</h2>
-<div id="wrap"><div id="sheet"></div></div>
-</div>
-</div>
+<div id="toastBox" aria-live="polite"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -343,9 +538,19 @@ h2{font-size:.9rem;margin:12px 0 6px;color:var(--mute)}
 var CORRECT_PIN="1997";
 var PIN_KEY="hv-pin-unlocked-1997";
 var pinBuf="";
+function $(i){return document.getElementById(i)}
 var gate=$("pinGate"),dots=$("pinDots").children,errEl=$("pinErr"),card=$("pinCard"),pinInp=$("pinInput");
 
-function $(i){return document.getElementById(i)}
+function toast(title,msg,type){
+ var box=$("toastBox");
+ if(!box)return;
+ var el=document.createElement("div");
+ el.className="toast "+(type||"");
+ el.innerHTML="<b>"+esc(title)+"</b><span>"+esc(msg)+"</span>";
+ box.appendChild(el);
+ setTimeout(function(){el.style.opacity="0";el.style.transition="opacity .25s";setTimeout(function(){el.remove()},260)},3200);
+}
+
 function showGate(){
  pinBuf="";pinInp.value="";errEl.textContent="";
  updateDots(false);
@@ -358,9 +563,7 @@ function hideGate(){
 }
 function updateDots(isErr){
  $("pinDots").classList.toggle("err",!!isErr);
- for(var i=0;i<4;i++){
-  dots[i].classList.toggle("on",i<pinBuf.length);
- }
+ for(var i=0;i<4;i++)dots[i].classList.toggle("on",i<pinBuf.length);
 }
 function checkPin(){
  if(pinBuf===CORRECT_PIN){
@@ -411,8 +614,26 @@ $("lockBtn").onclick=function(){
  else showGate();
 })();
 
+/* Nawigacja między widokiem Edytora i Archiwum */
+document.querySelectorAll(".nav-tab").forEach(function(btn){
+ btn.addEventListener("click",function(){
+  var target=btn.getAttribute("data-view");
+  document.querySelectorAll(".nav-tab").forEach(function(b){b.classList.toggle("active",b===btn)});
+  document.querySelectorAll(".view").forEach(function(v){v.classList.toggle("active",v.id==="view-"+target)});
+  if(target==="archive")renderArchive();
+  else fit();
+ });
+});
+document.querySelectorAll("[data-jump]").forEach(function(st){
+ st.addEventListener("click",function(){
+  var el=$(st.getAttribute("data-jump"));
+  if(el)el.scrollIntoView({behavior:"smooth",block:"start"});
+ });
+});
+
 var ids=["data","wyrob","nrz","nrs","nabN","nabA","uzN","uzA","invN","invA","dU","dE","usterki","sposob","uwagi","miejsce","opis","zal","eN","eU","eI","sA","sB","sC"];
-var KEY="hv-protokol-v3";
+var KEY="hv-protokol-v4";
+var ARCH_KEY="hv-archive-v1";
 var HIST_KEY="hv-hist-v2";
 var HIST_FIELDS=["sym","wyrob","nrz","nrs","nabN","nabA","uzN","uzA","invN","invA","usterki","sposob","uwagi","miejsce","opis","zal","sA","sB","sC"];
 var PAIRS={nabN:"nabA",uzN:"uzA",invN:"invA"};
@@ -450,6 +671,127 @@ function T(){return R("typ")}
 function today(){var d=new Date(),m=d.getMonth()+1,x=d.getDate();return d.getFullYear()+"-"+(m<10?"0":"")+m+"-"+(x<10?"0":"")+x}
 function numer(){var d=(g("data")||today()).split("-"),m=M[T()],n=m.c+"/"+m.y.trim();if(T()=="u")n+="/"+d[0];return n}
 
+/* Aktualizacja paska postępu (Stepper) i profilu */
+function updateStepper(){
+ var s1=!!(g("wyrob").trim()||g("nabN").trim()||g("uzN").trim());
+ var s2=!!(g("usterki").trim()||g("sposob").trim()||g("opis").trim()||g("miejsce").trim());
+ var s3=photos.length>0;
+ var s4=!!(g("sA").trim()||g("sB").trim());
+ var states=[s1,s2,s3,s4];
+ var steps=document.querySelectorAll("#stepper .step");
+ var lines=[$("line-1"),$("line-2"),$("line-3")];
+ var firstIncomplete=states.indexOf(false);
+ steps.forEach(function(st,idx){
+  st.classList.toggle("done",states[idx]);
+  st.classList.toggle("cur",idx===(firstIncomplete<0?3:firstIncomplete));
+ });
+ lines.forEach(function(ln,idx){if(ln)ln.classList.toggle("done",states[idx])});
+ var av=g("sym").trim().slice(0,3)||"HV";
+ $("navAv").textContent=av.toUpperCase();
+ $("navUser").textContent=g("sA").trim()||"Serwisant ("+av+")";
+}
+
+/* Archiwum protokołów */
+function getArchive(){
+ try{return JSON.parse(localStorage.getItem(ARCH_KEY)||"[]")||[]}catch(e){return[]}
+}
+function setArchive(arr){
+ try{localStorage.setItem(ARCH_KEY,JSON.stringify(arr))}catch(e){}
+ updateArchiveStats();
+}
+function updateArchiveStats(){
+ var arr=getArchive();
+ $("archCount").textContent=arr.length;
+ $("kpiTotal").textContent=arr.length;
+ if($("stAll")){
+  $("stAll").textContent=arr.length;
+  $("stS").textContent=arr.filter(function(x){return x.typ==="s"}).length;
+  $("stU").textContent=arr.filter(function(x){return x.typ==="u"}).length;
+  $("stM").textContent=arr.filter(function(x){return x.typ==="m"}).length;
+ }
+}
+function saveToArchive(silent){
+ var arr=getArchive();
+ var nr=numer();
+ var rec={
+  id:Date.now(),
+  nr:nr,
+  typ:T(),
+  rodzaj:R("rodzaj"),
+  tak:R("tak"),
+  cnt:M[T()].c,
+  sym:M[T()].y,
+  data:g("data"),
+  fields:{}
+ };
+ ids.forEach(function(i){rec.fields[i]=g(i)});
+ var idx=arr.findIndex(function(x){return x.nr===nr&&x.typ===rec.typ});
+ if(idx>=0)arr[idx]=rec;
+ else arr.unshift(rec);
+ if(arr.length>150)arr.length=150;
+ setArchive(arr);
+ if(!silent)toast("Zapisano protokół","Protokół Nr "+nr+" został zapisany w rejestrze.","");
+}
+function renderArchive(){
+ updateArchiveStats();
+ var arr=getArchive();
+ var q=($("archSearch").value||"").toLowerCase().trim();
+ var filtered=arr.filter(function(r){
+  if(!q)return true;
+  var blob=[r.nr,r.fields.wyrob,r.fields.nabN,r.fields.uzN,r.fields.miejsce].join(" ").toLowerCase();
+  return blob.indexOf(q)>=0;
+ });
+ var body=$("archBody");
+ if(!filtered.length){
+  body.innerHTML='<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--mute)">Brak zapisanych protokołów. Kliknij „Zapisz w archiwum” w edytorze.</td></tr>';
+  return;
+ }
+ var labels={s:"Usterki / naprawa",u:"Uruchomienie",m:"Montaż"};
+ body.innerHTML=filtered.map(function(r){
+  var client=r.fields.uzN||r.fields.nabN||r.fields.miejsce||"—";
+  return '<tr>'+
+   '<td><strong>'+esc(r.nr)+'</strong></td>'+
+   '<td>'+esc(fd(r.data))+'</td>'+
+   '<td><span class="tag tag-'+r.typ+'">'+labels[r.typ]+'</span></td>'+
+   '<td>'+esc(r.fields.wyrob||"—")+'</td>'+
+   '<td>'+esc(client)+'</td>'+
+   '<td style="white-space:nowrap">'+
+    '<button type="button" class="btn" style="min-height:28px;padding:2px 9px;font-size:.75rem" data-open="'+r.id+'">Otwórz</button> '+
+    '<button type="button" class="btn btn-danger" style="min-height:28px;padding:2px 8px;font-size:.75rem" data-rm="'+r.id+'">Usuń</button>'+
+   '</td>'+
+  '</tr>';
+ }).join("");
+}
+$("archSearch").addEventListener("input",renderArchive);
+$("archBody").addEventListener("click",function(e){
+ var openBtn=e.target.closest("[data-open]");
+ if(openBtn){
+  var id=Number(openBtn.getAttribute("data-open"));
+  var rec=getArchive().find(function(x){return x.id===id});
+  if(rec){
+   setR("typ",rec.typ);
+   setR("rodzaj",rec.rodzaj);
+   setR("tak",rec.tak);
+   M[rec.typ]={c:rec.cnt||1,y:rec.sym||"KW"};
+   applyType();
+   ids.forEach(function(i){if(rec.fields[i]!==undefined)$(i).value=rec.fields[i]});
+   photos=[];thumbs();
+   upd();
+   document.querySelector('.nav-tab[data-view="editor"]').click();
+   toast("Wczytano protokół","Otwarto protokół Nr "+rec.nr,"info");
+  }
+  return;
+ }
+ var rmBtn=e.target.closest("[data-rm]");
+ if(rmBtn){
+  if(!confirm("Usunąć ten protokół z archiwum?"))return;
+  var rid=Number(rmBtn.getAttribute("data-rm"));
+  setArchive(getArchive().filter(function(x){return x.id!==rid}));
+  renderArchive();
+ }
+});
+$("saveArchBtn").onclick=function(){rememberAll();saveToArchive(false)};
+
 /* Zapamiętywanie i wybór z listy */
 function loadHist(){
  try{
@@ -484,9 +826,7 @@ function rememberAll(){
 function updateHistUI(id){
  var list=HIST[id]||[];
  var btn=document.querySelector('.hist-btn[data-for="'+id+'"]');
- if(btn){
-  btn.innerHTML='Lista <span class="cnt">('+list.length+')</span> ▾';
- }
+ if(btn)btn.innerHTML='Lista <span class="cnt">('+list.length+')</span> ▾';
  var dl=$("dl-"+id);
  if(dl){
   dl.innerHTML=list.map(function(it){
@@ -607,6 +947,8 @@ function initHistoryControls(){
   if(!e.target.closest(".hist-wrap"))closeAllHist();
  });
 }
+
+/* Generowanie dokumentu A4 (identyczne z formularzem Hydro-Vacuum S.A.) */
 function ln(l,v){return '<div class="ln"><b>'+l+'</b><span class="v">'+esc(v)+'</span></div>'}
 function sec(x){return '<div class="sec">'+x+'</div>'}
 function rl(t,n){return '<div class="ruled" style="min-height:'+(n*24)+'px">'+esc(t)+'</div>'}
@@ -623,8 +965,8 @@ function dane(){
 }
 var photos=[];
 function shrink(f){return new Promise(function(res){var u=URL.createObjectURL(f),im=new Image();im.onload=function(){var k=Math.min(1,1400/Math.max(im.naturalWidth,im.naturalHeight)),c=document.createElement("canvas");c.width=Math.round(im.naturalWidth*k);c.height=Math.round(im.naturalHeight*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL("image/jpeg",0.82))};im.onerror=function(){URL.revokeObjectURL(u);res(null)};im.src=u})}
-function thumbs(){var t=$("thumbs");t.innerHTML="";photos.forEach(function(p,i){var d=document.createElement("div");d.className="th";var im=document.createElement("img");im.src=p;im.alt="Zdjęcie "+(i+1);var b=document.createElement("button");b.type="button";b.textContent="Usuń";b.setAttribute("aria-label","Usuń zdjęcie "+(i+1));b.onclick=function(){photos.splice(i,1);thumbs();render()};d.appendChild(im);d.appendChild(b);t.appendChild(d)})}
-async function addFiles(fl){for(var i=0;i<fl.length;i++){var d=await shrink(fl[i]);if(d)photos.push(d)}thumbs();render()}
+function thumbs(){var t=$("thumbs");t.innerHTML="";photos.forEach(function(p,i){var d=document.createElement("div");d.className="th";var im=document.createElement("img");im.src=p;im.alt="Zdjęcie "+(i+1);var b=document.createElement("button");b.type="button";b.textContent="×";b.setAttribute("aria-label","Usuń zdjęcie "+(i+1));b.onclick=function(){photos.splice(i,1);thumbs();render();updateStepper()};d.appendChild(im);d.appendChild(b);t.appendChild(d)})}
+async function addFiles(fl){for(var i=0;i<fl.length;i++){var d=await shrink(fl[i]);if(d)photos.push(d)}thumbs();render();updateStepper()}
 function render(){
  var t=T(),pg=[];
  $("nr").value=numer();
@@ -658,7 +1000,9 @@ function render(){
  fit();
 }
 function fit(){
- var w=$("wrap").clientWidth,s=Math.min(1,w/794),sh=$("sheet");
+ var w=$("wrap").clientWidth;
+ if(!w)return;
+ var s=Math.min(1,w/794),sh=$("sheet");
  sh.style.transform="scale("+s+")";
  $("wrap").style.height=(sh.offsetHeight*s)+"px";
 }
@@ -678,7 +1022,7 @@ function load(){
   ids.forEach(function(i){if(o[i]!==undefined)$(i).value=o[i]});
   if(o.M)M=o.M;setR("typ",o.typ);setR("rodzaj",o.rodzaj);setR("tak",o.tak)}catch(e){}
 }
-function upd(){render();save()}
+function upd(){render();save();updateStepper()}
 var lastAutoDay=today();
 function syncDates(force){
  var now=today();
@@ -691,6 +1035,7 @@ syncDates(true);
 applyType();
 initHistoryControls();
 rememberAll();
+updateArchiveStats();
 document.querySelectorAll("[data-today]").forEach(function(b){
  b.addEventListener("click",function(){
   var target=b.getAttribute("data-today");
@@ -701,15 +1046,16 @@ document.querySelectorAll("[data-today]").forEach(function(b){
 document.addEventListener("visibilitychange",function(){if(!document.hidden){syncDates(false);upd()}});
 window.addEventListener("focus",function(){syncDates(false);upd()});
 document.querySelectorAll("input,textarea").forEach(function(e){
- if(e.id==="pinInput"||e.closest(".hist-head"))return;
+ if(e.id==="pinInput"||e.id==="archSearch"||e.closest(".hist-head"))return;
  e.addEventListener("input",upd);
 });
 document.querySelectorAll('input[name="typ"]').forEach(function(e){e.addEventListener("change",function(){applyType();upd()})});
 $("cnt").addEventListener("input",function(){M[T()].c=parseInt(g("cnt"),10)||1;upd()});
 $("sym").addEventListener("input",function(){M[T()].y=g("sym");upd()});
-function busy(b){var e=$("print");e.disabled=b;e.textContent=b?"Generuję PDF…":"Drukuj / zapisz PDF"}
+function busy(b){var e=$("print");e.disabled=b;e.textContent=b?"Generuję PDF…":"🖨️ Zapisz jako PDF"}
 async function makePdf(){
  rememberAll();
+ saveToArchive(true);
  var sh=$("sheet"),wr=$("wrap"),tr=sh.style.transform,h=wr.style.height,ov=wr.style.overflow;
  busy(true);
  try{
@@ -725,6 +1071,7 @@ async function makePdf(){
   try{if(window.claude&&window.claude.use)d=await window.claude.use("downloads")}catch(e){}
   if(d){await d.save({filename:name,data:doc.output("blob")})}
   else{var blob=doc.output("blob"),f=new File([blob],name,{type:"application/pdf"});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:name})}else{doc.save(name)}}
+  toast("Wygenerowano PDF","Plik "+name+" został utworzony i zapisany w archiwum.","");
  }catch(e){
   if(!e||e.code!=="declined")alert("Nie udało się zapisać PDF"+(e&&e.message?": "+e.message:""));
  }finally{
@@ -736,12 +1083,21 @@ $("camBtn").onclick=function(){$("cam").click()};
 $("galBtn").onclick=function(){$("gal").click()};
 ["cam","gal"].forEach(function(i){$(i).addEventListener("change",function(e){var f=Array.prototype.slice.call(e.target.files);e.target.value="";addFiles(f)})});
 var CL=["nrz","nrs","dE","usterki","sposob","uwagi","miejsce","opis","zal"];
-$("nowy").onclick=function(){rememberAll();var t=T();M[t].c++;$("cnt").value=M[t].c;CL.forEach(function(i){$(i).value=""});syncDates(true);photos=[];thumbs();setR("tak","TAK");upd();window.scrollTo(0,0)};
+$("nowy").onclick=function(){
+ rememberAll();
+ saveToArchive(true);
+ var t=T();M[t].c++;$("cnt").value=M[t].c;
+ CL.forEach(function(i){$(i).value=""});
+ syncDates(true);photos=[];thumbs();setR("tak","TAK");upd();
+ window.scrollTo(0,0);
+ toast("Nowy protokół","Zwiększono licznik do Nr "+numer(),"info");
+};
 $("clear").onclick=function(){if(!confirm("Wyczyścić wszystkie pola?"))return;ids.forEach(function(i){$(i).value=""});CL.forEach(function(i){$(i).value=""});$("eN").value=1;$("eU").value=1;$("eI").value=0;syncDates(true);photos=[];thumbs();setR("tak","TAK");upd()};
 window.addEventListener("resize",fit);
 window.addEventListener("beforeprint",function(){$("sheet").style.transform="none"});
 window.addEventListener("afterprint",fit);
 render();
+updateStepper();
 })();
 </script>
 <script>if("serviceWorker" in navigator){addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}</script>

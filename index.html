@@ -366,7 +366,7 @@ tr:hover td{background:var(--bg)}
    <button type="button" class="modal-x" id="mailCloseX" aria-label="Zamknij">×</button>
   </div>
   <label for="mailTo">Adres e-mail odbiorcy (np. serwis, klient)</label>
-  <input id="mailTo" type="email" placeholder="np. serwis@hv.pl">
+  <input id="mailTo" type="email" list="dl-mailTo" placeholder="np. serwis@hv.pl"><datalist id="dl-mailTo"></datalist>
   <label for="mailSubj">Temat wiadomości</label>
   <input id="mailSubj" type="text">
   <label for="mailBody">Treść wiadomości</label>
@@ -424,7 +424,7 @@ tr:hover td{background:var(--bg)}
   </div>
   <div class="kpi-mini">
    <span>W archiwum: <b id="kpiTotal">0</b></span>
-   <span class="kpi-pill">v12 • Naprawiony PIN 1997 + GPS</span>
+   <span class="kpi-pill">v13 • Pełny podgląd A4 + GPS + E-mail</span>
   </div>
  </div>
 
@@ -855,10 +855,10 @@ $("clrAllSigsBtn").onclick=function(){
 };
 
 var ids=["data","wyrob","gps","nrz","nrs","nabN","nabA","uzN","uzA","invN","invA","dU","dE","usterki","sposob","uwagi","miejsce","opis","zal","eN","eU","eI","sA","sB","sC"];
-var KEY="hv-protokol-v12";
+var KEY="hv-protokol-v13";
 var ARCH_KEY="hv-archive-v1";
 var HIST_KEY="hv-hist-v2";
-var HIST_FIELDS=["sym","wyrob","gps","nrz","nrs","nabN","nabA","uzN","uzA","invN","invA","usterki","sposob","uwagi","miejsce","opis","zal","sA","sB","sC","mailTo"];
+var HIST_FIELDS=["sym","wyrob","gps","nrz","nrs","nabN","nabA","uzN","uzA","invN","invA","usterki","sposob","uwagi","miejsce","opis","zal","sA","sB","sC"];
 var PAIRS={nabN:"nabA",uzN:"uzA",invN:"invA"};
 var DEFAULT_HIST={
  sym:["KW","KW/MN","MN"],
@@ -1032,7 +1032,7 @@ function saveHist(){
  try{localStorage.setItem(HIST_KEY,JSON.stringify(HIST))}catch(e){}
 }
 function rememberVal(id,val){
- if(HIST_FIELDS.indexOf(id)<0)return;
+ if(HIST_FIELDS.indexOf(id)<0 && id!=="mailTo")return;
  var v=String(val||"").trim();
  if(!v)return;
  var list=HIST[id]||[];
@@ -1269,12 +1269,11 @@ function syncDates(force){
  lastAutoDay=now;
 }
 
-load();
+try{load();}catch(e){}
 syncDates(true);
 applyType();
-initHistoryControls();
-rememberAll();
-updateArchiveStats();
+try{initHistoryControls();rememberAll();}catch(e){console.warn("History init:",e);}
+try{updateArchiveStats();}catch(e){}
 
 document.querySelectorAll("[data-today]").forEach(function(b){
  b.addEventListener("click",function(){
@@ -1519,6 +1518,18 @@ render();
 updateStepper();
 })();
 </script>
-<script>if("serviceWorker" in navigator){addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}</script>
+<script>
+if("serviceWorker" in navigator){
+ addEventListener("load",function(){
+  navigator.serviceWorker.register("sw.js").then(function(reg){
+   reg.update().catch(function(){});
+  }).catch(function(){});
+  var refreshing=false;
+  navigator.serviceWorker.addEventListener("controllerchange",function(){
+   if(!refreshing){refreshing=true;location.reload();}
+  });
+ });
+}
+</script>
 </body>
 </html>

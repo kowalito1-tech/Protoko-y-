@@ -424,7 +424,7 @@ tr:hover td{background:var(--bg)}
   </div>
   <div class="kpi-mini">
    <span>W archiwum: <b id="kpiTotal">0</b></span>
-   <span class="kpi-pill">v11 • GPS i lokalizacja obiektu</span>
+   <span class="kpi-pill">v12 • Naprawiony PIN 1997 + GPS</span>
   </div>
  </div>
 
@@ -855,7 +855,7 @@ $("clrAllSigsBtn").onclick=function(){
 };
 
 var ids=["data","wyrob","gps","nrz","nrs","nabN","nabA","uzN","uzA","invN","invA","dU","dE","usterki","sposob","uwagi","miejsce","opis","zal","eN","eU","eI","sA","sB","sC"];
-var KEY="hv-protokol-v11";
+var KEY="hv-protokol-v12";
 var ARCH_KEY="hv-archive-v1";
 var HIST_KEY="hv-hist-v2";
 var HIST_FIELDS=["sym","wyrob","gps","nrz","nrs","nabN","nabA","uzN","uzA","invN","invA","usterki","sposob","uwagi","miejsce","opis","zal","sA","sB","sC","mailTo"];
@@ -1351,13 +1351,9 @@ function openMailModal(){
  if(wyr)lines.push("Wyrób: "+wyr+(g("nrz").trim()?" (nr fabr. "+g("nrz").trim()+")":""));
  if(kl)lines.push("Obiekt / Klient: "+kl);
  if(g("gps").trim())lines.push("Współrzędne GPS: "+g("gps").trim()+" (https://maps.google.com/?q="+encodeURIComponent(g("gps").trim())+")");
- if(g("sA").trim())lines.push("
-Sporządził: "+g("sA").trim());
- lines.push("
-Pozdrawiam,
-HYDRO-VACUUM S.A. – Serwis");
- $("mailBody").value=lines.join("
-");
+ if(g("sA").trim())lines.push("\nSporządził: "+g("sA").trim());
+ lines.push("\nPozdrawiam,\nHYDRO-VACUUM S.A. – Serwis");
+ $("mailBody").value=lines.join("\n");
  if(!$("mailTo").value&&(HIST.mailTo||[]).length){
   var first=HIST.mailTo[0];
   $("mailTo").value=typeof first==="string"?first:first.v;
@@ -1391,9 +1387,7 @@ $("mailSendGoBtn").onclick=async function(){
    await navigator.share({
     files:[file],
     title:subj,
-    text:(to?"Odbiorca: "+to+"
-
-":"")+body
+    text:(to?"Odbiorca: "+to+"\n\n":"")+body
    });
    toast("Przekazano do poczty","Wybierz aplikację e-mail (Gmail / Poczta) z załączonym plikiem PDF.","");
   }else{

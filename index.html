@@ -10,7 +10,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Protokoły">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%230F2D52'/%3E%3Ccircle cx='90' cy='90' r='72' fill='none' stroke='%230078D4' stroke-width='7'/%3E%3Cpath d='M52 34h56l20 20v92H52z' fill='%23ffffff'/%3E%3Crect x='64' y='64' width='52' height='6' fill='%230F2D52'/%3E%3Crect x='64' y='83' width='52' height='6' fill='%230F2D52'/%3E%3Crect x='64' y='102' width='52' height='6' fill='%230F2D52'/%3E%3Crect x='64' y='121' width='52' height='6' fill='%230F2D52'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="icon-192.png">
 <style>
 :root{
   --primary:#0F2D52;
@@ -216,6 +216,7 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary-
 
 /* Pasek narzędzi S-Pen nad arkuszem A4 */
 #prev{position:sticky;top:64px}
+@media (min-width:961px){#prev{max-height:calc(100vh - 74px);overflow-y:auto}}
 .prev-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;flex-wrap:wrap}
 .prev-head h2{font-size:.88rem;margin:0;color:var(--primary);font-weight:700}
 @media (prefers-color-scheme:dark){.prev-head h2{color:#63b3ed}}
@@ -304,6 +305,12 @@ tr:hover td{background:var(--bg)}
 .tag-u{background:rgba(34,197,94,.16);color:#15803d}
 .tag-m{background:rgba(0,120,212,.14);color:var(--primary-light)}
 
+#shareBar{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:9400;display:none;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--primary-light);border-radius:10px;padding:8px 10px;box-shadow:0 8px 22px rgba(0,0,0,.22);max-width:94vw;font-size:.8rem}
+#shareBar.open{display:flex}
+#ovfWarn{display:none;margin:0 0 6px;padding:6px 10px;border-radius:7px;background:rgba(255,176,0,.16);border-left:3px solid var(--warning);font-size:.78rem;color:var(--ink)}
+#updBar{position:fixed;left:50%;transform:translateX(-50%);top:12px;z-index:9600;display:none;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--primary-light);border-radius:10px;padding:8px 10px;box-shadow:0 8px 22px rgba(0,0,0,.22);max-width:94vw;font-size:.8rem;color:var(--ink)}
+#updBar.open{display:flex}
+@media print{#shareBar,#ovfWarn,#updBar{display:none!important}}
 /* Powiadomienia Toast */
 #toastBox{position:fixed;right:14px;bottom:14px;z-index:9500;display:flex;flex-direction:column;gap:8px;max-width:320px}
 .toast{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:10px 12px;box-shadow:0 8px 22px rgba(0,0,0,.16);font-size:.82rem;animation:slideIn .2s ease}
@@ -321,7 +328,7 @@ tr:hover td{background:var(--bg)}
  #view-editor{display:block!important}
  .container{max-width:none;padding:0}
  .work-grid{display:block!important}
- #prev{position:static!important}
+ #prev{position:static!important;max-height:none!important;overflow:visible!important}
  #wrap{border:0;height:auto!important;box-shadow:none}
  #sheet{width:210mm!important;padding:0!important;transform:none!important}
  .pg{width:210mm;height:297mm;padding:8mm 12mm;margin:0;box-shadow:none;break-after:page;page-break-after:always}
@@ -424,7 +431,7 @@ tr:hover td{background:var(--bg)}
   </div>
   <div class="kpi-mini">
    <span>W archiwum: <b id="kpiTotal">0</b></span>
-   <span class="kpi-pill">v13 • Pełny podgląd A4 + GPS + E-mail</span>
+   <span class="kpi-pill">v16 • Pełny podgląd A4 + GPS + E-mail</span>
   </div>
  </div>
 
@@ -591,6 +598,7 @@ tr:hover td{background:var(--bg)}
      <button type="button" class="pen-clr-all" id="clrAllSigsBtn" title="Wyczyść wszystkie podpisy na arkuszu">Wyczyść podpisy</button>
     </div>
    </div>
+   <div id="ovfWarn">⚠️ Część tekstu nie mieści się w polach arkusza i zostanie ucięta w PDF. Skróć wpis.</div>
    <div id="wrap"><div id="sheet"></div></div>
   </div>
  </div>
@@ -629,6 +637,7 @@ tr:hover td{background:var(--bg)}
 </section>
 
 <div id="toastBox" aria-live="polite"></div>
+<div id="shareBar"><span>PDF gotowy: <b id="shareName"></b></span><button type="button" class="btn btn-primary" id="shareGo">📤 Udostępnij</button><button type="button" class="btn" id="shareX" aria-label="Zamknij">×</button></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -654,7 +663,7 @@ function showGate(){
  pinBuf="";pinInp.value="";errEl.textContent="";
  updateDots(false);
  gate.classList.remove("hidden");
- setTimeout(function(){try{pinInp.focus()}catch(e){}},50);
+ if(!(window.matchMedia&&matchMedia("(pointer:coarse)").matches))setTimeout(function(){try{pinInp.focus()}catch(e){}},50);
 }
 function hideGate(){
  gate.classList.add("hidden");
@@ -688,6 +697,7 @@ function pushDigit(d){
  updateDots(false);
  if(pinBuf.length===4)setTimeout(checkPin,110);
 }
+pinInp.addEventListener("input",function(){pinBuf=pinInp.value.replace(/\D/g,"").slice(0,4);pinInp.value=pinBuf;errEl.textContent="";updateDots(false);if(pinBuf.length===4)setTimeout(checkPin,110)});
 $("pinPad").addEventListener("click",function(e){
  var b=e.target.closest("button[data-k]");
  if(!b)return;
@@ -886,7 +896,7 @@ var HIST={};
 var M={s:{c:1,y:"KW"},u:{c:1,y:"KW/MN"},m:{c:1,y:"MN"}};
 var W=["zero","jeden","dwa","trzy","cztery","pięć","sześć","siedem","osiem","dziewięć","dziesięć"];
 function g(i){return $(i).value}
-function esc(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
 function fd(s){if(!s)return"";var p=s.split("-");return p[2]+"."+p[1]+"."+p[0]}
 function nn(i){return parseInt(g(i),10)||0}
 function words(n){n=parseInt(n,10)||0;return W[n]||String(n)}
@@ -920,8 +930,22 @@ function getArchive(){
  try{return JSON.parse(localStorage.getItem(ARCH_KEY)||"[]")||[]}catch(e){return[]}
 }
 function setArchive(arr){
- try{localStorage.setItem(ARCH_KEY,JSON.stringify(arr))}catch(e){}
+ var ok=true;
+ try{localStorage.setItem(ARCH_KEY,JSON.stringify(arr))}catch(e){ok=false}
  updateArchiveStats();
+ return ok;
+}
+/* Zdjęcia protokołów w IndexedDB (localStorage ma zbyt mały limit) */
+function idb(){return new Promise(function(res,rej){var r=indexedDB.open("hv-photos",1);r.onupgradeneeded=function(){r.result.createObjectStore("p")};r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}})}
+function idbPut(k,v){return idb().then(function(db){return new Promise(function(res){var t=db.transaction("p","readwrite");t.objectStore("p").put(v,k);t.oncomplete=res;t.onerror=res;t.onabort=res})}).catch(function(){})}
+function idbGet(k){return idb().then(function(db){return new Promise(function(res){var q=db.transaction("p","readonly").objectStore("p").get(k);q.onsuccess=function(){res(q.result||[])};q.onerror=function(){res([])}})}).catch(function(){return[]})}
+function idbDel(k){return idb().then(function(db){return new Promise(function(res){var t=db.transaction("p","readwrite");t.objectStore("p").delete(k);t.oncomplete=res;t.onerror=res;t.onabort=res})}).catch(function(){})}
+function checkOverflow(){
+ var bad=false;
+ document.querySelectorAll("#sheet .ruled").forEach(function(r){if(r.scrollHeight>r.clientHeight+2)bad=true});
+ document.querySelectorAll("#sheet .pg").forEach(function(p){if(p.scrollHeight>p.clientHeight+2)bad=true});
+ var w=$("ovfWarn");if(w)w.style.display=bad?"block":"none";
+ return bad;
 }
 function updateArchiveStats(){
  var arr=getArchive();
@@ -951,11 +975,16 @@ function saveToArchive(silent){
  };
  ids.forEach(function(i){rec.fields[i]=g(i)});
  var idx=arr.findIndex(function(x){return x.nr===nr&&x.typ===rec.typ});
- if(idx>=0)arr[idx]=rec;
+ if(idx>=0){idbDel(arr[idx].id);arr[idx]=rec}
  else arr.unshift(rec);
- if(arr.length>150)arr.length=150;
- setArchive(arr);
+ if(arr.length>150){arr.slice(150).forEach(function(x){idbDel(x.id)});arr.length=150}
+ if(!setArchive(arr)){
+  toast("Nie zapisano w archiwum","Pamięć urządzenia jest pełna – usuń stare protokoły i spróbuj ponownie.","warn");
+  return false;
+ }
+ idbPut(rec.id,photos.slice());
  if(!silent)toast("Zapisano protokół","Protokół Nr "+nr+" został zapisany w rejestrze.","");
+ return true;
 }
 function renderArchive(){
  updateArchiveStats();
@@ -1004,6 +1033,7 @@ $("archBody").addEventListener("click",function(e){
    photos=[];thumbs();
    document.querySelector('.nav-tab[data-view="editor"]').click();
    upd();
+   idbGet(rec.id).then(function(ph){if(ph&&ph.length){photos=ph;thumbs();render();updateStepper()}});
    toast("Wczytano protokół","Otwarto protokół Nr "+rec.nr,"info");
   }
   return;
@@ -1012,6 +1042,7 @@ $("archBody").addEventListener("click",function(e){
  if(rmBtn){
   if(!confirm("Usunąć ten protokół z archiwum?"))return;
   var rid=Number(rmBtn.getAttribute("data-rm"));
+  idbDel(rid);
   setArchive(getArchive().filter(function(x){return x.id!==rid}));
   renderArchive();
  }
@@ -1095,6 +1126,7 @@ function initHistoryControls(){
   var el=$(id);
   if(!el)return;
   var lbl=document.querySelector('label[for="'+id+'"]');
+  if(lbl&&lbl.parentNode!==el.parentNode)return;
   var wrap=document.createElement("div");
   wrap.className="hist-wrap";
   el.parentNode.insertBefore(wrap,lbl||el);
@@ -1233,6 +1265,7 @@ function render(){
  for(var k=0;k<photos.length;k+=4){pg.push(head(false)+'<div class="t"><div class="n">ZAŁĄCZNIK DO PROTOKOŁU Nr '+esc(numer())+'</div><div class="s">Dokumentacja fotograficzna</div></div><div class="ph">'+photos.slice(k,k+4).map(function(p){return '<div><img src="'+p+'" alt=""></div>'}).join("")+'</div>')}
  $("sheet").innerHTML=pg.map(function(p){return '<div class="pg">'+p+'</div>'}).join("");
  bindSheetSigPads();
+ checkOverflow();
  fit();
 }
 function fit(){
@@ -1254,7 +1287,7 @@ function save(){
 }
 function setR(n,v){var e=document.querySelector('input[name="'+n+'"][value="'+v+'"]');if(e)e.checked=true}
 function load(){
- try{var o=JSON.parse(localStorage.getItem(KEY)||"null");if(!o)return;
+ try{var o=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem("hv-protokol-v12")||"null");if(!o)return;
   ids.forEach(function(i){if(o[i]!==undefined)$(i).value=o[i]});
   if(o.M)M=o.M;
   if(o.sigs)SIGS={srv:o.sigs.srv||"",nab:o.sigs.nab||"",uz:o.sigs.uz||"",inv:o.sigs.inv||""};
@@ -1298,7 +1331,7 @@ async function buildPdfDoc(){
  document.querySelectorAll(".sheet-sig-tip,.sheet-sig-clr").forEach(function(el){el.style.display="none"});
  document.querySelectorAll(".sheet-sig-zone").forEach(function(el){el.style.border="0";el.style.background="transparent"});
  try{
-  sh.transform="none";sh.style.transform="none";wr.style.height="auto";wr.style.overflow="visible";
+  sh.style.transform="none";wr.style.height="auto";wr.style.overflow="visible";
   var pages=sh.querySelectorAll(".pg"),doc=new window.jspdf.jsPDF({unit:"mm",format:"a4"});
   for(var i=0;i<pages.length;i++){
    var pgEl=pages[i];
@@ -1316,20 +1349,41 @@ async function buildPdfDoc(){
 }
 
 function busy(b){var e=$("print");e.disabled=b;e.textContent=b?"Generuję PDF…":"🖨️ Zapisz jako PDF"}
+var pendingShare=null;
+async function deliver(doc,name,title,text){
+ var f=new File([doc.output("blob")],name,{type:"application/pdf"});
+ if(navigator.canShare&&navigator.canShare({files:[f]})){
+  var o={files:[f],title:title};if(text)o.text=text;
+  try{await navigator.share(o);return"shared"}
+  catch(e){
+   if(e&&e.name==="AbortError")return"aborted";
+   if(e&&e.name==="NotAllowedError"){pendingShare={doc:doc,file:f,opts:o};$("shareName").textContent=name;$("shareBar").classList.add("open");return"pending"}
+   throw e;
+  }
+ }
+ doc.save(name);return"saved";
+}
+$("shareGo").onclick=async function(){
+ if(!pendingShare)return;
+ var ps=pendingShare;pendingShare=null;$("shareBar").classList.remove("open");
+ try{await navigator.share(ps.opts)}catch(e){if(!e||e.name!=="AbortError")ps.doc.save(ps.file.name)}
+};
+$("shareX").onclick=function(){pendingShare=null;$("shareBar").classList.remove("open")};
+var OVF_MSG="Część tekstu nie mieści się w polach i zostanie ucięta w PDF. Wygenerować mimo to?";
 async function makePdf(){
+ if(checkOverflow()&&!confirm(OVF_MSG))return;
  rememberAll();
  saveToArchive(true);
  busy(true);
  try{
   var doc=await buildPdfDoc();
   var name="Protokol_"+numer().replace(/\//g,"-")+".pdf";
-  var d=null;
-  try{if(window.claude&&window.claude.use)d=await window.claude.use("downloads")}catch(e){}
-  if(d){await d.save({filename:name,data:doc.output("blob")})}
-  else{var blob=doc.output("blob"),f=new File([blob],name,{type:"application/pdf"});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:name})}else{doc.save(name)}}
-  toast("Wygenerowano PDF","Plik "+name+" został utworzony.","");
+  var r=await deliver(doc,name,name,"");
+  if(r==="saved")toast("Wygenerowano PDF","Plik "+name+" został pobrany.","");
+  else if(r==="shared")toast("Wygenerowano PDF","Plik "+name+" został przekazany.","");
+  else if(r==="pending")toast("PDF gotowy","Dotknij „Udostępnij” na dole ekranu.","info");
  }catch(e){
-  if(!e||e.code!=="declined")alert("Nie udało się zapisać PDF"+(e&&e.message?": "+e.message:""));
+  if(!e||e.name!=="AbortError")alert("Nie udało się zapisać PDF"+(e&&e.message?": "+e.message:""));
  }finally{
   busy(false);
  }
@@ -1371,6 +1425,7 @@ $("mailSendGoBtn").onclick=async function(){
  var to=g("mailTo").trim();
  var subj=g("mailSubj").trim();
  var body=g("mailBody");
+ if(checkOverflow()&&!confirm(OVF_MSG))return;
  if(to)rememberVal("mailTo",to);
  rememberAll();
  saveToArchive(true);
@@ -1379,16 +1434,12 @@ $("mailSendGoBtn").onclick=async function(){
  try{
   var doc=await buildPdfDoc();
   var name="Protokol_"+numer().replace(/\//g,"-")+".pdf";
-  var blob=doc.output("blob");
-  var file=new File([blob],name,{type:"application/pdf"});
+  var file=new File([doc.output("blob")],name,{type:"application/pdf"});
   closeMailModal();
   if(navigator.canShare&&navigator.canShare({files:[file]})){
-   await navigator.share({
-    files:[file],
-    title:subj,
-    text:(to?"Odbiorca: "+to+"\n\n":"")+body
-   });
-   toast("Przekazano do poczty","Wybierz aplikację e-mail (Gmail / Poczta) z załączonym plikiem PDF.","");
+   var r=await deliver(doc,name,subj,(to?"Odbiorca: "+to+"\n\n":"")+body);
+   if(r==="shared")toast("Przekazano do poczty","Wybierz aplikację e-mail (Gmail / Poczta) z załączonym plikiem PDF.","");
+   else if(r==="pending")toast("PDF gotowy","Dotknij „Udostępnij” na dole ekranu, aby wybrać pocztę.","info");
   }else{
    doc.save(name);
    var mailto="mailto:"+encodeURIComponent(to)+"?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(body);
@@ -1411,7 +1462,9 @@ var CL=["gps","nrz","nrs","dE","usterki","sposob","uwagi","miejsce","opis","zal"
 $("nowy").onclick=function(){
  rememberAll();
  saveToArchive(true);
- var t=T();M[t].c++;$("cnt").value=M[t].c;
+ var t=T();
+ var mx=getArchive().filter(function(x){return x.typ===t}).reduce(function(a,x){return Math.max(a,x.cnt||0)},0);
+ M[t].c=Math.max(M[t].c,mx)+1;$("cnt").value=M[t].c;
  CL.forEach(function(i){$(i).value=""});
  SIGS.nab="";SIGS.uz="";SIGS.inv="";
  syncDates(true);photos=[];thumbs();setR("tak","TAK");upd();
@@ -1518,16 +1571,18 @@ render();
 updateStepper();
 })();
 </script>
+<div id="updBar"><span>Dostępna nowa wersja aplikacji.</span><button type="button" class="btn btn-primary" id="updGo">Odśwież</button><button type="button" class="btn" id="updX" aria-label="Później">×</button></div>
 <script>
 if("serviceWorker" in navigator){
  addEventListener("load",function(){
-  navigator.serviceWorker.register("sw.js").then(function(reg){
-   reg.update().catch(function(){});
-  }).catch(function(){});
-  var refreshing=false;
+  var hadCtrl=!!navigator.serviceWorker.controller,shown=false;
+  navigator.serviceWorker.register("sw.js").then(function(reg){reg.update().catch(function(){})}).catch(function(){});
   navigator.serviceWorker.addEventListener("controllerchange",function(){
-   if(!refreshing){refreshing=true;location.reload();}
+   if(!hadCtrl||shown)return;
+   shown=true;document.getElementById("updBar").classList.add("open");
   });
+  document.getElementById("updGo").onclick=function(){location.reload()};
+  document.getElementById("updX").onclick=function(){document.getElementById("updBar").classList.remove("open")};
  });
 }
 </script>
